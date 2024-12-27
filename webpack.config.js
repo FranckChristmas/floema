@@ -5,61 +5,65 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 const dirApp = path.join(__dirname, 'app');
-const dirAssets = path.join(__dirname, 'assets');
+const dirShared = path.join(__dirname, 'shared');
 const dirStyles = path.join(__dirname, 'styles');
+const dirNode = path.join(__dirname, 'node_modules');
 
 module.exports = {
-  entry: {
-    app: dirApp
+  entry: [
+    path.join(dirApp, 'index.js'),
+    path.join(dirStyles, 'index.scss')
+  ],
+
+  resolve: {
+    modules: [
+      dirApp,
+      dirShared,
+      dirStyles, 
+      dirNode    
+    ]
   },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
-  },
-  plugins: [
+  plugins : [
     new webpack.DefinePlugin({
-      IS_DEV: JSON.stringify(IS_DEV)
+      IS_DEV
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: dirAssets, to: 'assets' }
+        {
+          from: './shared',
+          to: ''
+        }
       ]
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ],
+
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader'
+        use: {
+          loader: 'babel-loader'
+        }
       },
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: ''
-            }
-          },
+          IS_DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
           'sass-loader'
         ]
       },
-      {
-        test: /\.(png|jpe?g|gif|mp4)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]'
-            }
-          }
-        ]
-      }
-    ]
+  { 
+    test: /\.(jpeg|jpg|png|gif|svg)$/,
+    loader: 'file-loader',
+    options: {
+      name: '[path][name].[ext]'
+    }
+  }
+]
   }
 };
