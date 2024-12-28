@@ -6,6 +6,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const loader = require('sass-loader');
+
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
@@ -15,70 +17,72 @@ const dirStyles = path.join(__dirname, 'styles');
 const dirNode = 'node_modules';
 
 module.exports = {
-  entry: [
-    path.join(dirApp, 'index.js'),
-    path.join(dirStyles, 'index.scss')
-  ],
+entry: [
+  path.join(dirApp, 'index.js'),
+  path.join(dirStyles, 'index.scss')
+],
 
-  resolve: {
-    modules: [
-      dirApp,
-      dirShared,
-      dirStyles,
-      dirNode
-    ]
+optimization: { //added by me, this part regards the minimisation of the code in main.js but not sure if it works
+  minimize: true,
+  minimizer: [new TerserPlugin()],
   },
 
-  plugins: [
-    new webpack.DefinePlugin({
-      IS_DEVELOPMENT
-    }),
-
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: './shared',
-          to: ''
-        }
-      ]
-    }),
-
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
-    }),
-
-    // Configuration mise à jour pour ImageMinimizerPlugin
-    new ImageMinimizerPlugin({
-      test: /\.(jpe?g|png|gif|svg|webp)$/i, // Ajouter un test pour les types d'images
-      severityError: 'warning', // Traiter les erreurs comme des avertissements
-      minimizer: {
-        implementation: ImageMinimizerPlugin.imageminMinify, // Utiliser Imagemin pour la minimisation
-        options: {
-          plugins: [
-            ['gifsicle', { interlaced: true }],
-            ['jpegtran', { progressive: true }],
-            ['optipng', { optimizationLevel: 8 }]
-          ]
-        }
-      }
-    }),
-
-    new CleanWebpackPlugin()
+resolve: {
+  modules: [
+    dirApp,
+    dirShared,
+    dirStyles,
+    dirNode
   ],
+  alias: {
+    images: path.resolve(__dirname, 'app/images') // Ajouté pour gérer les alias d'images
+  }
+},
 
-  module: {
-    rules: [
+plugins: [
+  new webpack.DefinePlugin({
+    IS_DEVELOPMENT
+  }),
+    new CleanWebpackPlugin(),
+
+  new CopyWebpackPlugin({
+    patterns: [
       {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader'
-        }
+        from: './shared',
+        to: ''
+      }
+    ]
+  }),
+
+  new MiniCssExtractPlugin({
+    filename: '[name].css',
+    chunkFilename: '[id].css'
+  }),
+  new ImageMinimizerPlugin({
+    minimizer: {
+      implementation: ImageMinimizerPlugin.imageminMinify,
+      options: {
+          plugins: [
+          ["gifsicle", { interlaced: true }],
+          ["jpegtran", { progressive: true }],
+          ["optipng", { optimizationLevel: 5 }],
+                    ],
       },
+    },
+  }),
+],
 
-      {
-        test: /\.scss$/,
-        use: [
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      use: {
+        loader: 'babel-loader'
+      }
+    },
+    {
+      test: /\.scss$/,
+      use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
@@ -86,52 +90,44 @@ module.exports = {
             }
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           },
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader',
           }
         ]
-      },
-
-      {
-        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
-        loader: 'file-loader',
-        options: {
-          name(file) {
-            return '[hash].[ext]';
+    },
+    {
+      test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
+      loader: 'file-loader',
+      options: {
+            name (file) {
+            return '[hash].[ext]'
+            }
           }
-        }
-      },
-
-      {
-        test: /\.(jpe?g|png|gif|svg|webp)$/i,
-        use: [
-          {
-            loader: ImageMinimizerPlugin.loader
-          }
-        ]
-      },
-
-      {
-        test: /\.(glsl|frag|vert)$/,
-        loader: 'raw-loader',
-        exclude: /node_modules/
-      },
-
-      {
-        test: /\.(glsl|frag|vert)$/,
-        loader: 'glslify-loader',
-        exclude: /node_modules/
-      }
-    ]
-  },
-
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()]
-  }
+        },
+    {
+      test: /\.(jpe?g|png|gif|svg|webp)$/i,
+      enforce: "pre",
+      use: [
+            {
+              loader: ImageMinimizerPlugin.loader,
+        },
+      ]
+    },
+    {
+      test: /\.(glsl|frag|vert)$/,
+      loader: 'raw-loader',
+      exclude: /node_modules/
+    },
+    {
+      test: /\.(glsl|frag|vert)$/,
+      loader: 'glslify-loader',
+      exclude: /node_modules/
+    },
+  ]
+}
 };

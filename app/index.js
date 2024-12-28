@@ -1,3 +1,2 @@
-import placeholder from 'images/niak.png'
-
-console.log(placeholder)
+import placeholder from 'images/trump.png'
+console.log('Hello, World!');
