@@ -8,6 +8,7 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const loader = require('sass-loader');
 
+
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
 const dirApp = path.join(__dirname, 'app');
@@ -21,19 +22,28 @@ entry: [
   path.join(dirStyles, 'index.scss')
 ],
 
+optimization: { //added by me, this part regards the minimisation of the code in main.js but not sure if it works
+  minimize: true,
+  minimizer: [new TerserPlugin()],
+  },
+
 resolve: {
   modules: [
     dirApp,
     dirShared,
     dirStyles,
     dirNode
-  ]
+  ],
+  alias: {
+    images: path.resolve(__dirname, 'app/images') // Ajouté pour gérer les alias d'images
+  }
 },
 
 plugins: [
   new webpack.DefinePlugin({
     IS_DEVELOPMENT
   }),
+    new CleanWebpackPlugin(),
 
   new CopyWebpackPlugin({
     patterns: [
@@ -95,7 +105,7 @@ module: {
       loader: 'file-loader',
       options: {
             name (file) {
-            return '[name].[ext]'
+            return '[hash].[ext]'
             }
           }
         },
