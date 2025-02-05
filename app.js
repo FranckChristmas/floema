@@ -1,6 +1,6 @@
 
 require('dotenv').config() // Load .env file
-console.log(process.env.PRISMIC_ENDPOINT, process.env.PRIMISC_CLIENT_ID) // Output: https://your-repo-name.prismic.io/api/v2
+console.log(process.env.PRISMIC_ENDPOINT, process.env.PRISMIC_CLIENT_ID) // Output: https://your-repo-name.prismic.io/api/v2
 
 
 const express = require('express')
