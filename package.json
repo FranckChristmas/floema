@@ -46,6 +46,7 @@
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
+    "@prismicio/client": "^7.16.0",
     "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -53,6 +54,7 @@
     "jpegtran": "^2.0.0",
     "nodemon": "^3.1.9",
     "optipng": "^4.2.0",
+    "prismic-dom": "^2.2.7",
     "pug": "^3.0.3"
   }
 }
