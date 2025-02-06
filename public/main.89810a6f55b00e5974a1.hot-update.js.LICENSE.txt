@@ -1,0 +1,11 @@
+/*! @prismicio/client */
+
+/*! dotenv */
+
+/*! express */
+
+/*! prismic-dom */
+
+/*!****************!*\
+  !*** ./app.js ***!
+  \****************/
