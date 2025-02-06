@@ -47,14 +47,25 @@
   },
   "dependencies": {
     "@prismicio/client": "^7.16.0",
+    "assert": "^2.1.0",
+    "browserify-zlib": "^0.2.0",
     "concurrently": "^9.1.2",
+    "crypto-browserify": "^3.12.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "gifsicle": "^7.0.1",
     "jpegtran": "^2.0.0",
     "nodemon": "^3.1.9",
     "optipng": "^4.2.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "prismic-dom": "^2.2.7",
-    "pug": "^3.0.3"
+    "pug": "^3.0.3",
+    "querystring-es3": "^0.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4",
+    "util": "^0.12.5",
+    "vm-browserify": "^1.1.2"
   }
 }

@@ -36,6 +36,22 @@ resolve: {
   ],
   alias: {
     images: path.resolve(__dirname, 'app/images') // Ajouté pour gérer les alias d'images
+  },
+  fallback: { // Added fallback section
+    "path": require.resolve("path-browserify"),
+    "fs": false,
+    "zlib": require.resolve("browserify-zlib"),
+    "querystring": require.resolve("querystring-es3"),
+    "crypto": require.resolve("crypto-browserify"),
+    "stream": require.resolve("stream-browserify"),
+    "http": require.resolve("stream-http"),
+    "url": require.resolve("url/"),
+    "util": require.resolve("util/"),
+    "os": require.resolve("os-browserify/browser"),
+    "net": false,
+    "assert": require.resolve("assert/"),
+    "vm": require.resolve("vm-browserify"),
+    "async_hooks": false
   }
 },
 
