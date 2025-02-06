@@ -1,6 +1,9 @@
 require('dotenv').config() // Load .env file
 
-console.log(process.env.PRISMIC_ENDPOINT, process.env.PRISMIC_CLIENT_ID) // Output: https://your-repo-name.prismic.io/api/v2
+if (!process.env.PRISMIC_ENDPOINT || !process.env.PRISMIC_ACCESS_TOKEN) {
+  throw new Error('Missing required environment variables PRISMIC_ENDPOINT or PRISMIC_ACCESS_TOKEN')
+}
+console.log(process.env.PRISMIC_ENDPOINT, process.env.PRISMIC_ACCESS_TOKEN) // Output: https://your-repo-name.prismic.io/api/v2
 
 const express = require('express')
 const app = express()
@@ -64,7 +67,9 @@ const handleRequest = async api => {
       })
     }
   })
-
+      if (item.products_product && item.products_product.data && item.products_product.data.image) {
+        assets.push(item.products_product.data.image.url)
+      }
   collections.forEach((collection) => {
     collection.data.products.forEach((item) => {
       assets.push(item.products_product.data.image.url)
@@ -81,44 +86,62 @@ const handleRequest = async api => {
 }
 
 app.get('/', async (req, res) => {
-  const api = initApi(req)
-  const defaults = await handleRequest(api)
-  res.render('pages/home', {
-    ...defaults,
-  })
+  try {
+    const api = initApi(req)
+    const defaults = await handleRequest(api)
+    res.render('./pages/home', {
+      ...defaults,
+    })
+  } catch (error) {
+    console.error('Error in / route:', error)
+    res.status(500).send('Error fetching data')
+  }
 })
 
 app.get('/about', async (req, res) => {
-  const api = initApi(req)
-  const defaults = await handleRequest(api)
-  res.render('pages/about', {
-    ...defaults,
-  })
+  try {
+    const api = initApi(req)
+    const defaults = await handleRequest(api)
+    res.render('pages/about', {
+      ...defaults,
+    })
+  } catch (error) {
+    console.error('Error in /about route:', error)
+    res.status(500).send('Error fetching data')
+  }
 })
 
 app.get('/collections', async (req, res) => {
-  const api = await initApi(req);
-  const defaults = await handleRequest(api);
-
-  res.render('pages/collections', {
-    ...defaults,
-  });
-});
+  try {
+    const api = initApi(req)
+    const defaults = await handleRequest(api)
+    res.render('pages/collections', {
+      ...defaults,
+    })
+  } catch (error) {
+    console.error('Error in /collections route:', error)
+    res.status(500).send('Error fetching data')
+  }
+})
 
 app.get('/detail/:uid', async (req, res) => {
-  const api = await initApi(req);
-  const defaults = await handleRequest(api);
+  try {
+    const api = initApi(req)
+    const defaults = await handleRequest(api)
 
-  const product = await api.getByUID('product', req.params.uid, {
-    fetchLinks: 'collection.title',
-  });
+    const product = await api.getByUID('product', req.params.uid, {
+      fetchLinks: 'collection.title',
+    })
 
-  res.render('pages/detail', {
-    ...defaults,
-    product,
-  });
-});
-
+    res.render('pages/detail', {
+      ...defaults,
+      product,
+    })
+  } catch (error) {
+    console.error('Error in /detail/:uid route:', error)
+    res.status(500).send('Error fetching data')
+  }
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
