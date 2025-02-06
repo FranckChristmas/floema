@@ -1,15 +1,25 @@
-# logs
-yarn-debug.log*
-npm-error.log*
-
-# dependency directories
+# Ignorer le dossier node_modules
 node_modules/
 
-# webpack build output
-public/
-
-# environment variables
+# Ignorer les fichiers d'environnement sensibles
 .env
 
-# global rules
+# Ignorer les fichiers de logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Ignorer les dépendances installées localement
+package-lock.json
+yarn.lock
+
+# Ignorer les fichiers de build
+dist/
+build/
+
+# Ignorer les fichiers de cache
+.cache/
 .DS_Store
+.vscode/
+.idea/
+*.log
