@@ -40,3 +40,9 @@ block content
             each media in section.items
               figure.about__highlight__media
                 img.about__highlight__media__image(data-src=media.image.url alt=media.image.alt)
+      if section.slice__type == 'gallery'
+        section.about__gallery
+          .about__gallery__wrapper
+            each media in about.data.media
+              figure.about__gallery__media
+                img.about__gallery__media__image(data-src=media.image.url alt=media.image.alt)
