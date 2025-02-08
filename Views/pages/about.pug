@@ -15,3 +15,17 @@ block content
     each section in about.data.body 
       if section.slice_type == 'title'
         h2.about__title= section.primary.text 
+
+      if section.slice_type == 'content'
+        section.about__content__wrapper 
+          p.about__content__label=section.primary.label
+
+          if section.primary.description && section.primary.description.length > 0
+            .about__content__description(data-animation="paragraph")!=Prismic.asHTML(section.primary.description).replace(/'<p>'/g, '<p data-animation="paragraph">')
+          else
+            .about__content__description Pas de description disponible
+            //- permet de ne pas afficher de text si non disponible sur prismic
+
+
+          figure.about__content__media 
+            img.about__content__media__image(data-src=section.primary.image alt=section.primary.image.alt)

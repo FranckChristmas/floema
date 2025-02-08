@@ -15,6 +15,8 @@ if (module.hot) {
 }
 
 const Prismic = require('@prismicio/client');
+const prismicDOM = require('prismic-dom');
+const prismicH = require('@prismicio/helpers');
 
 // const { Logger } = require('sass');
 // const PrismicH = require('@prismicio/helpers');
@@ -65,6 +67,8 @@ app.use((req, res, next) => {
   };
 
   res.locals.Prismic = Prismic;
+  res.locals.prismicH = prismicH; //Prismic helpers
+
   res.locals.Link = handleLinkResolver;
   res.locals.Numbers = (index) => {
     return index === 0
