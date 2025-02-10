@@ -19,6 +19,6 @@ block content
             each highlight in product.data.highlights 
               p.detail__information__highlight
                   svg.detail__information__highlight__icon
-                    use(xlink:href=`sprite-${highlight.highlights_icon}`)
+                    use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
 
                     #{highlight.highlights_text}
