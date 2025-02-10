@@ -173,7 +173,7 @@ app.get('/detail/:uid', async (req, res) => {
     fetchLinks: 'collection.title',
   });
 
-  // console.log(product);
+  console.log(product)
 
   res.render('pages/detail', {
     ...defaults,
