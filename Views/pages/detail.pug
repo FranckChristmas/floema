@@ -1,7 +1,13 @@
 extends ../base.pug 
 
 block variables 
-  - var template  = 'Detail'
+  - var template  = 'detail'
 
 block content
-  h1.collections__title Detail
+  .detail 
+    .detail__wrapper 
+      figure.detail__media 
+        img.detail__media__image(data-src=product.data.image.url alt=product.data.image.alt)
+
+      .detail__information 
+        p.detail__information 
