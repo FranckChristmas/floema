@@ -183,7 +183,11 @@ app.get('/detail/:uid', async (req, res) => {
 
 app.get('/collections', async (req, res) => {
   const api = await initApi(req);
+
   const defaults = await handleRequest(api);
+
+  console.log(collection.data.products[0].products.product)
+
 
   res.render('pages/collections', {
     ...defaults,
