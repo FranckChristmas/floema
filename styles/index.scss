@@ -2,10 +2,15 @@
 @import './utils/mixins';
 @import './utils/functions';
 @import './utils/vendors';
+@import './utils/responsive';
+
+
+@import './shared/titles';
+@import './shared/descriptions';
 
 @import './base/reset';
-@import './base/fonts';
 @import './base/base';
+@import './base/fonts';
 
 
 @import './pages/about/about';
@@ -18,3 +23,5 @@
 @import './pages/home/home';
 
 @import './pages/collections/collections';
+
+@import './layout/navigation';

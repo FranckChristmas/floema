@@ -1,4 +1,8 @@
 body {
-  font-family: $font-suisse-bp, sans-serif;
-  font-size: 1.6 rem ;
+  @extend%descriptions-16;
+  font-family: $font-suisse-bp ;
 }
+  // pour implémenter les breakpoints : 
+  // @include media ('<phone') {
+    // @extend%descriptions-14;
+  // }
