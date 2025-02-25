@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const loader = require('sass-loader');
+const { type } = require('os');
 
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
@@ -116,14 +117,15 @@ module: {
           }
         ]
     },
+
     {
       test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
-      loader: 'file-loader',
-      options: {
-            name (file) {
-            return '[hash].[ext]'
+      type: 'asset/resource',
+      generator: {
+        filename: '[name].[hash].[ext]',
             }
-          }
+          
+
         },
     {
       test: /\.(jpe?g|png|gif|svg|webp)$/i,

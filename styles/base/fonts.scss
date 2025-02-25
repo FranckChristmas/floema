@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'font-george-x';
+  font-family: $font-george-x;
   src: 
   url('../fonts/georgex-regular.woff2') format('woff2'),
   url('../fonts/georgex-regular.woff') format('woff');
@@ -9,28 +9,28 @@
 }
 
 @font-face {
-  font-family: 'font-suisse-bp';
+  font-family: $font-suisse-bp;
   src: 
-  url('../fonts/suissebpintl-light.woff') format('woff'),
-  url('../fonts/suissebpintl-light.woff2') format('woff2');
+  url('../fonts/suissebp-light.woff') format('woff'),
+  url('../fonts/suissebp-light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'font-suisse-bp';
-  src: url('../fonts/suissebpintl-regular.woff') format('woff'),
-  url('../fonts/suissebpintl-regular.woff2') format('woff2');
+  font-family: $font-suisse-bp;
+  src: url('../fonts/suissebp-regular.woff') format('woff'),
+  url('../fonts/suissebp-regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'font-suisse-bp';
-  src: url('../fonts/suissebpintl-ultralight.woff') format('woff'),
-  url('../fonts/suissebpintl-ultralight.woff2') format('woff2');
+  font-family: $font-suisse-bp;
+  src: url('../fonts/suissebp-ultralight.woff') format('woff'),
+  url('../fonts/suissebp-ultralight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;

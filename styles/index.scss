@@ -4,8 +4,8 @@
 @import './utils/vendors';
 
 @import './base/reset';
-@import './base/fonts';
 @import './base/base';
+@import './base/fonts';
 
 
 @import './pages/about/about';
@@ -18,3 +18,5 @@
 @import './pages/home/home';
 
 @import './pages/collections/collections';
+
+@import './layout/navigation';
