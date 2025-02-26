@@ -17,16 +17,15 @@ block content
         h2.about__title(data-animation="title")!=section.primary.text.replace(/\n/g,'<br>')
 
       if section.slice_type == 'content'
-        section.about__content__wrapper 
-          p.about__content__label=section.primary.label
+          section.about__content(class=`${section.primary.type === 'Left' ? 'about__content--left': 'about__content--right'}`)
+            .about__content__wrapper 
+              .about__content__box
+                p.about__content__label=section.primary.label
 
-          if section.primary.description && section.primary.description.length > 0
-            .about__content__description(data-animation="paragraph")!=Prismic.asHTML(section.primary.description).replace(/'<p>'/g, '<p data-animation="paragraph">')
-          else
-            .about__content__description Pas de description disponible
-            //- permet de ne pas afficher de text si non disponible sur prismic
-          figure.about__content__media 
-            img.about__content__media__image(src=section.primary.image.url alt=section.primary.image.alt)
+                  .about__content__description(data-animation="paragraph")!=Prismic.asHTML(section.primary.description).replace(/'<p>'/g, '<p data-animation="paragraph">')
+
+              figure.about__content__media 
+                img.about__content__media__image(src=section.primary.image.url alt=section.primary.image.alt)
 
       if section.slice_type == 'highlight'
         section.about__highlight
@@ -35,6 +34,7 @@ block content
                 p.about__highlight__label= section.primary.label
             h3.about__highlight__title= section.primary.title
 
+            .about__highlight__medias 
             each media in section.items
               figure.about__highlight__media
                 img.about__highlight__media__image(src=media.image.url alt=media.image.alt)
@@ -44,3 +44,5 @@ block content
             each media in about.data.media
               figure.about__gallery__media
                 img.about__gallery__media__image(src=media.image.url alt=media.image.alt)         
+
+                                  //- NB il est possible de mettre un if/else ce qui ppermet de ne pas afficher de text si non disponible sur prismic
