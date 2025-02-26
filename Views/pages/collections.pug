@@ -10,6 +10,7 @@ block content
       each collection, index in collections
         .collections__titles__label!=`${home.data.collection}<br>${Numbers(index)}`
         .collections__titles__title=collection.data.title
+        //--->  permet d'afficher le nom + numero de la collection
 
     .collections__gallery
       .collections__gallery__wrapper
