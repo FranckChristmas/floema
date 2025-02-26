@@ -1,3 +1,10 @@
+*, // "*" selector pour tous les éléments de la page -> applique la propriété à tous les éléments de la page
+*:after, // after & before permette d'ajouter du contenu avant ou après un élément  
+*:before {
+  box-sizing: border-box; // permet de respecter la largeur définie, car autrement la valeur par défaut est content-box (incluant du padding et de la bordure)
+
+}
+
 html {
   font-size: calc(100vw / 1920 * 10);
 }
@@ -6,6 +13,13 @@ body {
   @extend%descriptions-16;
   font-family: $font-suisse-bp ;
 }
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
   // pour implémenter les breakpoints : 
   // @include media ('<phone') {
     // @extend%descriptions-14;
