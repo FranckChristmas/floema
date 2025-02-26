@@ -6,7 +6,7 @@
 }
 
 .detail__wrapper  {
-  @extend %cover;
+  align-items: center;
   display: flex;
 
 }
@@ -57,7 +57,7 @@ padding-left: 8.2rem;
   display: flex;
 
   &:not(:first-child) {
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 }
 
@@ -90,11 +90,13 @@ padding-left: 8.2rem;
 .detail__information__item__title {
   @extend %descriptions-12;
   width: 10rem;
+  padding-right: 2.5rem;
+
 }
 
 .detail__information__item__description {
-  @extend %descriptions-14;
-  margin-left: 2rem;
+  @extend %descriptions-16;
+  margin-left: 0.03rem;
   max-width: 44rem;
 
 }
