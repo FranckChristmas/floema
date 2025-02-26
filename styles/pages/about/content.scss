@@ -1,8 +1,8 @@
 .about__content {
-  display: flex;
-  justify-content: center;
-  margin: 20rem auto;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 20rem auto;
+    position: relative;
 
   &:first-child {
     margin-top: 0;
@@ -10,6 +10,9 @@
   &:last-child {
     margin-bottom: 0;
   }
+  &:nth-child(5) {
+    justify-content: flex-end;
+    }
 }
 
 .about__content__wrapper  {
@@ -26,18 +29,53 @@
 }
 
 .about__content__label {
-width: 18rem;
+  @extend %descriptions-12;
+  width: 18rem;
+  text-transform: uppercase;
 
 }
 .about__content__description {
   width: 36.2em;
 
-}
-.about__content__media  {
+  p:not(:first-child) {
+    margin-top: 2.5rem;
+  }
 
+}
+.about__content__media  { // ici pour chaque partie de content on va aller faire du fine tuning afin de pouvoir gérer l'affichage de chaque image
+  position: relative;
+
+  .about__content:nth-child(2) & {
+    height: 50rem;
+    width: 50rem;
+    margin-left: 17.8rem;
+  }
+
+  .about__content:nth-child(4) & {
+    height: 90rem;
+    width: 52rem;
+    margin-left: 12rem;
+  }
+  
+  
+    .about__content:nth-child(6) & {
+      height: 80rem;
+      width: 50rem;
+      margin-left: 12rem;
+    }
+
+  .about__content:nth-child(7) & {
+    height: 80rem;
+    width: 60rem;
+    margin-left: 18rem;
+  }
+
+  
 }
 
 .about__content__media__image {
-
-
+  width: 100%;
+  height: 100%;
+  @extend %cover;
+  object-fit: cover;
 }
