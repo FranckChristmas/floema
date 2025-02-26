@@ -29,8 +29,9 @@
 
 .detail__information__collection {
   @extend %descriptions-12;
+
   text-transform: uppercase;
-  margin-bottom: 4rem;
+  margin-bottom: 3.7rem;
 
 }
 
@@ -45,17 +46,25 @@
 
 }
 
-detail__information__highlights {
-  margin-top: 5rem ;
+.detail__information__highlights {
+  margin-top: 6rem ;
 }
 
 .detail__information__highlight  {
   align-items: center;
   display: flex;
 
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
 }
 
 .detail__information__highlight__icon {
+  border: 1px solid #f0f;
+  border-radius: 50%;
+  height:  4rem ; 
+  width: 4rem ;
+  margin-right: 3.75rem ;
 
 }
 
