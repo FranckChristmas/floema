@@ -1,16 +1,34 @@
 .about__gallery  {
-
+  height : 58.6rem;
+  margin: 20rem 0;;
+  position: relative;
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  //cette partie est le conteneur de la gallery de la page about, elle est positionnée relative pour que les images soient positionnées par rapport à elle
   
 }
 .about__gallery__wrapper  {
-
-  
+  align-items: center;
+  display: flex ;
+  position:absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  //cette partie est la sous-partie de la gallery de la page about, afin de la centrer et de la placer au milieu de la page et mettre les image alignées horizontalement
+  //partie de la gallery de la page about, afin de la centrer et de la placer au milieu de la page et mettre les image alignées horizontalement
 }
 .about__gallery__media {
-
-  
+position: relative;
+height: 43rem;
+width: 31rem;
+margin: 0 4rem;
+  //cette partie est le conteneur des images de la gallery de la page about, elle est positionnée relative pour que les images soient positionnées par rapport à elle
 }
 .about__gallery__media__image {
-
-  
+  @extend %cover;
+  object-fit: cover;
+  //cette partie est l'image de la gallery de la page about, elle est positionnée relative pour que les images soient positionnées par rapport à elle
 }

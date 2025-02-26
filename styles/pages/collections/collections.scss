@@ -16,6 +16,8 @@ left : 50%;
 position : absolute;
 transform: translate(-50%, -50%) rotate(-90deg);  
 top : 50%;
+//z-index: 1; si on veut que le texte soit par dessus les images
+
 }
 
 .collections__titles__label {
@@ -30,42 +32,58 @@ top : 50%;
 
 .collections__titles__title {
   @extend %title-200;
-  padding-bottom: 6rem;
+  padding-top: 2rem;
 
 }
 
 .collections__gallery {
-
+  @extend %cover;
 }
 
 .collections__gallery__wrapper {
+  align-items: center;
+  display: flex ;
+  position:absolute;
+  top: 50%;
+  transform: translateY(-50%);
 
 }
 
 .collections__gallery__link {
-
+display: block;
+margin: 0 5.3rem;
 }
 
 .collections__gallery__media {
-
+  height : 74.1rem;
+  position: relative;
+  width: 44.7rem;
 }
 
 .collections__gallery__media__image {
-
+  @extend %cover;
+  object-fit: cover; // permet de garder les proportions de l'image sans déformer meme si la taille de l'image est différente de celle du conteneur
 }
 
 .collections__content {
-
+  @extend %cover;
 }
 
 .collections__article {
-
+left: 8rem;
+position: absolute;
+bottom: 8rem;
+opacity : 0; // permet de rendre l'élément invisible et celui ci est associé à la partie .collection__content ".collection__article--active" dans le fichier collections.pug (c'est une partie en JS) 
+  &--active {
+    opacity: 1;
+  }
 }
 
 .collections__article__title {
-
+  @extend %title-60;
 }
 
 .collections__article__description {
-
+  @extend %descriptions-16;
+  max-width: 44rem;
 }
