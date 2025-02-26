@@ -20,6 +20,10 @@ a {
   text-decoration: none;
 }
 
+img {
+  vertical-align: middle;
+}
+
   // pour implémenter les breakpoints : 
   // @include media ('<phone') {
     // @extend%descriptions-14;
