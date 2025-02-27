@@ -1,11 +1,12 @@
 .navigation   {
   @extend %cover;
-  position: relative;
-  z-index: 1000;
-  // z-index: z('navigation');
+
+  color: $color-quarter-spanish-white;
+  z-index: z('navigation');
 }
 
 .navigation__link {
+  font-size: 0; //on met ce text à zeri mais il permet de comprendre que c'est le le lien Floema associé à l'icon
   position: absolute;
   left : 4rem;
   height: 2rem;

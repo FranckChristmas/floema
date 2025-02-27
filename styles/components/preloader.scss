@@ -1,10 +1,12 @@
 .preloader {
 @extend %cover;
 @extend %center;
+
 display: none;
 background-color: $color-contessa;
 color: $color-quarter-spanish-white;  
 text-align: center;
+z-index: z('preloader');
 }
 
 .preloader__text {
