@@ -1,4 +1,4 @@
-%vertical-collections__titles {
+%vertical-titles {
   align-items: center;
   display: flex;
   left : 50%;
@@ -9,7 +9,7 @@
   
   }
   
-  %vertical-collections__titles__label {
+  %vertical-titles-label {
     @extend %descriptions-12;
     margin: 0 3rem;  // applique la marge sur les côtés
     letter-spacing: 0.1rem;
@@ -19,7 +19,7 @@
   
   }
   
-  %vertical-collections__titles__title {
+  %vertical-titles-title {
     @extend %title-200;
     padding-top: 2rem;
   
