@@ -1,21 +1,21 @@
 .navigation   {
-
-}
-
-.navigation__wrapper {
-
+  @extend %cover;
+  position: relative;
+  z-index: 1000;
+  // z-index: z('navigation');
 }
 
 .navigation__link {
+  position: absolute;
+  left : 4rem;
+  height: 2rem;
+  top: 4rem;
+  width: 12.8rem;
 
 }
 
 .navigation__link__icon {
-
-}
-
-.navigation__link__icon {
-
+display: block;
 }
 
 .navigation__list {
@@ -23,9 +23,15 @@
 } 
  
 .navigation__list__item {
-
+  position: absolute;
+  right : 4rem;
+  height: 2rem;
+  top: 4rem;
+  width: 12.8rem;
 }
 
 .navigation__list__link {
-
+  @extend %title-20;
 }
+
+
