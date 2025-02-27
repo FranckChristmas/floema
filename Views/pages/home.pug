@@ -1,5 +1,8 @@
 extends ../base.pug 
 
+block variables
+  - var template = 'home'
+
 
 block content
   .home(data-background="#c97164" data-color="#f9f1e7")
@@ -24,19 +27,3 @@ block content
 
 
 
-
-
-
-
-
-//- block variables 
-//-   - var template  = 'Home'
-
-//- block content
-//-   .home 
-//-     .home__wrapper 
-//-       each media in home.data.gallery 
-//-         figure.home__gallery__media 
-//-           img.home__gallery__media__image(src=media_image.url alt=media_image.alt)
-
-//-       a(href="/collections")=home.data.button

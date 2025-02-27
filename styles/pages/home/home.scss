@@ -1,6 +1,5 @@
-
 .home {
-
+background: red;
 }
 
 .home__wrapper {
@@ -8,15 +7,15 @@
 }
 
 .home__titles {
-
+  @extend %vertical-titles; 
 }
 
 .home__titles__label {
-
+  @extend %vertical-titles-label; 
 }
 
 .home__titles__title {
-
+  @extend %vertical-titles-title; 
 }
 
 .home__gallery {

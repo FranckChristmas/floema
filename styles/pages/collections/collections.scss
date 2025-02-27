@@ -10,20 +10,15 @@
 }
 
 .collections__titles {
-  @extend %vertical-titles ; 
-
+  @extend %vertical-titles; 
 }
 
 .collections__titles__label {
-  @extend %vertical-titles-label ; 
-  
-
+  @extend %vertical-titles-label; 
 }
 
 .collections__titles__title {
-  @extend %vertical-titles-title ; 
-
-
+  @extend %vertical-titles-title; 
 }
 
 .collections__gallery {
