@@ -106,3 +106,20 @@ padding-left: 8.2rem;
     @extend %title-30;
   margin-top: 3rem;
 }
+
+.detail__button {
+  height: 6rem;
+  bottom: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 12.4rem;
+  z-index: 2;
+}
+
+.detail__button__icon {
+  @extend %cover;
+}

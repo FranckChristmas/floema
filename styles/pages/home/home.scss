@@ -56,7 +56,7 @@
 }
 
 .home__link {
-  @extend %descriptions-14;
+  @extend %descriptions-12;
   letter-spacing: 0.5rem;
   width: 28.8rem;
   height: 6rem;
@@ -69,5 +69,9 @@
   bottom: 5rem;
   text-transform: uppercase;
   z-index: 2;
+}
 
+
+.home__link__icon {
+  @extend %cover;
 }
