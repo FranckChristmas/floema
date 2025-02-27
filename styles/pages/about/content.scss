@@ -45,26 +45,26 @@
 .about__content__media  { // ici pour chaque partie de content on va aller faire du fine tuning afin de pouvoir gérer l'affichage de chaque image
   position: relative;
 
-  .about__content:nth-child(2) & {
+  .about__content:nth-child(3) & {
     height: 50rem;
     width: 50rem;
     margin-left: 17.8rem;
   }
 
-  .about__content:nth-child(4) & {
+  .about__content:nth-child(5) & {
     height: 90rem;
     width: 52rem;
     margin-left: 12rem;
   }
   
   
-    .about__content:nth-child(6) & {
+    .about__content:nth-child(8) & {
       height: 80rem;
       width: 50rem;
-      margin-left: 12rem;
+      margin-right: 12rem;
     }
 
-  .about__content:nth-child(7) & {
+  .about__content:nth-child(9) & {
     height: 80rem;
     width: 60rem;
     margin-left: 18rem;
