@@ -1,5 +1,28 @@
 .home {
-background: red;
+  @extend %cover;
+  @extend %center;
+
+  background-color: $color-contessa;
+  color: $color-quarter-spanish-white;  
+  text-align: center;
+  &:before,
+  &:after {
+    content: '';
+    left: 0;
+    height: 24rem;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  } // cette partie permet de paramétrer les pseudo-éléments :before et :after de la classe home avec les propriétés qu'ils ont en commun 
+
+  &:before {
+    background: linear-gradient(to bottom,  $color-contessa 0%,rgba($color-contessa,0) 100%);
+    top: 0;
+  } // cette partie permet de paramétrer le pseudo-élément :before de la classe home avec les propriétés qui lui sont propres
+  &:after {
+    background: linear-gradient(to top,  $color-contessa 0%,rgba($color-contessa,0) 100%); 
+    bottom: 0;
+  } // cette partie permet de paramétrer le pseudo-élément :after de la classe home avec les propriétés qui lui sont propres
 }
 
 .home__wrapper {
@@ -19,10 +42,12 @@ background: red;
 }
 
 .home__gallery {
-
+  @extend %cover;
 }
 
 .home__gallery__media {
+  position: absolute;
+  visibility: hidden;
 
 }
 
@@ -31,5 +56,18 @@ background: red;
 }
 
 .home__link {
+  @extend %descriptions-14;
+  letter-spacing: 0.5rem;
+  width: 28.8rem;
+  height: 6rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  transform: translate(-50%);
+  left: 50%;
+  bottom: 5rem;
+  text-transform: uppercase;
+  z-index: 2;
 
 }
