@@ -26,21 +26,8 @@ block content
             h2.collections__article__title=`${collection.data.title} ${home.data.collection}`
             p.collections__article__description=collection.data.description
 
-    //-   .collections__mobile
-    //-     each collection, index in collections
-    //-       .collections__mobile__item
-    //-         .collections__mobile__item__label!=`${home.data.collection}<br>${Numbers(index)}`
-    //-         .collections__mobile__item__title=collection.data.title
-
-
-
-
-
-//- block content
-//-   .about 
-//-     .about__wrapper 
-//-       section.about__gallery 
-//-         .about__gallery__wrapper 
-//-           each media in about.data.gallery 
-//-             figure.about__gallery__media
-//-               img.about__gallery__media__image(alt=media.image.alt src=media.image.url)
+      .collections__mobile
+        each collection, index in collections
+          .collections__mobile__item
+            .collections__mobile__item__label!=`${home.data.collection}<br>${Numbers(index)}`
+            .collections__mobile__item__title=collection.data.title

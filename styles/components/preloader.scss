@@ -22,6 +22,10 @@ z-index: z('preloader');
   position: absolute;
   transform: translateX(-50%);  
 
+  @include media('<phone') {
+    font-size: 3rem ;
+  }
+
 }
 
 .preloader__number__text {
