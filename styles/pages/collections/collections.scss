@@ -11,6 +11,10 @@
 
 .collections__titles {
   @extend %vertical-titles; 
+
+  @include media('<phone') {
+    display: none;
+  }
 }
 
 .collections__titles__label {
@@ -52,6 +56,10 @@ margin: 0 5.3rem;
 
 .collections__content {
   @extend %cover;
+
+  @include media('<phone') {
+    display: none;
+  }
 }
 
 .collections__article {
@@ -71,4 +79,28 @@ opacity : 0; // permet de rendre l'élément invisible et celui ci est associé 
 .collections__article__description {
   @extend %descriptions-16;
   max-width: 44rem;
+}
+
+.collections__mobile {
+  display: flex;
+  position: absolute;
+  bottom: 5rem;
+
+  @include media('<phone') {
+    display: flex;
+  }
+}
+.collections__mobile__item {
+  width: 100vw;
+  padding-left: 5rem;
+}
+.collections__mobile__item__label {
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.collections__mobile__item__title {
+  font-family: $font-george-x;
+  font-size: 12rem;
 }

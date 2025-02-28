@@ -16,11 +16,9 @@
     text-transform: uppercase;
     text-align: center;
     transform: rotate(90deg);  
-  
   }
   
   %vertical-titles-title {
     @extend %title-200;
     padding-top: 2rem;
-  
   }
