@@ -7,8 +7,14 @@
 
 html {
   font-size: calc(100vw / 1920 * 10);
-  line-height: 1
-}
+  line-height: 1;
+
+  @include media('<phone') {
+    font-size: calc(100vw / 750 * 10);
+  } 
+}//le calcul fait pour la font size est basé sur la largeur de la page, pour que la taille de la police s'adapte à la taille de l'écran
+  // exemple si mon écran fait 1920px de large, la taille de la police sera de 10px, si celui ci fait 960px de large, la taille de la police sera de 5px car 960/1920 = 0,5, et 10*0,5 = 5px
+  //le line-height (interligne) est défini à 1 pour éviter les problèmes de compatibilité entre les navigateurs et est égal à la taille de la police
 
 body {
   @extend%descriptions-16;
