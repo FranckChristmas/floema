@@ -84,9 +84,13 @@
 
   @include media('<phone') {
     width: 15rem;
+    font-size:  2.4rem;
     padding-right: 3rem;
-
+    // word-break: break-all;
+  }
 }
+
+
 .about__content__description {
   width: 36.2em;
 
@@ -97,7 +101,6 @@
     width: calc(100% - 15rem);
     }
   }
-}
 
 .about__content__media  { // ici pour chaque partie de content on va aller faire du fine tuning afin de pouvoir gérer l'affichage de chaque image
   position: relative;
@@ -142,6 +145,11 @@
       width: 100vw;
       margin-right: 0;
       height : 80rem;
+    }
+    .about__content:nth-child(9) & {
+      width: 60.8;
+      margin-left: 0;
+      height : 85.8;
     }
   }
 }
