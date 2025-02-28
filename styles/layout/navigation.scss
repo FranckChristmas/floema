@@ -2,16 +2,27 @@
   @extend %cover;
 
   color: $color-quarter-spanish-white;
+  position: fixed;
+  pointer-events: none;  // permet de ne pas prendre en compte les événements de la souris sur cet élément
   z-index: z('navigation');
 }
 
 .navigation__link {
-  font-size: 0; //on met ce text à zeri mais il permet de comprendre que c'est le le lien Floema associé à l'icon
+  font-size: 0; //on met ce text à zero mais il permet de comprendre que c'est le le lien Floema associé à l'icon
   position: absolute;
   left : 4rem;
   height: 2rem;
   top: 4rem;
   width: 12.8rem;
+  pointer-events: auto; // permet de prendre en compte les événements de la souris sur cet élément
+
+  @include media('<phone') {
+    left: 5rem;
+    top: 5rem;
+    width: 27.8rem;
+    height: 6rem;
+
+  }
 
 }
 
@@ -25,14 +36,14 @@ display: block;
  
 .navigation__list__item {
   position: absolute;
-  right : 4rem;
+  pointer-events: auto; 
   height: 2rem;
   top: 4rem;
-  width: 12.8rem;
 }
 
 .navigation__list__link {
   @extend %title-20;
+  display: block;
 }
 
 
