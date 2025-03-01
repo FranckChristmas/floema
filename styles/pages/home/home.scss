@@ -1,3 +1,10 @@
+@use 'utils/mixins' as *;
+@use 'utils/variables' as *;
+@use './shared/descriptions' as *;
+@use './shared/titles' as *;
+@use './shared/vertical-titles' as *;
+
+
 .home {
   @extend %cover;
   @extend %center;

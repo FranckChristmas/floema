@@ -1,29 +1,29 @@
-@import './base/reset';
+@forward './base/reset';
 
-@import './utils/variables';
-@import './utils/mixins';
-@import './utils/functions';
-@import './utils/vendors';
-@import './utils/responsive';
+@forward './utils/variables';
+@forward './utils/mixins';
+@forward './utils/functions';
+@forward './utils/vendors';
+@forward './utils/responsive';
 
-@import './shared/titles';
-@import './shared/descriptions';
-@import './shared/vertical-titles';
+@forward './shared/titles';
+@forward './shared/descriptions';
+@forward './shared/vertical-titles';
 
-@import './base/base';
-@import './base/fonts';
+@forward './base/base';
+@forward './base/fonts';
 
-@import './components/preloader';
+@forward './components/preloader';
 
-@import './pages/about/about';
-@import './pages/about/content';
-@import './pages/about/gallery';
-@import './pages/about/highlight';
+@forward './pages/about/about';
+@forward './pages/about/content';
+@forward './pages/about/gallery';
+@forward './pages/about/highlight';
 
-@import './pages/home/home';
+@forward './pages/home/home';
 
-@import './pages/collections/collections';
+@forward './pages/collections/collections';
 
-@import './pages/details/details';
+@forward './pages/details/details';
 
-@import './layout/navigation';
+@forward './layout/navigation';

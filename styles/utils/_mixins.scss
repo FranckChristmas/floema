@@ -24,3 +24,12 @@
     padding-top: $height / $width * 100%;
   }
 }
+
+@mixin media($query) {
+  @if $query == '<phone' {
+    @media (max-width: 750px) {
+      @content;
+    }
+  }
+  // Add other media queries as needed
+}

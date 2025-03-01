@@ -1,15 +1,15 @@
 @font-face {
-  font-family: $font-george-x;
+  font-family: 'George X';
   src: 
-  url('../fonts/georgex-regular.woff2') format('woff2'),
-  url('../fonts/georgex-regular.woff') format('woff');
+  url('../fonts/george-x-regular.woff2') format('woff2'),
+  url('../fonts/george-x-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: $font-suisse-bp;
+  font-family: 'Suisse BP';
   src: 
   url('../fonts/suissebp-light.woff') format('woff'),
   url('../fonts/suissebp-light.woff2') format('woff2');
@@ -19,7 +19,7 @@
 }
 
 @font-face {
-  font-family: $font-suisse-bp;
+  font-family: 'Suisse BP';
   src: url('../fonts/suissebp-regular.woff') format('woff'),
   url('../fonts/suissebp-regular.woff2') format('woff2');
   font-weight: normal;
@@ -28,7 +28,7 @@
 }
 
 @font-face {
-  font-family: $font-suisse-bp;
+  font-family: 'Suisse BP';
   src: url('../fonts/suissebp-ultralight.woff') format('woff'),
   url('../fonts/suissebp-ultralight.woff2') format('woff2');
   font-weight: 200;
