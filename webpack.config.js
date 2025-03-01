@@ -52,11 +52,23 @@ resolve: {
     "net": false,
     "assert": require.resolve("assert/"),
     "vm": require.resolve("vm-browserify"),
-    "async_hooks": false
+    "async_hooks": false,
+    "process": require.resolve("process/browser") // Ajouté pour gérer les dépendances de node.js
+
   }
 },
 
+// Ajout de la configuration de webpack pour gérer les dépendances de node.js - potentiellement à supprimer
+externals: {
+  express: 'commonjs express'
+},
+
 plugins: [
+// Ajout de la configuration de webpack.ProvidePlugin pour gérer les dépendances de node.js - potentiellement à supprimer
+  new webpack.ProvidePlugin({ 
+    process: 'process/browser'
+  }),
+
   new webpack.DefinePlugin({
     IS_DEVELOPMENT
   }),

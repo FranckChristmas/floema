@@ -1,3 +1,9 @@
+@use 'utils/variables' as *;
+@use 'utils/mixins' as *;
+@use './shared/descriptions' as *;
+@use './shared/titles' as *;
+@use './shared/vertical-titles' as *;
+
 .about {
   background: $color-cadet-blue ;
   color: $color-bright-grey;

@@ -1,6 +1,6 @@
 class App {
   constructor () {
-    console.log('app')
+    console.log('App')
   }
 }
 

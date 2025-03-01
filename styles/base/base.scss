@@ -1,3 +1,9 @@
+@use 'utils/mixins' as *;
+@use 'utils/variables' as *;
+@use './shared/descriptions' as *;
+@use './shared/titles' as *;
+@use './shared/vertical-titles' as *;
+
 *, // "*" selector pour tous les éléments de la page -> applique la propriété à tous les éléments de la page
 *:after, // after & before permette d'ajouter du contenu avant ou après un élément  
 *:before {

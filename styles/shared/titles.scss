@@ -1,3 +1,6 @@
+@use 'utils/variables' as *;
+@use 'utils/mixins' as *;
+
 %title-20 {
   font-family: $font-george-x;
   font-size: 2rem;
@@ -9,7 +12,7 @@
 
 %title-30 {
   font-family: $font-george-x;
-  font-size: 3rem;
+    font-size: 3rem;
 
   @include media('<phone') {
     font-size: 5.2rem;

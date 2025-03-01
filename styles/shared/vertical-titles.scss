@@ -1,3 +1,6 @@
+@use './shared/descriptions' as *;
+@use './shared/titles' as *;
+
 %vertical-titles {
   align-items: center;
   display: flex;
