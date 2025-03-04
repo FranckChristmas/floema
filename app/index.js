@@ -14,21 +14,20 @@ class App {
     this.content = document.querySelector('.content')
     this.template = this.content.getAttribute('data-template')
 
-    // console.log(this.template)
   }
 
   createPages ()  {
     this.pages = {
-      home: new Home(),
+      about: new About(),
       collections: new Collections(),
       detail: new Detail(),
-      about: new About(),
+      home: new Home()
     }
 
     this.page = this.pages[this.template]
     this.page.create()
 
-    console.log(this.pages)
+    console.log(this.page)
   }
 }
 
