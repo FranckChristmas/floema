@@ -1,12 +1,20 @@
+// script(src="/main.js")
 import About from './pages/About'
 import Collections from './pages/Collections'
 import Detail from './pages/Detail'
 import Home from './pages/Home'
 
-
 class App {
   constructor () {
+    this.createContent()
     this.createPages()
+  }
+
+  createContent () {
+    this.content = document.querySelector('.content')
+    this.template = this.content.getAttribute('data-template')
+
+    // console.log(this.template)
   }
 
   createPages ()  {
@@ -16,6 +24,10 @@ class App {
       detail: new Detail(),
       about: new About(),
     }
+
+    this.page = this.pages[this.template]
+    this.page.create()
+
     console.log(this.pages)
   }
 }

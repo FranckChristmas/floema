@@ -11,10 +11,9 @@ html(lang="en")
   meta(name="description" content=meta.data.description)
 
   link(rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png")
-  link(rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png")
+  //- link(rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png") - à remettre mais génère uen erreur dans la console de l'inspecteur car not found
   link(rel=icon type="image/png" sizes="16x16" href="favicon-16x16.png")
   link(rel="manifest" href="") 
-  //-  Ajouter le manifest.json si besoin mis je l'ai enlevé car faisait galérer le build
   link(rel="mask-icon" href="safari-pinned-tab.svg" color="#ff3a00")
   meta(name="msapplication-TileColor" content="#f4d8cc")
   meta(name="theme-color" content="#f4d8cc")
@@ -29,7 +28,7 @@ html(lang="en")
   meta(name = "twitter:description" content=meta.data.description)
   meta(name = "twitter:image" content=meta.data.image ? meta.data.image.url : '')
 
-  link(rel="stylesheet", href="main.css")
+link(rel="stylesheet" href="/main.css")
   
 body
   include ./partials/preloader
@@ -38,5 +37,7 @@ body
   .content#content(data-template=template)
     block content
 
-  script(src="main.js")
+  script(src="/main.js")  
+  //- nb the "/" is very important to compile the css and js files
+  //- the script tag is at the end of the body to make the page load faster
     
