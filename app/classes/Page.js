@@ -1,4 +1,4 @@
-import GSAP from 'gsap' //- library to animate elements
+import GSAP from 'gsap' //- library Green Sock App to animate elements
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 
 
@@ -13,8 +13,12 @@ export default class Page {
       }
 
     this.id = id
+
+    console.log("Constructor - Element:", this.selector);
+    console.log("Constructor - Elements:", this.selectorChildren);
+    console.log("Constructor - ID:", this.id);
   }
-  create () {
+  create() {
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
@@ -38,15 +42,20 @@ export default class Page {
   }
 
   show() {
-    GSAP.from(this.element, {
-      autoAlpha: 0,
-      delay: 2,
+    return new Promise(resolve => {
+      GSAP.from(this.element, {
+        autoAlpha: 0,
+        onComplete: resolve
+      })
     })
   }
 
   hide() {
-    GSAP.to(this.element, {
-      autoAlpha: 0,
+    return new Promise(resolve => {
+      GSAP.to(this.element, {
+        autoAlpha: 0,
+        onComplete: resolve
+      })
     })
   }
 }
