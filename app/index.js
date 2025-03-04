@@ -17,9 +17,6 @@ class App {
   createContent () {
     this.content = document.querySelector('.content')
     this.template = this.content.getAttribute('data-template')
-
-    console.log("Template actuel :", this.template) // <-- Debug
-
   }
 
   createPages ()  {
@@ -30,23 +27,43 @@ class App {
       home: new Home()
     }
 
-
-  console.log("Pages disponibles :", Object.keys(this.pages)) // <-- Debug
-  console.log("Page actuelle :", this.template, this.pages[this.template]) // <-- Debug 
-
-
     this.page = this.pages[this.template]
     this.page.create()
     this.page.show()
   }
+
+  async onChange(url) {
+    await this.page.hide() //hide the current page
+
+    const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
+    if (request.status === 200) {
+      const html = await request.text()
+      const div= document.createElement('div')
+
+      div.innerHTML = html
+      const divContent = div.querySelector('.content')
+
+      this.content.setAttribute('data-template', divContent.getAttribute('data-template'))
+      this.content.innerHTML = divContent.innerHTML  
+      
+      this.page = this.pages[this.template]
+      this.page.create()
+      this.page.show()
+    } else {
+    console.log('errrrrrrrror')
+  }
+}
+
   addLinkListeners() {
     const links = document.querySelectorAll('a') //- permet de selectionner tous les liens de la page
 
     each(links, link => {
       link.onclick = event => {
         event.preventDefault()
+        
+        const { href } = link //- permet de recuperer l'url de chaque lien
 
-        console.log(event)
+        this.onChange(href)
       }
     })
   }
