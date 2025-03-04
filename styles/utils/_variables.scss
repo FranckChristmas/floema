@@ -1,5 +1,3 @@
-
-
 $color-black: #000;
 $color-bright-grey: #37384c;
 $color-cadet-blue: #b2b8c3;
@@ -14,7 +12,4 @@ $font-suisse-bp: 'Suisse BP';
 $ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 $ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
-$z-indexes: (
-  'preloader',
-  'navigation',
-  'content');
+$z-indexes: ('preloader', 'navigation', 'content');

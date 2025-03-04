@@ -1,3 +1,4 @@
+// script(src="/main.js")
 import About from './pages/About'
 import Collections from './pages/Collections'
 import Detail from './pages/Detail'
@@ -24,7 +25,8 @@ class App {
       about: new About(),
     }
 
-    this.pages = [this.pages[this.template]]
+    this.page = this.pages[this.template]
+    this.page.create()
 
     console.log(this.pages)
   }

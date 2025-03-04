@@ -1,16 +1,15 @@
 @use 'utils/mixins' as *;
 @use 'utils/variables' as *;
 @use './shared/titles' as *;
-
-
+@use 'utils/functions' as *;
 
 .navigation   {
   @extend %cover;
 
+  z-index: z('navigation');
   color: $color-quarter-spanish-white;
   position: fixed;
   pointer-events: none;  // permet de ne pas prendre en compte les événements de la souris sur cet élément
-  z-index: z('navigation');
 }
 
 .navigation__link {

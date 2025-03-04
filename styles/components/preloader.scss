@@ -3,6 +3,7 @@
 @use './shared/descriptions' as *;
 @use './shared/titles' as *;
 @use './shared/vertical-titles' as *;
+@use 'utils/functions' as *;
 
 .preloader {
 @extend %cover;
