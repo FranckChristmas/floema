@@ -5,6 +5,9 @@ export default class Detail extends Page {
       super({ 
         element: '.detail',
         id: 'Detail',
+        elements: {
+          button: '.detail__button',
+        }
     })  
   }
 
