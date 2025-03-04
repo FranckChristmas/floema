@@ -11,7 +11,7 @@ class App {
     this.createContent()
     this.createPages()
 
-    this.addLinkListeners()
+    this.addLinkListeners() // routing the pages
   }
 
   createContent () {
@@ -27,9 +27,19 @@ class App {
       home: new Home()
     }
 
+    console.log("Available pages:", Object.keys(this.pages)) // Debug
+    console.log("Current template:", this.template) // Debug
+
     this.page = this.pages[this.template]
-    this.page.create()
-    this.page.show()
+
+    console.log("Current page:", this.page) // Debug
+
+    if (this.page) {
+      this.page.create()
+      this.page.show()
+    } else {
+      console.log("page not found for the template:", this.template) // Debug
+    }
   }
 
   async onChange(url) {
@@ -38,14 +48,17 @@ class App {
     const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
     if (request.status === 200) {
       const html = await request.text()
+
       const div= document.createElement('div')
 
       div.innerHTML = html
+
       const divContent = div.querySelector('.content')
 
       this.content.setAttribute('data-template', divContent.getAttribute('data-template'))
+
       this.content.innerHTML = divContent.innerHTML  
-      
+
       this.page = this.pages[this.template]
       this.page.create()
       this.page.show()
@@ -55,14 +68,15 @@ class App {
 }
 
   addLinkListeners() {
-    const links = document.querySelectorAll('a') //- permet de selectionner tous les liens de la page
+    const links = document.querySelectorAll('a') //- gather all the links of the page
+    console.log("Link found :", links) // Debug
 
     each(links, link => {
       link.onclick = event => {
         event.preventDefault()
         
-        const { href } = link //- permet de recuperer l'url de chaque lien
-
+        const { href } = link //- to get the url link of the page
+        console.log("Link clicked:", href) // Debug
         this.onChange(href)
       }
     })

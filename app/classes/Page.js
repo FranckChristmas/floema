@@ -13,14 +13,18 @@ export default class Page {
       }
 
     this.id = id
-
-    console.log("Constructor - Element:", this.selector);
-    console.log("Constructor - Elements:", this.selectorChildren);
-    console.log("Constructor - ID:", this.id);
   }
   create() {
     this.element = document.querySelector(this.selector)
     this.elements = {}
+
+
+    console.log("Created element:", this.element) // Debug
+
+    if (!this.element) {
+      console.error("Element not found for this selector:", this.selector) // Debug
+      return
+    }
 
     each(this.selectorChildren, (entry, key)  => {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
@@ -33,20 +37,18 @@ export default class Page {
         } else if (this.elements[key].length === 1) {
           this.elements[key] = document.querySelector(entry)
         }
-
       }
-      console.log(this.elements[key], entry)
     })
-  }
-  addEventsListeners () {
   }
 
   show() {
     return new Promise(resolve => {
       GSAP.from(this.element, {
         autoAlpha: 0,
-        onComplete: resolve
+        onComplete: resolve,
       })
+      console.log("Show - Element:", this.element) // Debug
+
     })
   }
 
@@ -56,6 +58,7 @@ export default class Page {
         autoAlpha: 0,
         onComplete: resolve
       })
+      console.log("Hide - Element:", this.element) // Debug
     })
   }
 }
