@@ -19,7 +19,7 @@ class App {
 
   createPreloader () {
     this.preloader = new Preloader()
-    this.preloader.once('completed', this.onPreloaded)
+    this.preloader.once('completed', this.onPreloaded.bind(this))
 
   }
 
@@ -52,7 +52,7 @@ class App {
   }
 
   onPreloaded() {
-    console.log("Preloaded   !!!") // test
+    this.preloader.destroy()
   }
 
   async onChange(url) {

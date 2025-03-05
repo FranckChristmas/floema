@@ -1,5 +1,7 @@
+import { resolve } from "path-browserify";
 import Component from "../classes/Components";
 import each from 'lodash/each';
+import GSAP from 'gsap';
 
 export default class Preloader extends Component {
   constructor() {
@@ -23,7 +25,7 @@ export default class Preloader extends Component {
       const image = new Image()
 
       image.onload = this.onAssetLoaded(image)
-      image.src = this.element.getAttribute('data-src')
+      image.src = element.getAttribute('data-src')
 
       console.log(image);
     })
@@ -31,6 +33,29 @@ export default class Preloader extends Component {
 
   onAssetLoaded(image) {
     this.length += 1
-    console.log(Math.round(this.length / this.elements.images.length * 100));
+
+    const percent = this.length / this.elements.images.length
+
+    this.elements.number.innerHTML = `${Math.round(percent * 100)}%`
+
+    if (percent === 1) {
+      this.onLoaded()
+    }
   }
+  onLoaded() {
+  return new Promise(resolve => {
+    this.animateOut = GSAP.timeline()
+
+    this.animateOut.to(this.elements, {
+      autoAlpha: 0
+    })
+
+    this.animateOut.call(() => {
+      this.emit('completed')
+    })
+  })
+}
+  destroy() {  
+    this.element.parentNode.removeChild(this.element)
+  } 
 }
