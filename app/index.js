@@ -1,17 +1,26 @@
 // script(src="/main.js")
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 
+import Preloader from './components/preloader'
 import About from './pages/About/Index'
 import Collections from './pages/Collections/Index'
 import Detail from './pages/Detail/Index'
 import Home from './pages/Home/Index'
 
+
 class App {
   constructor () {
+    this.createPreloader()
     this.createContent()
     this.createPages()
 
     this.addLinkListeners() // routing the pages
+  }
+
+  createPreloader () {
+    this.preloader = new Preloader()
+    this.preloader.once('completed', this.onPreloaded)
+
   }
 
   createContent () {
@@ -42,26 +51,34 @@ class App {
     }
   }
 
+  onPreloaded() {
+    console.log("Preloaded   !!!") // test
+  }
+
   async onChange(url) {
     await this.page.hide() //hide the current page
 
     const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
     if (request.status === 200) {
       const html = await request.text()
+
       const div= document.createElement('div')
 
       div.innerHTML = html
 
       const divContent = div.querySelector('.content')
 
-      this.template = divContent.getAttribute('data-template')
+      this.template = divContent.getAttribute('data-template') // with this line, we can get the template of the new page
 
-      this.content.setAttribute('data-template', this.template)
+      this.content.setAttribute('data-template', this.template) // with this line, we can set the template of the new page
+
       this.content.innerHTML = divContent.innerHTML  
 
       this.page = this.pages[this.template]
       this.page.create()
       this.page.show()
+
+      this.addLinkListeners()
     } else {
     console.log('errrrrrrrror')
   }

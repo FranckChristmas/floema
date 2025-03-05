@@ -18,6 +18,8 @@
  * @author: Jack Doyle, jack@greensock.com
 */
 
+/*! ../classes/Components */
+
 /*! ../modules/logger/index.js */
 
 /*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */
@@ -77,6 +79,8 @@
 /*! ./_root */
 
 /*! ./clients/WebSocketClient.js */
+
+/*! ./components/preloader */
 
 /*! ./createConsoleLogger */
 
@@ -175,12 +179,20 @@
   \**********************************/
 
 /*!***********************************!*\
+  !*** ./app/classes/Components.js ***!
+  \***********************************/
+
+/*!***********************************!*\
   !*** ./app/pages/Detail/Index.js ***!
   \***********************************/
 
 /*!************************************!*\
   !*** ./node_modules/gsap/index.js ***!
   \************************************/
+
+/*!*************************************!*\
+  !*** ./app/components/preloader.js ***!
+  \*************************************/
 
 /*!*************************************!*\
   !*** ./node_modules/lodash/each.js ***!
