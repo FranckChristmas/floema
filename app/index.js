@@ -1,10 +1,10 @@
 // script(src="/main.js")
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 
-import About from './pages/About'
-import Collections from './pages/Collections'
-import Detail from './pages/Detail'
-import Home from './pages/Home'
+import About from './pages/About/Index'
+import Collections from './pages/Collections/Index'
+import Detail from './pages/Detail/Index'
+import Home from './pages/Home/Index'
 
 class App {
   constructor () {
@@ -48,15 +48,15 @@ class App {
     const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
     if (request.status === 200) {
       const html = await request.text()
-
       const div= document.createElement('div')
 
       div.innerHTML = html
 
       const divContent = div.querySelector('.content')
 
-      this.content.setAttribute('data-template', divContent.getAttribute('data-template'))
+      this.template = divContent.getAttribute('data-template')
 
+      this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML  
 
       this.page = this.pages[this.template]
