@@ -1,7 +1,6 @@
-import { resolve } from "path-browserify";
+import GSAP from 'gsap';
 import Component from "../classes/Components";
 import each from 'lodash/each';
-import GSAP from 'gsap';
 
 export default class Preloader extends Component {
   constructor() {
@@ -15,7 +14,7 @@ export default class Preloader extends Component {
     });
     this.length = 0
 
-    console.log(this.elements, this.element);
+    console.log(this.element, this.elements);
 
     this.createLoader();
   }
@@ -24,10 +23,8 @@ export default class Preloader extends Component {
     each(this.elements.images, element => {
       const image = new Image()
 
-      image.onload = this.onAssetLoaded(image)
+      image.onload = () => this.onAssetLoaded(image)
       image.src = element.getAttribute('data-src')
-
-      console.log(image);
     })
   }
 
@@ -44,10 +41,14 @@ export default class Preloader extends Component {
   }
   onLoaded() {
   return new Promise(resolve => {
-    this.animateOut = GSAP.timeline()
+    this.animateOut = GSAP.timeline({
+      delay: 1
+
+    })
 
     this.animateOut.to(this.elements, {
-      autoAlpha: 0
+      autoAlpha: 0,
+      ease: 'expo.out',
     })
 
     this.animateOut.call(() => {
