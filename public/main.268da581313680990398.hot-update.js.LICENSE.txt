@@ -1,0 +1,15 @@
+/*! ./components/preloader */
+
+/*! ./pages/About/Index */
+
+/*! ./pages/Collections/Index */
+
+/*! ./pages/Detail/Index */
+
+/*! ./pages/Home/Index */
+
+/*! lodash/each */
+
+/*!**********************!*\
+  !*** ./app/index.js ***!
+  \**********************/
