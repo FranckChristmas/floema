@@ -2,7 +2,11 @@ import GSAP from 'gsap' //- library Green Sock App to animate elements
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 import Prefix from 'prefix' //- library to use prefixes for CSS properties
 import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
+
 import Title from '../animations/Title'
+import Paragraph from '../animations/Paragraph'
+import Label from '../animations/Label'
+
 import map from 'lodash/map'
 
 
@@ -14,7 +18,11 @@ export default class Page {
       this.selector = element
       this.selectorChildren = {
         ...elements,
-        animationsTitle: '[data-animation="title"]'
+        
+        animationLabels: '[data-animation="label"]',
+        animationsTitles: '[data-animation="title"]', 
+        animationsParagraphs: '[data-animation="paragraph"]',
+
       }
 
     this.id = id
@@ -61,14 +69,34 @@ export default class Page {
   }
 
   createAnimations() {
-    console.log(this.elements.animationsTitle)
+    this.animations = [];
 
-    this.animationsTitles = map(this.elements.animationsTitle, element => {
+//Titles
+    this.animationsTitles = map(this.elements.animationsTitles, element => {
       return new Title({
-        element
+        element,
       })
   })
-  console.log(this.animationsTitles)
+
+  this.animations.push(...this.animationsTitles)
+
+  //Paragraphs
+    this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
+      return new Paragraph({
+        element,
+      })
+  })
+
+  this.animations.push(...this.animationsParagraphs)
+
+  //Labels
+    this.animationsLabels = map(this.elements.animationsLabels, element => {
+      return new Label({
+        element,
+      })
+  })
+  this.animations.push(...this.animationsLabels)
+
 
 }
 
@@ -116,7 +144,7 @@ export default class Page {
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
-    each(this.animationsTitles, animation => animation.onResize());
+    each(this.animations, animation => animation.onResize());
   }
 
   update() {
