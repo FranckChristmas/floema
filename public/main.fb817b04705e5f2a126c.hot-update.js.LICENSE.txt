@@ -1,0 +1,11 @@
+/*! ../classes/Components */
+
+/*! ../utils/text */
+
+/*! gsap */
+
+/*! lodash/each */
+
+/*!*************************************!*\
+  !*** ./app/components/preloader.js ***!
+  \*************************************/
