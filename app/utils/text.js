@@ -1,7 +1,7 @@
 import each from 'lodash/each';
 
 /**
- * Function that splits text into spans
+ * Function that splits text into spans - copied from a project so I can't explain it
  * @param {string || HTMLElement} element
  * @param {string} expression
  * @param {bool} append

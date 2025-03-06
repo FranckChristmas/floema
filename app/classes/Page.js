@@ -41,10 +41,13 @@ export default class Page {
     })
   }
 
-  show() {
+  show() { // to be decided if necessary to animate this page because it is a little buggy
     return new Promise(resolve => {
-      GSAP.from(this.element, {
+      GSAP.fromTo(this.element, {
         autoAlpha: 0,
+      },
+      {
+        autoAlpha: 1,
         onComplete: resolve,
       })
       console.log("Show - Element:", this.element) // Debug

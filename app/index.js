@@ -45,14 +45,14 @@ class App {
 
     if (this.page) {
       this.page.create()
-      this.page.show()
     } else {
       console.log("page not found for the template:", this.template) // Debug
     }
   }
-
+  
   onPreloaded() {
     this.preloader.destroy()
+    this.page.show()
   }
 
   async onChange(url) {
