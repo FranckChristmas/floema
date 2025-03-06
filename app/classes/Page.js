@@ -63,12 +63,12 @@ export default class Page {
   createAnimations() {
     console.log(this.elements.animationsTitle)
 
-    this.animationsTitle = map(this.elements.animationsTitle, element => {
+    this.animationsTitles = map(this.elements.animationsTitle, element => {
       return new Title({
         element
       })
   })
-  console.log(this.animationsTitle)
+  console.log(this.animationsTitles)
 
 }
 
@@ -116,7 +116,7 @@ export default class Page {
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
-    each(this.animations, (animation) => animation.onResize());
+    each(this.animationsTitles, animation => animation.onResize());
   }
 
   update() {

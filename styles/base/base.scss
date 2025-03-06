@@ -64,6 +64,14 @@ img {
  @extend %cover;
 }
 
+[data-animation] {
+  span {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
+}
+
   // pour implémenter les breakpoints : 
   // @include media ('<phone') {
     // @extend%descriptions-14;

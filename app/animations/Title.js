@@ -1,6 +1,8 @@
 import GSAP from 'gsap'
 import Animation from '../classes/Animation'
 
+import { calculate, split } from '../utils/text'
+
 
 export default class Title extends Animation {
   constructor ({ element, elements }) {
@@ -8,15 +10,30 @@ export default class Title extends Animation {
       element,
       elements
     })
+
+    split({element: this.element, append:true})
+    
+    split({element: this.element, append:true})
+
+    this.elementLinesSpans = this.element.querySelectorAll('span span')
+
   }
 
   animateIn() {
-    GSAP.fromTo(this.element, {
-      autoAlpha: 0
+    GSAP.set(this.element, {
+      autoAlpha: 1
+    })
+
+    GSAP.fromTo(this.elementsLines, {
+      y: '100%'
     },  {
-      autoAlpha: 1, 
       delay: 0.5,
-      duration: 1.5
+      duration: 1.5,
+      stagger: {
+        amount: 1,
+        axis: 'x',
+      },
+      y: '0%'
     })
   }
 
@@ -25,5 +42,11 @@ export default class Title extends Animation {
       autoAlpha: 0
     })
   }
+  onResize() {
+    console.log(this.elementLinesSpans)
 
+    this.elementsLines = calculate(this.elementLinesSpans)
+
+    console.log(this.lines)
+  }
 }

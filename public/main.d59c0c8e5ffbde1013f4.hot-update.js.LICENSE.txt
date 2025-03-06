@@ -1,5 +1,7 @@
 /*! ../classes/Animation */
 
+/*! ../utils/text */
+
 /*! classes/Component.js */
 
 /*! gsap */
