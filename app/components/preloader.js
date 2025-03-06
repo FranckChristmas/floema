@@ -1,6 +1,7 @@
 import GSAP from 'gsap';
 import Component from "../classes/Components";
 import each from 'lodash/each';
+import { split } from '../utils/text';
 
 export default class Preloader extends Component {
   constructor() {
@@ -12,6 +13,13 @@ export default class Preloader extends Component {
         images: document.querySelectorAll('img')
       }
     });
+
+  
+    this.element.titleSpans = split({
+      element: this.elements.title,
+      expression: '<br>'
+    })
+
     this.length = 0
 
     console.log(this.element, this.elements);
@@ -20,11 +28,10 @@ export default class Preloader extends Component {
   }
 
   createLoader() {
-    each(this.elements.images, element => {
-      const image = new Image()
+    each(this.elements.images, img => {
 
-      image.onload = () => this.onAssetLoaded(image)
-      image.src = element.getAttribute('data-src')
+      img.src = img.getAttribute('data-src')
+      img.onload = () => this.onAssetLoaded(img)
     })
   }
 
@@ -42,17 +49,24 @@ export default class Preloader extends Component {
   onLoaded() {
   return new Promise(resolve => {
     this.animateOut = GSAP.timeline({
-      delay: 2
-
+      delay: 1
     })
-
-    this.animateOut.to(this.element, {
+  
+    this.animateOut.to(this.element.titleSpans, {
       autoAlpha: 0,
-      ease: 'expo.out',
+      duration: 1.5,
+      ease: 'expo.Out',
+      stagger: 0.3,
+      y: -50
     })
+
+    // this.animateOut.to(this.element, {
+    //   autoAlpha: 0,
+    //   ease: 'expo.out',
+    // })
 
     this.animateOut.call(() => {
-      this.emit('completed')
+      //this.emit('completed')
     })
   })
 }
