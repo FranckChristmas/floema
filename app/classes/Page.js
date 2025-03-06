@@ -18,8 +18,8 @@ export default class Page {
       this.selector = element
       this.selectorChildren = {
         ...elements,
-        
-        animationLabels: '[data-animation="label"]',
+
+        animationsLabels: '[data-animation="label"]',
         animationsTitles: '[data-animation="title"]', 
         animationsParagraphs: '[data-animation="paragraph"]',
 
@@ -27,8 +27,6 @@ export default class Page {
 
     this.id = id
     this.transformPrefix = Prefix('transform')
-    console.log("Transform", this.transformPrefix) // Debug
-
 
     this.onMouseWheelEvent = this.onMouseWheel.bind(this)
     
@@ -72,7 +70,7 @@ export default class Page {
     this.animations = [];
 
 //Titles
-    this.animationsTitles = map(this.elements.animationsTitles, element => {
+    this.animationsTitles = map(this.elements.animationsTitles, (element) => {
       return new Title({
         element,
       })
@@ -81,7 +79,7 @@ export default class Page {
   this.animations.push(...this.animationsTitles)
 
   //Paragraphs
-    this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
+    this.animationsParagraphs = map(this.elements.animationsParagraphs, (element) => {
       return new Paragraph({
         element,
       })
@@ -90,7 +88,7 @@ export default class Page {
   this.animations.push(...this.animationsParagraphs)
 
   //Labels
-    this.animationsLabels = map(this.elements.animationsLabels, element => {
+    this.animationsLabels = map(this.elements.animationsLabels, (element) => {
       return new Label({
         element,
       })
@@ -171,7 +169,6 @@ export default class Page {
   
   addEventListeners () {
     window.addEventListener('mousewheel', this.onMouseWheelEvent)
-    console.log("Add event listeners")
   } 
   
   removeEventListeners () {
