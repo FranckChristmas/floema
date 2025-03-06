@@ -18,6 +18,8 @@
  * @author: Jack Doyle, jack@greensock.com
 */
 
+/*! ../animations/Highlight */
+
 /*! ../animations/Label */
 
 /*! ../animations/Paragraph */
@@ -415,6 +417,10 @@
 /*!************************************!*\
   !*** ./node_modules/lodash/map.js ***!
   \************************************/
+
+/*!*************************************!*\
+  !*** ./app/animations/Highlight.js ***!
+  \*************************************/
 
 /*!*************************************!*\
   !*** ./app/animations/Paragraph.js ***!

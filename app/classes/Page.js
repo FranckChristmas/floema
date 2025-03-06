@@ -4,6 +4,7 @@ import Prefix from 'prefix' //- library to use prefixes for CSS properties
 import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
 
 import Title from '../animations/Title'
+import Highlight from '../animations/Highlight'
 import Paragraph from '../animations/Paragraph'
 import Label from '../animations/Label'
 
@@ -22,6 +23,7 @@ export default class Page {
         animationsLabels: '[data-animation="label"]',
         animationsTitles: '[data-animation="title"]', 
         animationsParagraphs: '[data-animation="paragraph"]',
+        animationsHighlights: '[data-animation="highlight"]',
 
       }
 
@@ -95,6 +97,13 @@ export default class Page {
   })
   this.animations.push(...this.animationsLabels)
 
+    //Highlights
+    this.animationsHighlights = map(this.elements.animationsHighlights, (element) => {
+      return new Highlight({
+        element,
+      })
+  })
+  this.animations.push(...this.animationsHighlights)
 
 }
 
@@ -142,7 +151,7 @@ export default class Page {
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
-    each(this.animations, animation => animation.onResize());
+    each(this.animations, (animation) => animation.onResize());
   }
 
   update() {
