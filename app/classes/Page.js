@@ -1,5 +1,7 @@
 import GSAP from 'gsap' //- library Green Sock App to animate elements
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
+import Prefix from 'prefix' //- library to use prefixes for CSS properties
+import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
 
 
 export default class Page {
@@ -13,19 +15,32 @@ export default class Page {
       }
 
     this.id = id
+    this.transformPrefix = Prefix('transform')
+    console.log("Transform", this.transformPrefix) // Debug
+
+
+    this.onMouseWheelEvent = this.onMouseWheel.bind(this)
+    
+    this.scroll =  {
+      current: 0,
+      target: 0,
+      last: 0,
+      limit: 1000
+    }
+  
   }
+
   create() {
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
-
-    console.log("Created element:", this.element) // Debug
-
-    if (!this.element) {
-      console.error("Element not found for this selector:", this.selector) // Debug
-      return
+    this.scroll =  {
+      current: 0,
+      target: 0,
+      last: 0,
+      limit: 0
     }
-
+    
     each(this.selectorChildren, (entry, key)  => {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
         this.elements[key] = entry
@@ -43,25 +58,79 @@ export default class Page {
 
   show() { // to be decided if necessary to animate this page because it is a little buggy
     return new Promise(resolve => {
-      GSAP.fromTo(this.element, {
+      this.animateIn = GSAP.timeline()
+
+      this.animateIn.fromTo(this.element, {
         autoAlpha: 0,
       },
       {
         autoAlpha: 1,
-        onComplete: resolve,
       })
-      console.log("Show - Element:", this.element) // Debug
+
+      this.animateIn.call(_ => {
+        this.addEventListeners()
+
+        resolve()
+      })
 
     })
   }
 
   hide() {
     return new Promise(resolve => {
-      GSAP.to(this.element, {
+      this.removeEventListeners()
+
+      this.animateOut = GSAP.timeline()
+
+      this.animateOut.To(this.element, {
         autoAlpha: 0,
         onComplete: resolve
       })
       console.log("Hide - Element:", this.element) // Debug
-    })
+    }) 
   }
+
+
+  
+  onMouseWheel (event)  { // allows to scroll the page smoothly
+    const { pixelY } = normalizeWheel(event)    
+    this.scroll.target += pixelY
+  }
+
+  onResize() {
+    if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+    }
+    each(this.animations, (animation) => animation.onResize());
+  }
+
+  update() {
+    this.scroll.current = GSAP.utils.clamp(
+      0, this.scroll.limit, 
+      this.scroll.target
+    );
+
+    this.scroll.current = GSAP.utils.interpolate(
+      this.scroll.current, 
+      this.scroll.target, 0.
+    );
+
+    if (this.scroll.target < 0.01) {
+      this.scroll.target = 0
+    }
+    if (this.elements.wrapper) {  
+      this.elements.wrapper.style[
+        this.transformPrefix
+      ] = `translateY(-${this.scroll.current}px)`
+    }
+  }
+     
+  
+  addEventListeners () {
+    window.addEventListener('mousewheel', this.onMouseWheelEvent)
+    console.log("Add event listeners")
+  } 
+  
+  removeEventListeners () {
+    window.removeEventListener('mousewheel', this.onMouseWheelEvent)
+  } 
 }

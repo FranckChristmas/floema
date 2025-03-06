@@ -3,10 +3,11 @@
 @use './shared/descriptions' as *;
 @use './shared/titles' as *;
 @use './shared/vertical-titles' as *;
-
+@use './shared/pages' as *;
 
 .collections {
-  @extend %cover;
+  @extend %page;
+
   background: $color-quicksand;
   color: $color-quarter-spanish-white;
 }

@@ -2,9 +2,12 @@
 @use 'utils/variables' as *;
 @use './shared/descriptions' as *;
 @use './shared/titles' as *;
+@use './shared/pages' as *;
+
 
 .detail {
-  @extend %cover;
+  @extend %page;
+
   @extend %center;
   color: $color-quarter-spanish-white;
   background: $color-quicksand;

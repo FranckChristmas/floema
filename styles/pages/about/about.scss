@@ -3,8 +3,10 @@
 @use './shared/descriptions' as *;
 @use './shared/titles' as *;
 @use './shared/vertical-titles' as *;
+@use './shared/pages' as *;
 
 .about {
+  @extend %page;
   background: $color-cadet-blue ;
   color: $color-bright-grey;
   opacity: 0;

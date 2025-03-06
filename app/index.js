@@ -14,7 +14,10 @@ class App {
     this.createContent()
     this.createPages()
 
+    this.addEventListeners()
     this.addLinkListeners() // routing the pages
+
+    this.update()
   }
 
   createPreloader () {
@@ -36,23 +39,23 @@ class App {
       home: new Home()
     }
 
-    console.log("Available pages:", Object.keys(this.pages)) // Debug
-    console.log("Current template:", this.template) // Debug
-
     this.page = this.pages[this.template]
+    this.page.create()
 
-    console.log("Current page:", this.page) // Debug
 
-    if (this.page) {
-      this.page.create()
-    } else {
-      console.log("page not found for the template:", this.template) // Debug
-    }
+
+
   }
-  
+
+
+  /***
+   * Events
+   */
   onPreloaded() {
     this.preloader.destroy()
+    this.onResize()
     this.page.show()
+
   }
 
   async onChange(url) {
@@ -75,7 +78,11 @@ class App {
       this.content.innerHTML = divContent.innerHTML  
 
       this.page = this.pages[this.template]
+
       this.page.create()
+      
+      this.onResize()
+ 
       this.page.show()
 
       this.addLinkListeners()
@@ -83,6 +90,29 @@ class App {
     console.log('errrrrrrrror')
   }
 }
+
+onResize() {
+  if (this.page && this.page.onResize) {
+    this.page.onResize()
+  }
+}
+/***
+ * Loop
+ */
+  update() {
+    if (this.page && this.page.update) {
+      this.page.update()
+    }
+    this.frame = window.requestAnimationFrame(this.update.bind(this))
+  }
+
+  /***
+   * Listeners
+   */
+
+  addEventListeners() {
+    window.addEventListener('resize', this.onResize.bind(this))
+  }
 
   addLinkListeners() {
     const links = document.querySelectorAll('a') //- gather all the links of the page
