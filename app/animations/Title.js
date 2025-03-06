@@ -2,6 +2,7 @@ import GSAP from 'gsap'
 import Animation from '../classes/Animation'
 
 import { calculate, split } from '../utils/text'
+import each from 'lodash/each'
 
 
 export default class Title extends Animation {
@@ -23,20 +24,16 @@ export default class Title extends Animation {
     GSAP.set(this.element, {
       autoAlpha: 1
     })
-
-    GSAP.fromTo(this.elementsLines, {
-      y: '100%'
-    },  {
-      delay: 0.5,
-      duration: 1.5,
-      stagger: {
-        amount: 1,
-        axis: 'x',
-      },
-      y: '0%'
+    each(this.elementsLines, (line, index) => {
+      GSAP.fromTo(line, {
+        y: '100%'
+      },  {
+        delay: 0.5 + index * 0.2,
+        duration: 1.5,
+        y: '0%'
+      })
     })
   }
-
   animateOut() {
     GSAP.set(this.element, {
       autoAlpha: 0
