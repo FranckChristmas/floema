@@ -10,15 +10,22 @@ export default class Preloader extends Component {
       elements: {
         title: '.preloader__text',
         number: '.preloader__number', // get access to the loader number
+        numberText: '.preloader__number__text',
         images: document.querySelectorAll('img')
       }
     });
 
-  
-    this.element.titleSpans = split({
+    split({
       element: this.elements.title,
       expression: '<br>'
     })
+
+    split({
+      element: this.elements.title,
+      expression: '<br>'
+    })
+
+    this.elements.titleSpans = this.elements.title.querySelectorAll('span span')
 
     this.length = 0
 
@@ -40,7 +47,7 @@ export default class Preloader extends Component {
 
     const percent = this.length / this.elements.images.length
 
-    this.elements.number.innerHTML = `${Math.round(percent * 100)}%`
+    this.elements.numberText.innerHTML = `${Math.round(percent * 100)}%`
 
     if (percent === 1) {
       this.onLoaded()
@@ -49,24 +56,34 @@ export default class Preloader extends Component {
   onLoaded() {
   return new Promise(resolve => {
     this.animateOut = GSAP.timeline({
-      delay: 1
+      delay: 1.5
     })
   
-    this.animateOut.to(this.element.titleSpans, {
-      autoAlpha: 0,
-      duration: 1.5,
+    this.animateOut.to(this.elements.titleSpans, {
+      // autoAlpha: 0, removed because we not gonna fade out the text, but make it translate down
+      duration: 1,
       ease: 'expo.Out',
       stagger: 0.3,
-      y: -50
+      y: '100%'
     })
 
-    // this.animateOut.to(this.element, {
-    //   autoAlpha: 0,
-    //   ease: 'expo.out',
-    // })
 
-    this.animateOut.call(() => {
-      //this.emit('completed')
+    this.animateOut.to(this.elements.numberText, { // fade out the 100% number
+      duration: 0.5,
+      ease: 'expo.Out',
+      stagger: 0.3,
+      y: '100%'
+    }, '-=0.3')
+
+    this.animateOut.to(this.element, { // remove the preloader
+      duration: 0.5,
+      ease: 'expo.out',
+      scaleY: 0,
+      transformOrigin: '0 0'
+    })
+
+    this.animateOut.call(() => { // call the resolve function when completing the animation
+      this.emit('completed')
     })
   })
 }

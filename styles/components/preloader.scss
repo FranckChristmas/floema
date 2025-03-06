@@ -17,11 +17,16 @@ z-index: z('preloader');
 }
 
 .preloader__text {
-  @extend %title-53;
   max-width: 66 rem;
+  font-size: 0;
 
     span{
-      display: inline-block; // allow to use GSAP animation on the span (i.e. y: property which doesn't work with only inline
+      display: inline-block; // allow to use GSAP animation on the span (i.e. y: property which doesn't work with only "inline")
+      overflow: hidden;
+    }
+
+    span span {
+      @extend %title-53;
 
     }
 
@@ -31,6 +36,7 @@ z-index: z('preloader');
   @extend %descriptions-14;
   bottom: 7.3rem;
   left: 50%;
+  overflow: hidden;
   position: absolute;
   transform: translateX(-50%);  
 
@@ -41,5 +47,6 @@ z-index: z('preloader');
 }
 
 .preloader__number__text {
+  display: inline-block;
 
 }
