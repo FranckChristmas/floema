@@ -1,0 +1,11 @@
+@use 'utils/mixins' as *;
+
+%page {
+  @extend %cover; 
+  
+}
+
+%page__wrapper {
+  color: inherit;
+  overflow: hidden;
+}

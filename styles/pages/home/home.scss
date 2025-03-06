@@ -3,10 +3,10 @@
 @use './shared/descriptions' as *;
 @use './shared/titles' as *;
 @use './shared/vertical-titles' as *;
-
+@use './shared/pages' as *;
 
 .home {
-  @extend %cover;
+  @extend %page;
   @extend %center;
 
   background-color: $color-contessa;
