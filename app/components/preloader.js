@@ -14,8 +14,10 @@ export default class Preloader extends Component {
       }
     });
 
+  
     this.element.titleSpans = split({
-      element: this.elements.title
+      element: this.elements.title,
+      expression: '<br>'
     })
 
     this.length = 0
@@ -47,17 +49,24 @@ export default class Preloader extends Component {
   onLoaded() {
   return new Promise(resolve => {
     this.animateOut = GSAP.timeline({
-      delay: 2
-
+      delay: 1
     })
-
-    this.animateOut.to(this.element, {
+  
+    this.animateOut.to(this.element.titleSpans, {
       autoAlpha: 0,
-      ease: 'expo.out',
+      duration: 1.5,
+      ease: 'expo.Out',
+      stagger: 0.3,
+      y: -50
     })
+
+    // this.animateOut.to(this.element, {
+    //   autoAlpha: 0,
+    //   ease: 'expo.out',
+    // })
 
     this.animateOut.call(() => {
-      this.emit('completed')
+      //this.emit('completed')
     })
   })
 }

@@ -20,6 +20,11 @@ z-index: z('preloader');
   @extend %title-53;
   max-width: 66 rem;
 
+    span{
+      display: inline-block; // allow to use GSAP animation on the span (i.e. y: property which doesn't work with only inline
+
+    }
+
 }
 
 .preloader__number {
