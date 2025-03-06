@@ -2,6 +2,8 @@ import GSAP from 'gsap' //- library Green Sock App to animate elements
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 import Prefix from 'prefix' //- library to use prefixes for CSS properties
 import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
+import Title from '../animations/Title'
+import map from 'lodash/map'
 
 
 export default class Page {
@@ -11,7 +13,8 @@ export default class Page {
     id }) {
       this.selector = element
       this.selectorChildren = {
-        ...elements
+        ...elements,
+        animationsTitle: '[data-animation="title"]'
       }
 
     this.id = id
@@ -40,7 +43,7 @@ export default class Page {
       last: 0,
       limit: 0
     }
-    
+
     each(this.selectorChildren, (entry, key)  => {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
         this.elements[key] = entry
@@ -54,7 +57,20 @@ export default class Page {
         }
       }
     })
+    this.createAnimations()
   }
+
+  createAnimations() {
+    console.log(this.elements.animationsTitle)
+
+    this.animationsTitles = map(this.elements.animationsTitle, element => {
+      return new Title({
+        element
+      })
+  })
+  console.log(this.animationsTitles)
+
+}
 
   show() { // to be decided if necessary to animate this page because it is a little buggy
     return new Promise(resolve => {
@@ -100,7 +116,7 @@ export default class Page {
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
-    each(this.animations, (animation) => animation.onResize());
+    each(this.animationsTitles, animation => animation.onResize());
   }
 
   update() {

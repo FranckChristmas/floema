@@ -19,9 +19,12 @@ export default class Component extends EventEmitter{
       this.addEventListeners()
   }
   create() {
+    if (this.selector instanceof window.HTMLElement) {
+      this.element = this.selector
+    } else {
     this.element = document.querySelector(this.selector)
+  }
     this.elements = {}
-
 
     console.log("Created element:", this.element) // Debug
 
