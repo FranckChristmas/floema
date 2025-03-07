@@ -133,7 +133,7 @@ export default class Page {
 
       this.animateOut = GSAP.timeline()
 
-      this.animateOut.To(this.element, {
+      this.animateOut.to(this.element, {
         autoAlpha: 0,
         onComplete: resolve
       })
