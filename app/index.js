@@ -6,18 +6,26 @@ import About from './pages/About/Index'
 import Collections from './pages/Collections/Index'
 import Detail from './pages/Detail/Index'
 import Home from './pages/Home/Index'
+import Navigation from './components/Navigation'
 
 
 class App {
   constructor () {
-    this.createPreloader()
     this.createContent()
+    this.createPreloader()
+    this.createNavigation()
     this.createPages()
 
     this.addEventListeners()
     this.addLinkListeners() // routing the pages
 
     this.update()
+  }
+
+  createNavigation() {
+    this.navigation = new Navigation({
+      template: this.template,
+    });
   }
 
   createPreloader () {
@@ -41,12 +49,7 @@ class App {
 
     this.page = this.pages[this.template]
     this.page.create()
-
-
-
-
   }
-
 
   /***
    * Events
@@ -72,6 +75,8 @@ class App {
       const divContent = div.querySelector('.content')
 
       this.template = divContent.getAttribute('data-template') // with this line, we can get the template of the new page
+
+      this.navigation.onChange(this.template)
 
       this.content.setAttribute('data-template', this.template) // with this line, we can set the template of the new page
 
