@@ -81,6 +81,8 @@ export function calculate(spans) {
 
 function splitText(text, expression) {
   const splits = text.split('<br>');
+  // const safeText = text.replace(/<(?!br\s*\/?)[^>]+>/g, '')
+  // const splits = safeText.split('<br>'); --> peut remplacer cons split au dessus, mais fait bugger le preloader
 
   let words = [];
 
