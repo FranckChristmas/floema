@@ -14,9 +14,28 @@ export default class Navigation extends Component {
     this.onChange(template) 
   }
   onChange(template) {
-    GSAP.to(this.element, {
-      color: template === 'about' ? COLOR_BRIGHT_GREY : COLOR_QUARTER_SPANISH_WHITE,
-      duration: 1.2
-    })
-  } 
+    if (template === 'about') {
+      GSAP.to(this.element, {
+        color: COLOR_BRIGHT_GREY,
+        duration: 1.2
+      })
+      GSAP.to(this.elements.items[0], {
+        autoAlpha: 1
+      })
+      GSAP.to(this.elements.items[1], {
+        autoAlpha: 0
+      })
+    } else {
+      GSAP.to(this.element, {
+        color: COLOR_QUARTER_SPANISH_WHITE,
+        duration: 1.2
+      })
+      GSAP.to(this.elements.items[0], {
+        autoAlpha: 0
+      })
+      GSAP.to(this.elements.items[1], {
+        autoAlpha: 1
+      })
+    } 
+  }
 }
