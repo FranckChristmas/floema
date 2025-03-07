@@ -116,14 +116,11 @@ onResize() {
 
   addLinkListeners() {
     const links = document.querySelectorAll('a') //- gather all the links of the page
-    console.log("Link found :", links) // Debug
-
     each(links, link => {
       link.onclick = event => {
         event.preventDefault()
         
         const { href } = link //- to get the url link of the page
-        console.log("Link clicked:", href) // Debug
         this.onChange(href)
       }
     })

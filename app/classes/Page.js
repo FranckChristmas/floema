@@ -4,6 +4,7 @@ import Prefix from 'prefix' //- library to use prefixes for CSS properties
 import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
 
 import Title from '../animations/Title'
+import Highlight from '../animations/Highlight'
 import Paragraph from '../animations/Paragraph'
 import Label from '../animations/Label'
 
@@ -18,17 +19,16 @@ export default class Page {
       this.selector = element
       this.selectorChildren = {
         ...elements,
-        
-        animationLabels: '[data-animation="label"]',
+
+        animationsLabels: '[data-animation="label"]',
         animationsTitles: '[data-animation="title"]', 
         animationsParagraphs: '[data-animation="paragraph"]',
+        animationsHighlights: '[data-animation="highlight"]',
 
       }
 
     this.id = id
     this.transformPrefix = Prefix('transform')
-    console.log("Transform", this.transformPrefix) // Debug
-
 
     this.onMouseWheelEvent = this.onMouseWheel.bind(this)
     
@@ -72,7 +72,7 @@ export default class Page {
     this.animations = [];
 
 //Titles
-    this.animationsTitles = map(this.elements.animationsTitles, element => {
+    this.animationsTitles = map(this.elements.animationsTitles, (element) => {
       return new Title({
         element,
       })
@@ -81,7 +81,7 @@ export default class Page {
   this.animations.push(...this.animationsTitles)
 
   //Paragraphs
-    this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
+    this.animationsParagraphs = map(this.elements.animationsParagraphs, (element) => {
       return new Paragraph({
         element,
       })
@@ -90,13 +90,20 @@ export default class Page {
   this.animations.push(...this.animationsParagraphs)
 
   //Labels
-    this.animationsLabels = map(this.elements.animationsLabels, element => {
+    this.animationsLabels = map(this.elements.animationsLabels, (element) => {
       return new Label({
         element,
       })
   })
   this.animations.push(...this.animationsLabels)
 
+    //Highlights
+    this.animationsHighlights = map(this.elements.animationsHighlights, (element) => {
+      return new Highlight({
+        element,
+      })
+  })
+  this.animations.push(...this.animationsHighlights)
 
 }
 
@@ -144,7 +151,7 @@ export default class Page {
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
-    each(this.animations, animation => animation.onResize());
+    each(this.animations, (animation) => animation.onResize());
   }
 
   update() {
@@ -171,7 +178,6 @@ export default class Page {
   
   addEventListeners () {
     window.addEventListener('mousewheel', this.onMouseWheelEvent)
-    console.log("Add event listeners")
   } 
   
   removeEventListeners () {

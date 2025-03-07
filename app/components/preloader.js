@@ -19,17 +19,20 @@ export default class Preloader extends Component {
       element: this.elements.title,
       expression: '<br>'
     })
+    console.log('Preloader title:', this.elements.title.innerHTML);
+    console.log('Preloader spans:', this.elements.titleSpans);
 
     split({
       element: this.elements.title,
       expression: '<br>'
     })
+    console.log('Preloader title:', this.elements.title.innerHTML);
+    console.log('Preloader spans:', this.elements.titleSpans);
 
     this.elements.titleSpans = this.elements.title.querySelectorAll('span span')
 
     this.length = 0
 
-    console.log(this.element, this.elements);
 
     this.createLoader();
   }

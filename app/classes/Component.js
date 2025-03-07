@@ -26,10 +26,7 @@ export default class Component extends EventEmitter{
   }
     this.elements = {}
 
-    console.log("Created element:", this.element) // Debug
-
     if (!this.element) {
-      console.error("Element not found for this selector:", this.selector) // Debug
       return
     }
 
