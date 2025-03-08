@@ -117,7 +117,9 @@ createPreloader() {
     return new Asyncload({ element })
   })
 }
-
+/**
+ * Animations
+ */
   show() { // to be decided if necessary to animate this page because it is a little buggy
     return new Promise(resolve => {
       ColorsManager.change({
@@ -145,7 +147,7 @@ createPreloader() {
 
   hide() {
     return new Promise(resolve => {
-      this.removeEventListeners()
+      this.destroy()
 
       this.animateOut = GSAP.timeline()
 
@@ -156,8 +158,9 @@ createPreloader() {
     }) 
   }
 
-
-  
+  /**
+   * Events
+   */
   onMouseWheel (event)  { // allows to scroll the page smoothly
     const { pixelY } = normalizeWheel(event)    
     this.scroll.target += pixelY
@@ -168,7 +171,9 @@ createPreloader() {
     }
     each(this.animations, (animation) => animation.onResize());
   }
-
+/**
+ * Loops
+ */
   update() {
     this.scroll.current = GSAP.utils.clamp(
       0, this.scroll.limit, 
@@ -190,7 +195,9 @@ createPreloader() {
     }
   }
      
-  
+  /**
+   * Listeners
+   */
   addEventListeners () {
     window.addEventListener('mousewheel', this.onMouseWheelEvent)
   } 
@@ -198,4 +205,11 @@ createPreloader() {
   removeEventListeners () {
     window.removeEventListener('mousewheel', this.onMouseWheelEvent)
   } 
+/**
+ * Destroy, remove the listeners 
+ */
+  destroy() {
+    this.removeEventListeners()
+  }
+
 }
