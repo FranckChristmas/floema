@@ -11,6 +11,8 @@ import each from 'lodash/each' //- library to use each instead of forEach method
 import map from 'lodash/map'
 
 import { ColorsManager } from './Colors'
+import Preloader from '../components/preloader'
+import Asyncload from './Asyncload'
 
 
 export default class Page {
@@ -22,11 +24,12 @@ export default class Page {
       this.selectorChildren = {
         ...elements,
 
-        animationsLabels: '[data-animation="label"]',
+        animationsLabels: '[data-animation="label"]',  //those in between brackets are selectors (syntaxe for js)
         animationsTitles: '[data-animation="title"]', 
         animationsParagraphs: '[data-animation="paragraph"]',
         animationsHighlights: '[data-animation="highlight"]',
 
+        preloaders: '[data-src]'
       }
 
     this.id = id
@@ -68,6 +71,7 @@ export default class Page {
       }
     })
     this.createAnimations()
+    this.createPreloader()
   }
 
   createAnimations() {
@@ -106,7 +110,12 @@ export default class Page {
       })
   })
   this.animations.push(...this.animationsHighlights)
+}
 
+createPreloader() {
+  this.preloaders = map(this.elements.preloaders, (element) => {
+    return new Asyncload({ element })
+  })
 }
 
   show() { // to be decided if necessary to animate this page because it is a little buggy
