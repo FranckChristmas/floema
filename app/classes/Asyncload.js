@@ -11,7 +11,12 @@ constructor({element}) {
     this.Observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          this.element.src = this.element.getAttribute('data-src')
+          if (!this.element.src) {
+            this.element.src = this.element.getAttribute('data-src')
+            this.element.onload = _ => {
+              this.element.classList.add('loaded') //classList addition is used in the base.scss file when the image is loaded, making it visible
+            }
+          }
         }
       })
     })

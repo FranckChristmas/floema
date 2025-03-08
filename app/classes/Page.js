@@ -29,7 +29,7 @@ export default class Page {
         animationsParagraphs: '[data-animation="paragraph"]',
         animationsHighlights: '[data-animation="highlight"]',
 
-        preloaders: '[data-src]'
+        preloaders: '[data-src]' // allow to preload all the img depending on the page loaded (cf below in createPreloader)
       }
 
     this.id = id
@@ -113,7 +113,7 @@ export default class Page {
 }
 
 createPreloader() {
-  this.preloaders = map(this.elements.preloaders, (element) => {
+  this.preloaders = map(this.elements.preloaders, (element) => {  //allows to preload all the img depending on the page loaded
     return new Asyncload({ element })
   })
 }
