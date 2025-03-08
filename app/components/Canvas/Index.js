@@ -1,4 +1,6 @@
 import { Box, Camera, Renderer, Program, Mesh, Transform, } from 'ogl'  
+import vertex from 'shaders/plane-vertex.glsl'
+import fragment from 'shaders/plane-fragment.glsl'
 // Camera, Renderer and Transform are the three elements needed to create a 3D scene -
 // Box, Program and Mesh are the three elements needed to create a 3D object
 // all the elements are imported from the ogl library
@@ -33,21 +35,8 @@ export default class Canvas {
     this.geometry = new Box(this.gl)
 
   this.program = new Program(this.gl, { // create a new program with the following vertex and fragment shaders
-      vertex: /* glsl */ `
-          attribute vec3 position;
-
-          uniform mat4 modelViewMatrix;
-          uniform mat4 projectionMatrix;
-
-          void main() {
-              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-      `,
-      fragment: /* glsl */ `
-          void main() {
-              gl_FragColor = vec4(1.0);
-          }
-      `,
+      vertex,
+      fragment,
   });
 
   this.mesh = new Mesh(this.gl, { // create a new mesh with the following parameters
@@ -66,6 +55,9 @@ export default class Canvas {
     });
   }
   update() {
+    this.mesh.rotation.y -= 0.01 // rotate the mesh on the y-axis
+    this.mesh.rotation.x -= 0.01 // rotate the mesh on the x-axis
+
     this.renderer.render({
       scene: this.scene,
       camera: this.camera
