@@ -14,6 +14,9 @@
 html {
   @extend %cover;
 
+  background: $color-contessa;
+  color: $color-quarter-spanish-white;
+
   font-size: calc(100vw / 1920 * 10);
   line-height: 1;
   left: 0;
@@ -32,9 +35,6 @@ html {
 body {
   @extend %cover;
   @extend%descriptions-16;
-
-  background: $color-contessa;
-  color: $color-quarter-spanish-white;
 
   font-family: $font-suisse-bp ;
   left: 0;

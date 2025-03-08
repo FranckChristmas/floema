@@ -2,6 +2,7 @@
 @use 'utils/variables' as *;
 @use './shared/titles' as *;
 @use 'utils/functions' as *;
+@use 'shared/links' as *;
 
 .navigation   {
   @extend %cover;
@@ -46,6 +47,7 @@ display: block;
 }
 
 .navigation__list__link {
+  @extend %link--hidden;
   @extend %title-20;
   display: block;
 }

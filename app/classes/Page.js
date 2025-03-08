@@ -1,5 +1,4 @@
 import GSAP from 'gsap' //- library Green Sock App to animate elements
-import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 import Prefix from 'prefix' //- library to use prefixes for CSS properties
 import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
 
@@ -8,7 +7,10 @@ import Highlight from '../animations/Highlight'
 import Paragraph from '../animations/Paragraph'
 import Label from '../animations/Label'
 
+import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 import map from 'lodash/map'
+
+import { ColorsManager } from './Colors'
 
 
 export default class Page {
@@ -109,6 +111,11 @@ export default class Page {
 
   show() { // to be decided if necessary to animate this page because it is a little buggy
     return new Promise(resolve => {
+      ColorsManager.change({
+        backgroundColor: this.element.getAttribute('data-background'),
+        color: this.element.getAttribute('data-color'),
+      })
+
       this.animateIn = GSAP.timeline()
 
       this.animateIn.fromTo(this.element, {
@@ -137,7 +144,6 @@ export default class Page {
         autoAlpha: 0,
         onComplete: resolve
       })
-      console.log("Hide - Element:", this.element) // Debug
     }) 
   }
 
