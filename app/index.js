@@ -1,7 +1,7 @@
 // script(src="/main.js")
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 
-import Canvas from './components/Canvas'
+import Canvas from './components/Canvas/Index'
 import Preloader from './components/preloader'
 import About from './pages/About/Index'
 import Collections from './pages/Collections/Index'
