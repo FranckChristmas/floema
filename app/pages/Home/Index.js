@@ -1,4 +1,5 @@
 import Page from "classes/Page";
+import Button from "classes/Button";
 
 export default class Home extends Page {
     constructor () {
@@ -15,7 +16,13 @@ export default class Home extends Page {
 
   create() {
     super.create() //- permet de ne pas override la method create de la class parent Page.js
-    
-    this.elements.link.addEventListener('click', _ => console.log('oh you clicked me !!')) //- appel le link de home__link lorsque l'on clicque dessus
+
+    this.link = new Button({
+    element: this.elements.link
+    })
+  }
+
+  destroy () {
+    this.link.removeEventListeners()
   }
 }
