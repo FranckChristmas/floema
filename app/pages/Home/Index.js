@@ -15,7 +15,7 @@ export default class Home extends Page {
   }
 
   create() {
-    super.create() //- permet de ne pas override la method create de la class parent Page.js
+    super.create() // avoid overriding the parent class method create of Page.js
 
     this.link = new Button({
     element: this.elements.link
@@ -23,6 +23,7 @@ export default class Home extends Page {
   }
 
   destroy () {
+    super.destroy() // avoid overriding the parent class method destroy of Page.js
     this.link.removeEventListeners()
   }
 }

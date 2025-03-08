@@ -46,6 +46,8 @@
 
 /*! ./Colors */
 
+/*! ./Component */
+
 /*! ./ExecutionEnvironment */
 
 /*! ./Logger */
