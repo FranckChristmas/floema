@@ -5,7 +5,7 @@ export default class Collections extends Page {
       super({ 
         id: 'Collections',
         element: '.collections',
-        elements:{title: '.collections__title'}
+        elements:{title: '.collections__titles'}
     })
   }
 } 

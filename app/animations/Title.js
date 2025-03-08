@@ -31,7 +31,7 @@ export default class Title extends Animation {
         y: '100%'
       },  {
         delay: index * 0.2,
-        duration: 1.5,
+        duration: 1.2,
         ease: 'expo.out',
         y: '0%'
       }, 0)
