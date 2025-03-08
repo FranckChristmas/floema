@@ -30,6 +30,8 @@
 
 /*! ../classes/Component */
 
+/*! ../components/preloader */
+
 /*! ../modules/logger/index.js */
 
 /*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */
@@ -37,6 +39,8 @@
 /*! ../utils/log.js */
 
 /*! ../utils/text */
+
+/*! ./Asyncload */
 
 /*! ./CSSPlugin.js */
 
@@ -338,6 +342,8 @@
 
 /*! ansi-html-community */
 
+/*! classes/Component */
+
 /*! classes/Component.js */
 
 /*! classes/Page */
@@ -402,6 +408,10 @@
 
 /*!**********************************!*\
   !*** ./app/classes/Animation.js ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./app/classes/Asyncload.js ***!
   \**********************************/
 
 /*!**********************************!*\

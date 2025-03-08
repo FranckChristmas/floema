@@ -14,13 +14,20 @@
 }
 
 .navigation__link {
+  // @extend %link--hidden;
+  // padding-bottom: 4rem;
   font-size: 0; //on met ce text à zero mais il permet de comprendre que c'est le le lien Floema associé à l'icon
   position: absolute;
   left : 4rem;
   height: 2rem;
   top: 4rem;
+  transition: opacity 0.4s ease;
   width: 12.8rem;
   pointer-events: auto; // permet de prendre en compte les événements de la souris sur cet élément
+
+  &:hover {
+    opacity: 0.5;
+  }
 
   @include media('<phone') {
     left: 5rem;
@@ -33,7 +40,8 @@
 }
 
 .navigation__link__icon {
-display: block;
+  display: block;
+  // width: 100%;
 }
 
 .navigation__list {
@@ -49,7 +57,9 @@ display: block;
 .navigation__list__link {
   @extend %link--hidden;
   @extend %title-20;
+
   display: block;
+  line-height: 1.1;
 }
 
 
