@@ -1,6 +1,7 @@
 // script(src="/main.js")
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
 
+import Canvas from './components/Canvas'
 import Preloader from './components/preloader'
 import About from './pages/About/Index'
 import Collections from './pages/Collections/Index'
@@ -14,6 +15,7 @@ class App {
     this.createContent()
     this.createPreloader()
     this.createNavigation()
+    this.createCanvas()
     this.createPages()
 
     this.addEventListeners()
@@ -32,6 +34,10 @@ class App {
     this.preloader = new Preloader()
     this.preloader.once('completed', this.onPreloaded.bind(this))
 
+  }
+
+  createCanvas() {
+    this.canvas = new Canvas()
   }
 
   createContent () {
@@ -97,14 +103,24 @@ class App {
 }
 
 onResize() {
-  if (this.page && this.page.onResize) {
+  if (this.canvas && this.canvas.onResize) {  // to explain : if the canvas exists and the method onResize of the canvas exists, then execute the method onResize of the canvas
+    this.canvas.onResize()
+  }
+
+  if (this.page && this.page.onResize) { // to explain : if the page exists and the method onResize of the page exists, then execute the method onResize of the page
     this.page.onResize()
   }
 }
+
+
 /***
  * Loop
  */
   update() {
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update()
+    }
+
     if (this.page && this.page.update) {
       this.page.update()
     }
