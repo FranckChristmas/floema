@@ -282,7 +282,7 @@
 
 /*! ./clients/WebSocketClient.js */
 
-/*! ./components/Canvas */
+/*! ./components/Canvas/Index */
 
 /*! ./components/Navigation */
 
@@ -551,7 +551,7 @@
   \***************************************/
 
 /*!****************************************!*\
-  !*** ./app/components/Canvas/index.js ***!
+  !*** ./app/components/Canvas/Index.js ***!
   \****************************************/
 
 /*!****************************************!*\
