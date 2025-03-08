@@ -31,8 +31,11 @@ html {
 
 body {
   @extend %cover;
-
   @extend%descriptions-16;
+
+  background: $color-contessa;
+  color: $color-quarter-spanish-white;
+
   font-family: $font-suisse-bp ;
   left: 0;
   top: 0;
