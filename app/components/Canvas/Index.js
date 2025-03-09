@@ -11,6 +11,9 @@ export default class Canvas {
     this.createCamera()
     this.createRenderer()
     this.createScene()
+
+    this.onResize()
+
     this.createHome()
 
   }
@@ -34,7 +37,8 @@ export default class Canvas {
   createHome() {
     this.home = new Home({
       gl: this.gl,
-      scene: this.scene
+      scene: this.scene,
+      sizes: this.sizes
     })
   }
 
@@ -43,7 +47,22 @@ export default class Canvas {
     
     this.camera.perspective({
       aspect: window.innerWidth / window.innerHeight
+
+      
     });
+    const fov = this.camera.fov * (Math.PI / 180)
+    const height = 2 * Math.tan(fov / 2) * this.camera.position.z
+    const width = height * this.camera.aspect
+
+    this.sizes = {
+      height,
+      width
+    }
+  if (this.home) {
+    this.home.onResize({
+      sizes: this.sizes
+    })
+  }
   }
   update() {
     this.renderer.render({

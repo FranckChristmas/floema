@@ -8,7 +8,7 @@ export default class Home {
     this.gl = gl
     this.group = new Transform()
 
-    this.media = document.querySelectorAll('.home__gallery__media__image')
+    this.mediaElements = document.querySelectorAll('.home__gallery__media__image')
 
     this.createGeometry()
     this.createGallery()
@@ -21,7 +21,7 @@ export default class Home {
   }
 
   createGallery() {
-    map(this.media, (element, index) => {
+    this.media = map(this.mediaElements, (element, index) => {
       return new Media({
         element,
         geometry: this.geometry,
@@ -31,5 +31,8 @@ export default class Home {
       })
 
     })
+  }
+  onResize({ event }) {
+    map(this.medias, media => media.onResize({ event }))
   }
 }

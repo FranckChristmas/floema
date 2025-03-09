@@ -50,4 +50,6 @@ export default class Media {
     this.mesh.position.x += this.index * this.mesh.scale.x // set the position of the mesh on the x-axis
 
   }
+  onResize() {
+  }
 }
