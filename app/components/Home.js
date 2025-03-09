@@ -4,8 +4,9 @@ import { Plane, Transform } from 'ogl'
 
 
 export default class Home {
-  constructor({ gl, scene }) {
+  constructor({ gl, scene, sizes }) {
     this.gl = gl
+    this.sizes = sizes
     this.group = new Transform()
 
     this.mediaElements = document.querySelectorAll('.home__gallery__media__image')
@@ -21,18 +22,19 @@ export default class Home {
   }
 
   createGallery() {
-    this.media = map(this.mediaElements, (element, index) => {
+    this.medias = map(this.mediaElements, (element, index) => {
       return new Media({
         element,
         geometry: this.geometry,
         index,
         gl: this.gl,
         scene: this.group,
+        sizes: this.sizes,  
       })
 
     })
   }
-  onResize({ event }) {
-    map(this.medias, media => media.onResize({ event }))
+  onResize( event ) {
+    map(this.medias, media => media.onResize( event ))
   }
 }
