@@ -6,12 +6,13 @@ import fragment from 'shaders/plane-fragment.glsl'
 // The Media class is responsible for creating the 3D objects that will be displayed on the canvas
 // The Media class is imported in the Home class
 export default class Media {
-  constructor({ element, geometry, gl, scene, index }) {
+  constructor({ element, geometry, gl, scene, index, sizes }) {
     this.element = element 
     this.gl = gl
     this.geometry = geometry
     this.scene = scene
     this.index = index
+    this.sizes = sizes
 
     this.createTexture()
     this.createProgram()
@@ -48,6 +49,16 @@ export default class Media {
 
     this.mesh.setParent(this.scene) // set the parent of the mesh to the scene
     this.mesh.position.x += this.index * this.mesh.scale.x // set the position of the mesh on the x-axis
+
+  }
+  createBounds () {
+    this.bounds = this.element.getBoundingClientRect() // get the size of the element
+
+    console.log("test du bound", this.bounds)
+  }
+
+  onResize() {
+    this.createBounds()
 
   }
 }
