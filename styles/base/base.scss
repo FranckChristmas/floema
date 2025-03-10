@@ -8,7 +8,7 @@
 *:after, // after & before permette d'ajouter du contenu avant ou après un élément  
 *:before {
   box-sizing: border-box; // permet de respecter la largeur définie, car autrement la valeur par défaut est content-box (incluant du padding et de la bordure)
-
+  user-select: none; // empêche la sélection de texte
 }
 
 html {

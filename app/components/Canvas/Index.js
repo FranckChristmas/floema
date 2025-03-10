@@ -8,6 +8,16 @@ import Home from 'components/Home'
 
 export default class Canvas {
   constructor () {
+    this.x = {
+      start: 0,
+      distance: 0,
+      end: 0,
+    }
+    this.y = {
+      start: 0,
+      distance: 0,
+      end: 0,
+    }
     this.createCamera()
     this.createRenderer()
     this.createScene()
@@ -41,7 +51,9 @@ export default class Canvas {
       sizes: this.sizes
     })
   }
-
+/**
+ * Events
+ */
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     
@@ -64,7 +76,67 @@ export default class Canvas {
     })
   }
   }
+
+  onTouchDown(event) {
+    this.isDown = true
+    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
+    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
+
+    if(this.home) {
+      this.home.onTouchDown({
+        start: this.x.start,
+      end: this.x.end
+    }, {
+      start: this.y.start,
+      end: this.y.end
+    })
+    }
+
+  }
+  onTouchMove(event) {
+    if (!this.isDown) return
+    const x = event.touches ? event.touches[0].clientX : event.clientX
+    const y = event.touches ? event.touches[0].clientY : event.clientY
+
+    this.x.end = x
+    this.y.end = y
+
+    if(this.home) {
+      this.home.onTouchMove({
+        start: this.x.start,
+        end: this.x.end
+      }, {
+        start: this.y.start,
+        end: this.y.end
+      })
+    }
+  }
+  onTouchUp(event) {
+    this.isDown = false
+    const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
+    const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
+
+    this.x.end = x
+    this.y.end = y
+
+    if(this.home) {
+      this.home.onTouchUp({
+        start: this.x.start,
+        end: this.x.end
+      }, {
+        start: this.y.start,
+        end: this.y.end
+      })
+    }
+  } 
+
+  /**
+   * Loops
+   */
   update() {
+    if(this.home) {
+      this.home.update()
+    }
     this.renderer.render({
       camera: this.camera,
       scene: this.scene,

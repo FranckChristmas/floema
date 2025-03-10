@@ -55,7 +55,7 @@
 
 .home__gallery {
   @extend %cover;
-  // visibility: hidden;
+  visibility: hidden;
   height: 172.5rem;
   width: 241.8rem;
 }
@@ -156,7 +156,7 @@
 }
 
 .home__gallery__media__image {
-  @extend %cover;
+  @extend %cover; //this allow to cover the image with the same size as the parent
   opacity: 1 !important;
 
 }
