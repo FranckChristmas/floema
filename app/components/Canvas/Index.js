@@ -84,17 +84,16 @@ export default class Canvas {
 
     if(this.home) {
       this.home.onTouchDown({
-        start: this.x.start,
-      end: this.x.end
-    }, {
-      start: this.y.start,
-      end: this.y.end
-    })
+        x: this.x,
+        y: this.x,
+      })
     }
+    console.log('down', this.x, this.y)
 
   }
-  onTouchMove(event) {
+  onTouchMove(event) { // allows to move the web GL page with the mouse
     if (!this.isDown) return
+
     const x = event.touches ? event.touches[0].clientX : event.clientX
     const y = event.touches ? event.touches[0].clientY : event.clientY
 
@@ -103,13 +102,11 @@ export default class Canvas {
 
     if(this.home) {
       this.home.onTouchMove({
-        start: this.x.start,
-        end: this.x.end
-      }, {
-        start: this.y.start,
-        end: this.y.end
+        x: this.x, 
+        y: this.y,
       })
     }
+    console.log('move', this.x, this.y)
   }
   onTouchUp(event) {
     this.isDown = false
@@ -119,15 +116,17 @@ export default class Canvas {
     this.x.end = x
     this.y.end = y
 
+    this.x.distance = this.x.start - this.x.end
+    this.y.distance = this.y.start - this.y.end
+
     if(this.home) {
       this.home.onTouchUp({
-        start: this.x.start,
-        end: this.x.end
-      }, {
-        start: this.y.start,
-        end: this.y.end
+        x: this.x,
+        y: this.y,
       })
     }
+    console.log('up', this.x, this.y)
+
   } 
 
   /**
