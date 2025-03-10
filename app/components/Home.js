@@ -1,7 +1,6 @@
 import Media from './Media'
 import map from 'lodash/map'
 import { Plane, Transform } from 'ogl'
-import { lerp } from 'utils/math'
 import GSAP from 'gsap'
 
 export default class Home {
@@ -10,6 +9,7 @@ export default class Home {
     this.sizes = sizes
     this.group = new Transform()
 
+    this.galleryElement = document.querySelector('.home__gallery');
     this.mediaElements = document.querySelectorAll('.home__gallery__media__image')
 
     this.createGeometry()
@@ -66,21 +66,21 @@ export default class Home {
   onResize( event ) {
     map(this.medias, media => media.onResize( event ))
   }
-  onTouchDown (x, y) { 
+  onTouchDown ({ x, y }) { 
     this.scrollCurrent.x = this.scroll.x
     this.scrollCurrent.y = this.scroll.y
   }
-  onTouchMove (x, y) {
+  onTouchMove ({ x, y }) {
     const xDistance = x.start - x.end
     const yDistance = y.start - y.end
 
     this.x.target = this.scrollCurrent.x - xDistance
     this.y.target = this.scrollCurrent.y - yDistance
 
-    console.log(this.x.target, this.y.target)
+    console.log('onTouchMove', this.x.target, this.y.target)
 
   }
-  onTouchUp (x, y) {
+  onTouchUp ({ x, y }) {
 
   }
 
@@ -88,8 +88,8 @@ export default class Home {
    * Update
    */
   update() {
-    this.scroll.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp) 
-    this.scroll.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp) 
+    this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp) 
+    this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp) 
 
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
