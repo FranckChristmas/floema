@@ -29,7 +29,10 @@ export default class Canvas {
   }
 
   createRenderer() {
-    this.renderer = new Renderer
+    this.renderer = new Renderer({ // it allows
+      alpha: true, // make our canvas transparent
+      antialias: true, // make our canvas smooth
+    })
 
     this.gl = this.renderer.gl
 
