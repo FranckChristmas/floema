@@ -101,7 +101,6 @@ const handleRequest = async (api) => {
       }),
     ]);
 
-  //   console.log(about, home, collections);
 
   const assets = [];
 
@@ -127,7 +126,6 @@ const handleRequest = async (api) => {
   //     });
   //   });
 
-  // console.log(collections);
 
   return {
     assets,

@@ -91,8 +91,6 @@ export default class Canvas {
         y: this.x,
       })
     }
-    console.log('down', this.x, this.y)
-
   }
   onTouchMove(event) { // allows to move the web GL page with the mouse
     if (!this.isDown) return
@@ -109,7 +107,6 @@ export default class Canvas {
         y: this.y,
       })
     }
-    console.log('move', this.x, this.y)
   }
   onTouchUp(event) {
     this.isDown = false
@@ -128,10 +125,13 @@ export default class Canvas {
         y: this.y,
       })
     }
-    console.log('up', this.x, this.y)
-
   } 
 
+  onWheel(event) {
+    if(this.home) {
+      this.home.onWheel(event)
+    }
+  }
   /**
    * Loops
    */

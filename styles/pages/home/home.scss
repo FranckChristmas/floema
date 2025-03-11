@@ -57,7 +57,7 @@
   @extend %cover;
   visibility: hidden;
   height: 172.5rem;
-  width: 241.8rem;
+  width: 241.8rem + 9rem; // the +9rem is to make a gap the repeated gallery imaqes from the Web GL canvas
 }
 
 .home__gallery__media {
