@@ -77,8 +77,8 @@ export default class Home {
       height: (this.galleryBounds.height / window.innerHeight) * this.sizes.height,
       width:(this.galleryBounds.width / window.innerWidth) * this.sizes.width,
     }
-    // this.scroll.x = this.x.target = 0
-    // this.scroll.y = this.y.target = 0
+    this.scroll.x = this.x.target = 0
+    this.scroll.y = this.y.target = 0
     this.sizes = event.sizes;
     map(this.medias, media => media.onResize( event, this.scroll ))
     }
@@ -167,5 +167,12 @@ export default class Home {
       }
       media.update(this.scroll)
     })
+  }
+
+  /**
+   * Destroy
+   */
+  destroy() {
+    // this.group.setParent(scene)
   }
 }

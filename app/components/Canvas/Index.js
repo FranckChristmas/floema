@@ -1,13 +1,16 @@
 import { Camera, Renderer, Transform } from 'ogl'  
 
-import Home from 'components/Home'
+import Home from 'components/Canvas/Home/Index'
+import About from 'components/Canvas/About/Index'
 // Camera, Renderer and Transform are the three elements needed to create a 3D scene -
 // Box, Program and Mesh are the three elements needed to create a 3D object
 // all the elements are imported from the ogl library
 
 
 export default class Canvas {
-  constructor () {
+  constructor ({ template }) {
+    this.template = template;
+
     this.x = {
       start: 0,
       distance: 0,
@@ -24,7 +27,7 @@ export default class Canvas {
 
     this.onResize()
 
-    this.createHome()
+    this.onRouteUpdate(this.template)
 
   }
 
@@ -54,16 +57,48 @@ export default class Canvas {
       sizes: this.sizes
     })
   }
+
+
+  destroyHome() {
+    if (!this.home) return
+    this.home.destroy()
+    this.home = null
+  }
+  createAbout() {
+    this.about = new About({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes
+    })
+  }
+  destroyAbout() {
+    if (!this.about) return
+    this.about.destroy()
+    this.about = null
+  }
+
 /**
  * Events
  */
+  onRouteUpdate(template) {
+    if (template === 'home') {
+      this.createHome()
+    } else  {
+      this.destroyHome()
+    }
+
+    if (template === 'about') {
+      this.createAbout()
+    } else {
+      this.destroyAbout()
+    }
+  }
+
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     
     this.camera.perspective({
       aspect: window.innerWidth / window.innerHeight
-
-      
     });
     const fov = this.camera.fov * (Math.PI / 180)
     const height = 2 * Math.tan(fov / 2) * this.camera.position.z
@@ -73,11 +108,19 @@ export default class Canvas {
       height,
       width
     }
-  if (this.home) {
-    this.home.onResize({
+
+    const values = {
       sizes: this.sizes
-    })
+    }
+
+  if (this.about) {
+    this.about.onResize(values)
   }
+
+  if (this.home) {
+    this.home.onResize(values)
+  }
+
   }
 
   onTouchDown(event) {
@@ -85,11 +128,17 @@ export default class Canvas {
     this.x.start = event.touches ? event.touches[0].clientX : event.clientX
     this.y.start = event.touches ? event.touches[0].clientY : event.clientY
 
+    const values = {
+      x: this.x,
+      y: this.y,
+    }
+
+    if(this.about) {
+      this.about.onTouchDown(values)
+    }
+   
     if(this.home) {
-      this.home.onTouchDown({
-        x: this.x,
-        y: this.x,
-      })
+      this.home.onTouchDown(values)
     }
   }
   onTouchMove(event) { // allows to move the web GL page with the mouse
@@ -101,13 +150,20 @@ export default class Canvas {
     this.x.end = x
     this.y.end = y
 
+    const values = {
+      x: this.x,
+      y: this.y,
+    }
+
+    if(this.about) {
+      this.about.onTouchMove(values)
+    }
+   
     if(this.home) {
-      this.home.onTouchMove({
-        x: this.x, 
-        y: this.y,
-      })
+      this.home.onTouchMove(values)
     }
   }
+
   onTouchUp(event) {
     this.isDown = false
     const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
@@ -116,14 +172,24 @@ export default class Canvas {
     this.x.end = x
     this.y.end = y
 
-    this.x.distance = this.x.start - this.x.end
-    this.y.distance = this.y.start - this.y.end
+    if (this.about) {
+      this.about.update()
+    }
 
+    // this.x.distance = this.x.start - this.x.end
+    // this.y.distance = this.y.start - this.y.end
+
+    const values = {
+      x: this.x,
+      y: this.y,
+    }
+
+    if(this.about) {
+      this.about.onTouchUp(values)
+    }
+  
     if(this.home) {
-      this.home.onTouchUp({
-        x: this.x,
-        y: this.y,
-      })
+      this.home.onTouchUp(values)
     }
   } 
 
@@ -136,6 +202,9 @@ export default class Canvas {
    * Loops
    */
   update() {
+    if (this.about) {
+      this.about.update()
+    }
     if(this.home) {
       this.home.update()
     }

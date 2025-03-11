@@ -74,8 +74,8 @@ export default class Media {
       y: 0
     }
     this.createBounds(sizes)
-    this.updateX(scroll ? scroll.x : 0)
-    this.updateY(scroll ? scroll.y : 0)
+    this.updateX(scroll && scroll.x)
+    this.updateY(scroll && scroll.y)
   }
 /**
  * Update loop
