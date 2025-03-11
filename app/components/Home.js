@@ -7,13 +7,13 @@ export default class Home {
   constructor({ gl, scene, sizes }) {
     this.gl = gl
     this.sizes = sizes
-    this.group = new Transform()
+    this.group = new Transform();
 
     this.galleryElement = document.querySelector('.home__gallery');
-    this.mediaElements = document.querySelectorAll('.home__gallery__media__image')
+    this.mediaElements = document.querySelectorAll('.home__gallery__media__image');
 
-    this.createGeometry()
-    this.createGallery()
+    this.createGeometry();
+    this.createGallery();
 
     this.group.setParent(scene)
 
@@ -64,43 +64,44 @@ export default class Home {
    * events
    */
   onResize( event ) {
-    
-    
-    this.galleryBounds = this.galleryElement.getBoundingClientRect() // get the size of the gallery element
-    
-    
-    this.sizes = event.sizes
+    if (!this.galleryElement) {
+      this.galleryElement = document.querySelector('.home__gallery');
+      if (!this.galleryElement) {
+        console.warn("galleryElement est toujours null, onResize annulé.");
+        return;
+      }
+    }
+    this.galleryBounds = this.galleryElement.getBoundingClientRect(); // get the size of the gallery element
     
     this.gallerySizes = {
-      height: this.galleryBounds.height / window.innerHeight * this.sizes.height,
-      width: this.galleryBounds.width / window.innerWidth * this.sizes.width,
+      height: (this.galleryBounds.height / window.innerHeight) * this.sizes.height,
+      width:(this.galleryBounds.width / window.innerWidth) * this.sizes.width,
     }
-    this.scroll.x = this.x.target = 0
-    this.scroll.y = this.y.target = 0
-
+    // this.scroll.x = this.x.target = 0
+    // this.scroll.y = this.y.target = 0
+    this.sizes = event.sizes;
     map(this.medias, media => media.onResize( event, this.scroll ))
-
-
-  }
+    }
+  
   onTouchDown ({ x, y }) { 
     this.scrollCurrent.x = this.scroll.x
     this.scrollCurrent.y = this.scroll.y
   }
+
   onTouchMove ({ x, y }) {
     const xDistance = x.start - x.end
     const yDistance = y.start - y.end
 
     this.x.target = this.scrollCurrent.x - xDistance
     this.y.target = this.scrollCurrent.y - yDistance
-
-
   }
+
   onTouchUp ({ x, y }) {
   }
 
   onWheel({ pixelX,pixelY }) {
     this.x.target += pixelX
-    this.y.target += pixelY
+    this.y.target -= pixelY  // revered down and up the scroll direction
   }
 
   /**
