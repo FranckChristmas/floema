@@ -57,7 +57,7 @@ export default class Media {
 
   }
   createBounds ({ sizes }) {
-    // this.sizes = sizes 
+    this.sizes = sizes // this allow to resize the object depending on the size of the window avoiding stretching or shrinking the object
     this.bounds = this.element.getBoundingClientRect() // get the size of the element
 
     this.updateScale (sizes)

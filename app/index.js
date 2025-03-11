@@ -8,8 +8,6 @@ import Collections from './pages/Collections/Index'
 import Detail from './pages/Detail/Index'
 import Home from './pages/Home/Index'
 import Navigation from './components/Navigation'
-import normalizeWheel from 'normalize-wheel'
-
 
 class App {
   constructor () {
@@ -50,8 +48,8 @@ class App {
     this.pages = {
       about: new About(),
       collections: new Collections(),
+      home: new Home(),
       detail: new Detail(),
-      home: new Home()
     }
 
     this.page = this.pages[this.template]
@@ -107,7 +105,7 @@ onResize() {
   if (this.page && this.page.onResize) { // to explain : if the page exists and the method onResize of the page exists, then execute the method onResize of the page
     this.page.onResize()
   }
-  window.requestAnimationFrame(_ => {
+  window.requestAnimationFrame((_) => {
     if (this.canvas && this.canvas.onResize) {  
       this.canvas.onResize()
     }
@@ -188,5 +186,6 @@ onWheel(event) {
     })
   }
 }
-
+document.addEventListener('DOMContentLoaded', () => {
 new App()
+})
