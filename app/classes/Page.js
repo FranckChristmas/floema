@@ -207,5 +207,4 @@ createPreloader() {
   destroy() {
     this.removeEventListeners()
   }
-
 }
