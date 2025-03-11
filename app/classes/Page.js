@@ -1,6 +1,5 @@
 import GSAP from 'gsap' //- library Green Sock App to animate elements
 import Prefix from 'prefix' //- library to use prefixes for CSS properties
-import normalizeWheel from 'normalize-wheel' //- library to normalize the mouse wheel
 
 import Title from '../animations/Title'
 import Highlight from '../animations/Highlight'
@@ -34,8 +33,6 @@ export default class Page {
 
     this.id = id
     this.transformPrefix = Prefix('transform')
-
-    this.onMouseWheelEvent = this.onMouseWheel.bind(this)
     
     this.scroll =  {
       current: 0,
@@ -161,16 +158,17 @@ createPreloader() {
   /**
    * Events
    */
-  onMouseWheel (event)  { // allows to scroll the page smoothly
-    const { pixelY } = normalizeWheel(event)    
-    this.scroll.target += pixelY
-  }
-
+  
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
     each(this.animations, (animation) => animation.onResize());
   }
+
+  onWheel ({pixelY})  { // allows to scroll the page smoothly
+    this.scroll.target += pixelY
+  }
+
 /**
  * Loops
  */
@@ -199,11 +197,9 @@ createPreloader() {
    * Listeners
    */
   addEventListeners () {
-    window.addEventListener('mousewheel', this.onMouseWheelEvent)
   } 
   
   removeEventListeners () {
-    window.removeEventListener('mousewheel', this.onMouseWheelEvent)
   } 
 /**
  * Destroy, remove the listeners 

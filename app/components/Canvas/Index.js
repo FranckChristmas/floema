@@ -127,6 +127,11 @@ export default class Canvas {
     }
   } 
 
+  onWheel(event) {
+    if(this.home) {
+      this.home.onWheel(event)
+    }
+  }
   /**
    * Loops
    */

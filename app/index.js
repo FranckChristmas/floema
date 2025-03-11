@@ -1,6 +1,6 @@
 // script(src="/main.js")
+import NormalizeWheel from 'normalize-wheel'
 import each from 'lodash/each' //- library to use each instead of forEach method, which isn't available in Node.js
-
 import Canvas from './components/Canvas/Index'
 import Preloader from './components/preloader'
 import About from './pages/About/Index'
@@ -8,6 +8,7 @@ import Collections from './pages/Collections/Index'
 import Detail from './pages/Detail/Index'
 import Home from './pages/Home/Index'
 import Navigation from './components/Navigation'
+import normalizeWheel from 'normalize-wheel'
 
 
 class App {
@@ -103,14 +104,18 @@ class App {
 }
 
 onResize() {
-  if (this.canvas && this.canvas.onResize) {  // to explain : if the canvas exists and the method onResize of the canvas exists, then execute the method onResize of the canvas
-    this.canvas.onResize()
-  }
-
   if (this.page && this.page.onResize) { // to explain : if the page exists and the method onResize of the page exists, then execute the method onResize of the page
     this.page.onResize()
   }
+  window.requestAnimationFrame(_ => {
+    if (this.canvas && this.canvas.onResize) {  
+      this.canvas.onResize()
+    }
+  })
 }
+// if (this.canvas && this.canvas.onResize) {  // to explain : if the canvas exists and the method onResize of the canvas exists, then execute the method onResize of the canvas
+//   this.canvas.onResize()
+// }
 
 onTouchDown(event) {
   if (this.canvas && this.canvas.onTouchDown) {  
@@ -127,9 +132,18 @@ onTouchUp(event) {
   if (this.canvas && this.canvas.onTouchUp) {  
     this.canvas.onTouchUp(event)
   }
-  
 }
 
+onWheel(event) {
+  const normalizeWheel = NormalizeWheel(event)
+  if (this.canvas && this.canvas.onWheel) {
+    this.canvas.onWheel(normalizeWheel)
+  }
+
+  if (this.page && this.page.onWheel) {
+    this.page.onWheel(normalizeWheel)
+  }
+}
 
 /***
  * Loop
@@ -150,6 +164,7 @@ onTouchUp(event) {
    */
 
   addEventListeners() {
+    window.addEventListener('mousewheel', this.onWheel.bind(this))
     window.addEventListener('mousedown', this.onTouchDown.bind(this))
     window.addEventListener('mousemove', this.onTouchMove.bind(this))
     window.addEventListener('mouseup', this.onTouchUp.bind(this))
