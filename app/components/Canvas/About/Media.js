@@ -103,6 +103,15 @@ export default class Media {
 /**
  * Update loop
  */
+updateRotation() {
+  this.mesh.rotation.z = GSAP.utils.mapRange(
+    -this.sizes.width / 2,
+    this.sizes.width / 2,
+    Math.PI * 0.11,
+    -Math.PI * 0.11,
+    this.mesh.position.x
+  )
+}
   updateScale() {
     this.height = this.bounds.height / window.innerHeight
     this.width = this.bounds.width / window.innerWidth
@@ -110,7 +119,9 @@ export default class Media {
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
 
-  //  console.log("test du scale", this.width, this.height)
+    const scale = GSAP.utils.mapRange(0, this.sizes.width / 2, 1, 0, Math.abs(this.mesh.position.x))
+    this.mesh.scale.x += scale
+    this.mesh.scale.y += scale
   }
   
   updateX(x = 0) {
@@ -125,6 +136,7 @@ export default class Media {
   updateY(y = 0) {
     this.y = (this.bounds.top + y) / window.innerHeight
     this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) -  (this.y * this.sizes.height) 
+    this.mesh.position.y += Math.cos((this.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40
 
     // console.log("test du mesh position y", this.mesh.position.y)
     // console.log("test du y", this.y)
@@ -133,7 +145,8 @@ export default class Media {
     if (!this.bounds) return
 
     // console.log("test du scroll", scroll) 
-
+    this.updateRotation()
+    this.updateScale()
     this.updateX(scroll)
     this.updateY(0)
   }
