@@ -107,6 +107,11 @@ export default class Canvas {
     if (this.about) {
       this.about.hide()
     } 
+
+    if (this.collections) {
+      this.collections.hide()
+    } 
+
     if (this.home) {
       this.home.hide()
     }
@@ -116,9 +121,16 @@ export default class Canvas {
   onChangeEnd(template) {
     if (template === 'about') {
       this.createAbout()
-    } else {
+    } else if (this.about) {
       this.destroyAbout()
     }
+
+    if (template === 'collections') {
+      this.createCollections()
+    } else if (this.collections) {
+      this.destroyCollections()
+    }
+
     if (template === 'home') {
       this.createHome()
     } else  {
@@ -151,6 +163,10 @@ export default class Canvas {
     this.about.onResize(values)
   }
 
+  if (this.collections) {
+    this.collections.onResize(values)
+  }
+
   if (this.home) {
     this.home.onResize(values)
   }
@@ -169,6 +185,9 @@ export default class Canvas {
 
     if(this.about) {
       this.about.onTouchDown(values)
+    }
+    if(this.collections) {
+      this.collections.onTouchDown(values)
     }
    
     if(this.home) {
@@ -191,6 +210,10 @@ export default class Canvas {
 
     if(this.about) {
       this.about.onTouchMove(values)
+    }
+
+    if(this.collections) {
+      this.collections.onTouchMove(values)
     }
    
     if(this.home) {
@@ -217,6 +240,10 @@ export default class Canvas {
     if(this.about) {
       this.about.onTouchUp(values)
     }
+
+    if(this.collections) {
+      this.collections.onTouchUp(values)
+    }
   
     if(this.home) {
       this.home.onTouchUp(values)
@@ -224,6 +251,10 @@ export default class Canvas {
   } 
 
   onWheel(event) {
+    if(this.collections) {
+      this.collections.onWheel(event) 
+    }
+
     if(this.home) {
       this.home.onWheel(event) 
     }
@@ -232,6 +263,9 @@ export default class Canvas {
    * Loops
    */
   update(scroll) {
+    if (this.collections) {
+      this.collections.update()
+    }
     if (this.about) {
       this.about.update(scroll)
     }
