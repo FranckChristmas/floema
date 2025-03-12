@@ -64,8 +64,6 @@ export default class Home {
    * Update
    */
   update() {
-   if (!this.galleryBounds) return
-
    map(this.galleries, gallery => gallery.update())
   }
 }
