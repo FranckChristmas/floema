@@ -119,9 +119,6 @@ updateRotation() {
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
 
-    const scale = GSAP.utils.mapRange(0, this.sizes.width / 2, 1, 0, Math.abs(this.mesh.position.x))
-    this.mesh.scale.x += scale
-    this.mesh.scale.y += scale
   }
   
   updateX(x = 0) {
