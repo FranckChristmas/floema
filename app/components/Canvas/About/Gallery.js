@@ -8,6 +8,7 @@ export default class Gallery {
   constructor({ element, geometry, index, gl, scene, sizes }) {
     
     this.element = element
+    this.elementWrapper = this.element.querySelector('.about__gallery__wrapper')
     this.geometry = geometry
     this.index = index
     this.gl = gl
@@ -31,16 +32,19 @@ export default class Gallery {
 
   createMedias() {
     this.mediasElements = this.element.querySelectorAll('.about__gallery__media')
+
+
+    // console.log("test du mediasElements", this.mediasElements, this.element)
+
     this.medias = map(this.mediasElements, (element, index) => {
       return new Media({
         element,
         geometry: this.geometry,
-        gl: this.gl,
-        scene: this.scene,
         index,
+        gl: this.gl,
+        scene: this.group,
         sizes: this.sizes,
       
-       
       })
     })
   }
@@ -49,16 +53,15 @@ export default class Gallery {
   * events
  */
   onResize( event ) {
-    this.bounds = this.element.getBoundingClientRect(); // get the size of the gallery element
+    this.bounds = this.elementWrapper.getBoundingClientRect(); // get the size of the gallery element
 
     this.sizes = event.sizes;
-
     
-    this.width = this.bounds.width / window.innerWidth * this.sizes.width
+    this.width = (this.bounds.width / window.innerWidth) * this.sizes.width
 
-    this.scroll.current = this.scroll.target = 0
+    this.scroll.current = this.scroll.target = 0;
 
-    map(this.medias, media => media.onResize( event, this.scroll.current))
+    map(this.medias, (media) => media.onResize(event, this.scroll.current))
     }
   
   onTouchDown ({ x, y }) { 
@@ -69,7 +72,8 @@ export default class Gallery {
     const distance = x.start - x.end
 
     this.scroll.target = this.scroll.start - distance
-    console.log("test du scroll target", this.scroll.target)
+    // console.log("test du scroll current", this.scroll.current)
+    // console.log("test du scroll target", this.scroll.target)
   }
 
   onTouchUp ({ x, y }) {
@@ -79,37 +83,38 @@ export default class Gallery {
    * Update
    */
   update() {
+
     if (!this.bounds) return
-    
-    if(this.scroll.current < this.scroll.current) {
-      this.x.direction = 'right'
-    } else if (this.scroll.current > this.scroll.current) {
-      this.x.direction = 'left'
+
+
+    if(this.scroll.current < this.scroll.target) {
+      this.direction = 'right'
+    } else if (this.scroll.current > this.scroll.target) {
+      this.direction = 'left'
     }
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp) 
 
-   // console.log("test du x direction", this.x.direction)
 
     map(this.medias, (media, index) => {
       const scaleX = media.mesh.scale.x / 2
       
       if (this.direction === 'left') {
         const x = media.mesh.position.x + scaleX
-        if (x < -this.sizes.width / 2) {
-          media.extra.x += this.gallerySizes.width
-          media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
 
+        if (x < -this.sizes.width / 2) {
+          media.extra += this.width
         }
       } else if (this.direction === 'right') {
         const x = media.mesh.position.x - scaleX
+
         if (x > this.sizes.width / 2) {
-          media.extra.x -= this.gallerySizes.width
-          media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
+          media.extra -= this.width
         }
       }
 
       media.update(this.scroll.current)
     })
+
   }
 }

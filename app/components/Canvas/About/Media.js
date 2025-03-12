@@ -1,5 +1,4 @@
 import {Mesh, Texture, Program} from 'ogl'
-import GSAP from 'gsap'
 import vertex from 'shaders/plane-vertex.glsl'
 import fragment from 'shaders/plane-fragment.glsl'
 
@@ -20,7 +19,7 @@ export default class Media {
 
     this.extra = {
       x: 0,
-      y: 0
+      y: 0,
     }
   }
 
@@ -60,9 +59,11 @@ export default class Media {
     this.sizes = sizes // this allow to resize the object depending on the size of the window avoiding stretching or shrinking the object
     this.bounds = this.element.getBoundingClientRect() // get the size of the element
 
-    this.updateScale (sizes)
-    this.updateX ()
-    this.updateY ()
+    // console.log("test du bounds", this.bounds)
+
+    this.updateScale()
+    this.updateX()
+    this.updateY()
     }
  /**
   * 
@@ -85,11 +86,12 @@ export default class Media {
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
 
-   // console.log("test du scale", this.width, this.height)
+  //  console.log("test du scale", this.width, this.height)
   }
   
   updateX(x = 0) {
     this.x = (this.bounds.left + x) / window.innerWidth
+    
     this.mesh.position.x = (-this.sizes.width / 2 )+ (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra
     
     // console.log("test du mesh position x", this.mesh.position.x)
@@ -105,6 +107,9 @@ export default class Media {
   }
   update(scroll)  {
     if (!this.bounds) return
+
+    // console.log("test du scroll", scroll) 
+
     this.updateX(scroll)
     this.updateY(0)
   }
