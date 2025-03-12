@@ -183,10 +183,6 @@ export default class Canvas {
     this.x.end = x
     this.y.end = y
 
-    if (this.about) {
-      this.about.update()
-    }
-
     // this.x.distance = this.x.start - this.x.end
     // this.y.distance = this.y.start - this.y.end
 
@@ -212,9 +208,9 @@ export default class Canvas {
   /**
    * Loops
    */
-  update() {
+  update(scroll) {
     if (this.about) {
-      this.about.update()
+      this.about.update(scroll)
     }
     if(this.home) {
       this.home.update()

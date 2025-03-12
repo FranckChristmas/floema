@@ -173,23 +173,16 @@ createPreloader() {
  * Loops
  */
   update() {
-    this.scroll.current = GSAP.utils.clamp(
-      0, this.scroll.limit, 
-      this.scroll.target
-    );
+    this.scroll.target = GSAP.utils.clamp(0, this.scroll.limit, this.scroll.target);
 
-    this.scroll.current = GSAP.utils.interpolate(
-      this.scroll.current, 
-      this.scroll.target, 0.
-    );
+    this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, 0.1);
 
-    if (this.scroll.target < 0.01) {
-      this.scroll.target = 0
+    if (this.scroll.current < 0.01) {
+      this.scroll.current = 0
     }
+
     if (this.elements.wrapper) {  
-      this.elements.wrapper.style[
-        this.transformPrefix
-      ] = `translateY(-${this.scroll.current}px)`
+      this.elements.wrapper.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`
     }
   }
      
