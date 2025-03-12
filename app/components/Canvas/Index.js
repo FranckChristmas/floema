@@ -2,6 +2,7 @@ import { Camera, Renderer, Transform } from 'ogl'
 
 import Home from 'components/Canvas/Home/Index'
 import About from 'components/Canvas/About/Index'
+import Collections from 'components/Canvas/Collections/Index'
 // Camera, Renderer and Transform are the three elements needed to create a 3D scene -
 // Box, Program and Mesh are the three elements needed to create a 3D object
 // all the elements are imported from the ogl library
@@ -50,32 +51,54 @@ export default class Canvas {
   createScene() {
     this.scene = new Transform()
   }
-  createHome() {
-    this.home = new Home({
-      gl: this.gl,
-      scene: this.scene,
-      sizes: this.sizes
-    })
-  }
-
-
+  /**
+   * Home
+  */
+ createHome() {
+   this.home = new Home({
+     gl: this.gl,
+     scene: this.scene,
+     sizes: this.sizes
+   })
+ }
+ 
   destroyHome() {
     if (!this.home) return
     this.home.destroy()
     this.home = null
   }
-  createAbout() {
-    this.about = new About({
+
+  /**
+   * About
+   */
+  createCollections() {
+    this.collections = new Collections({
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes
     })
   }
-  destroyAbout() {
-    if (!this.about) return
-    this.about.destroy()
-    this.about = null
+  destroyCollections() {
+    if (!this.collections) return
+    this.collections.destroy()
+    this.collections = null
   }
+
+    /**
+   * Collections
+   */
+    createAbout() {
+      this.about = new About({
+        gl: this.gl,
+        scene: this.scene,
+        sizes: this.sizes
+      })
+    }
+    destroyAbout() {
+      if (!this.about) return
+      this.about.destroy()
+      this.about = null
+    }
 
 /**
  * Events
