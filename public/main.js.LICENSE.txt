@@ -390,6 +390,8 @@
 
 /*! components/Canvas/About/Index */
 
+/*! components/Canvas/Collections/Index */
+
 /*! components/Canvas/Home/Index */
 
 /*! events */
@@ -1129,6 +1131,14 @@
 /*!****************************************************!*\
       !*** ./node_modules/webpack/lib/logging/Logger.js ***!
       \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./app/components/Canvas/Collections/Index.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./app/components/Canvas/Collections/Media.js ***!
+  \****************************************************/
 
 /*!****************************************************!*\
   !*** ./node_modules/lodash/_isStrictComparable.js ***!
