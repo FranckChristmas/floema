@@ -1,6 +1,7 @@
 import {Mesh, Texture, Program} from 'ogl'
 import vertex from 'shaders/plane-vertex.glsl'
 import fragment from 'shaders/plane-fragment.glsl'
+import GSAP from 'gsap'
 
 // The Media class is responsible for creating the 3D objects that will be displayed on the canvas
 // The Media class is imported in the Home class
@@ -40,7 +41,8 @@ export default class Media {
     this.program = new Program(this.gl, {
       fragment,
       vertex,
-      uniforms: { //used in the fragment shader (plane-fragment)
+      uniforms: {//used in the fragment shader (plane-fragment)
+        uAlpha: { value: 0 },
         tMap: { value: this.texture }
       }
     })
@@ -65,6 +67,28 @@ export default class Media {
     this.updateX()
     this.updateY()
     }
+
+      /**
+    * Animations
+    */
+   show() {
+    GSAP.fromTo(this.program.uniforms.uAlpha, {
+      value: 0
+    }, {
+      value: 1,
+      // duration: 1,
+      // delay: 1
+    })  
+  }
+
+  hide() {
+    GSAP.to(this.program.uniforms.uAlpha, {
+      value: 0, 
+      // duration: 1,
+      // delay: 1
+    })
+  }
+
  /**
   * 
   * Events

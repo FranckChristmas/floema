@@ -7,15 +7,12 @@ export default class Home {
   constructor({ gl, scene, sizes }) {
     this.gl = gl
     this.sizes = sizes
+    this.scene = scene
+
     this.group = new Transform();
 
     this.galleryElement = document.querySelector('.home__gallery');
     this.mediaElements = document.querySelectorAll('.home__gallery__media__image');
-
-    this.createGeometry();
-    this.createGallery();
-
-    this.group.setParent(scene)
 
     this.x = {
       current: 0,
@@ -39,6 +36,13 @@ export default class Home {
       x: 0,
       y: 0,
     }
+
+    this.createGeometry();
+    this.createGallery();
+
+    this.group.setParent(this.scene)
+
+    this.show()
   }
 
   createGeometry() {
@@ -58,19 +62,22 @@ export default class Home {
 
     })
   }
-
+      /**
+     * Animations
+     */
+      show() {
+        map(this.medias, media => media.show())
+       }  
+       hide() {
+        map(this.medias, media => media.hide())
+       }
+    
   /**
    * 
    * events
    */
   onResize( event ) {
-    if (!this.galleryElement) {
-      this.galleryElement = document.querySelector('.home__gallery');
-      if (!this.galleryElement) {
-        console.warn("galleryElement est toujours null, onResize annulé.");
-        return;
-      }
-    }
+    
     this.galleryBounds = this.galleryElement.getBoundingClientRect(); // get the size of the gallery element
     
     this.gallerySizes = {
@@ -129,7 +136,7 @@ export default class Home {
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
 
-    console.log(this.gallerySizes.height)
+    // console.log(this.gallerySizes.height)
 
     map(this.medias, (media, index) => {
       const scaleX = media.mesh.scale.x / 2
@@ -173,6 +180,6 @@ export default class Home {
    * Destroy
    */
   destroy() {
-    // this.group.setParent(scene)
+    this.scene.removeChild(this.group)
   }
 }

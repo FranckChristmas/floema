@@ -41,7 +41,8 @@ export default class Media {
       fragment,
       vertex,
       uniforms: { //used in the fragment shader (plane-fragment)
-        tMap: { value: this.texture }
+        tMap: { value: this.texture },
+        uAlpha: { value: this.texture }
       }
     })
   }
@@ -64,7 +65,29 @@ export default class Media {
     this.updateX ()
     this.updateY ()
     }
- /**
+ 
+   /**
+    * Animations
+    */
+   show() {
+     GSAP.fromTo(this.program.uniforms.uAlpha, {
+       value: 0
+     }, {
+       value: 1,
+       // duration: 1,
+       // delay: 1
+     })  
+   }
+ 
+   hide() {
+     GSAP.to(this.program.uniforms.uAlpha, {
+       value: 0, 
+       // duration: 1,
+       // delay: 1
+     })
+   }
+
+  /**
   * 
   * Events
   */

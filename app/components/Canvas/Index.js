@@ -27,7 +27,7 @@ export default class Canvas {
 
     this.onResize()
 
-    this.onRouteUpdate(this.template)
+    this.onChangeEnd(this.template)
 
   }
 
@@ -80,19 +80,30 @@ export default class Canvas {
 /**
  * Events
  */
-  onRouteUpdate(template) {
-    if (template === 'home') {
-      this.createHome()
-    } else  {
-      this.destroyHome()
+  onChangeStart() {
+    if (this.about) {
+      this.about.hide()
+    } 
+    if (this.home) {
+      this.home.hide()
     }
 
+  }
+
+  onChangeEnd(template) {
     if (template === 'about') {
       this.createAbout()
     } else {
       this.destroyAbout()
     }
+    if (template === 'home') {
+      this.createHome()
+    } else  {
+      this.destroyHome()
+    }
   }
+
+
 
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -195,7 +206,7 @@ export default class Canvas {
 
   onWheel(event) {
     if(this.home) {
-      this.home.onWheel(event)
+      this.home.onWheel(event) 
     }
   }
   /**
