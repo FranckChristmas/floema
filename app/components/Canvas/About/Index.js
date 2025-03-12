@@ -14,6 +14,8 @@ export default class Home {
     this.createGalleries();
 
     this.group.setParent(scene)
+
+    this.show()
   }
 
   createGeometry() {
@@ -36,6 +38,16 @@ export default class Home {
 
     })
   }
+  /**
+   * Animations
+   */
+  show() {
+    map(this.galleries, gallery => gallery.show())
+   }  
+   hide() {
+    map(this.galleries, gallery => gallery.hide())
+   }
+
 
   /** 
    * 
@@ -65,5 +77,13 @@ export default class Home {
    */
   update() {
    map(this.galleries, gallery => gallery.update())
+  }
+
+  /**
+   * Destroy
+   */
+  destroy() {
+
+    map(this.galleries, gallery => gallery.destroy())
   }
 }

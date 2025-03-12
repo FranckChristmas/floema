@@ -69,6 +69,7 @@ class App {
   }
 
   async onChange(url) {
+    this.canvas.onChangeStart(this.template)
     await this.page.hide() //hide the current page
 
     const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
@@ -82,21 +83,26 @@ class App {
       const divContent = div.querySelector('.content')
 
       this.template = divContent.getAttribute('data-template') // with this line, we can get the template of the new page
+      
+      // console.log("canvas:", this.canvas);
 
+      
       this.navigation.onChange(this.template)
-
+      
       this.content.setAttribute('data-template', this.template) // with this line, we can set the template of the new page
-
+      
       this.content.innerHTML = divContent.innerHTML  
-
+      
+      this.canvas.onChangeEnd(this.template)
+      
       this.page = this.pages[this.template]
-
+      
       this.page.create()
       
       this.onResize()
- 
+      
       this.page.show()
-
+      
       this.addLinkListeners()
     } else {
     console.log('errrrrrrrror')
@@ -183,7 +189,7 @@ onWheel(event) {
         event.preventDefault()
         
         const { href } = link //- to get the url link of the page
-        this.onChange(href)
+          this.onChange(href)
       }
     })
   }
