@@ -87,7 +87,7 @@ export default class {
   }
 
   onWheel({ pixelY }) {
-    this.y.target -= pixelY  // reversed down and up the scroll direction
+    this.scroll.target -= pixelY  // reversed down and up the scroll direction
   }
 
   /**
@@ -95,6 +95,8 @@ export default class {
    */
   update() {
     if (!this.bounds) return
+
+    this.scroll.target = GSAP.utils.clamp(-1000,0, this.scroll.target)
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp) 
 

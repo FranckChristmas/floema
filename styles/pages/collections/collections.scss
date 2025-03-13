@@ -42,17 +42,25 @@
   display: flex ;
   position:absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-44.7rem * 0.5, -50%);
 
 }
 
 .collections__gallery__link {
 display: block;
 margin: 0 5.3rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .collections__gallery__media {
-  height : 74.1rem;
+  height : 63.1rem;
   position: relative;
   width: 44.7rem;
 }
