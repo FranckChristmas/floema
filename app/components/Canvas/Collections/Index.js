@@ -25,8 +25,6 @@ export default class {
     this.mediasElements = document.querySelectorAll('.collections__gallery__media');
 
     document.querySelectorAll('.collections__gallery__link').forEach(link => {
-      console.log('Lien détecté :', link.href);
-      console.log('z-index du canvas :', this.gl.canvas.style.zIndex);
     });
 
     this.scroll = {
@@ -78,7 +76,7 @@ export default class {
    */
   onResize( event ) {
     
-    this.bounds = this.galleryElementWrapper.getBoundingClientRect(); // get the size of the gallery element
+    this.bounds = this.galleryElementWrapper.getBoundingClientRect(); // get the size of the gallery element for the Web GL 
       
     this.scroll.last = this.scroll.target = 0
     
@@ -133,7 +131,7 @@ export default class {
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp) 
 
-    this.galleryElement.style[this.transformPrefix] = `translateX(${this.scroll.current}px)`
+    // this.galleryElement.style[this.transformPrefix] = `translateX(${this.scroll.current}px)`
 
     if(this.scroll.last < this.scroll.current) {
       this.scroll.direction = 'right'
