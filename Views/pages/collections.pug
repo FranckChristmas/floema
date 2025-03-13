@@ -28,11 +28,11 @@ block content
               figure.collections__gallery__media(data-index=index)
                 img.collections__gallery__media__image(data-src=product.products_product.data.image.url alt=product.products_product.data.image.alt)
 
-      .collections__content
-        each collection, index in collections
-          article.collections__article(class=`${index === 0 ? 'collections__article--active' : ''}`)
-            h2.collections__article__title=`${collection.data.title} ${home.data.collection}`
-            p.collections__article__description=collection.data.description
+    .collections__content
+      each collection, index in collections
+        article.collections__article(class=`${index === 0 ? 'collections__article--active' : ''}`)
+          h2.collections__article__title=`${collection.data.title} ${home.data.collection}`
+          p.collections__article__description=collection.data.description
 
       .collections__mobile
         each collection, index in collections
