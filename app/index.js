@@ -62,8 +62,12 @@ class App {
    * Events
    */
   onPreloaded() {
+    this.canvas.onPreloaded()
+
     this.preloader.destroy()
+    
     this.onResize()
+    
     this.page.show()
 
   }
