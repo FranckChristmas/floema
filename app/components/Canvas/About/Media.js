@@ -1,4 +1,4 @@
-import {Mesh, Texture, Program} from 'ogl'
+import {Mesh, Program} from 'ogl'
 import vertex from 'shaders/plane-vertex.glsl'
 import fragment from 'shaders/plane-fragment.glsl'
 import GSAP from 'gsap'
@@ -25,17 +25,9 @@ export default class Media {
   }
 
   createTexture() {
-    this.texture = new Texture(this.gl)
-     
-    
-    // get the image element from the media element through the img tag - nb : the img tag is the child of the media element, but in any case we gonna use the "figure" (cf inspector) from webGL
     const image = this.element.querySelector('img')
-
-    this.image = new window.Image()
-    this.image.crossOrigin = 'anonymous'
-    this.image.src = image.getAttribute('data-src')
-    this.image.onload = _ => (this.texture.image = this.image)
-
+    this.texture = window.TEXTURES[image.getAttribute('data-src')]
+    // get the image element from the media element through the img tag - nb : the img tag is the child of the media element, but in any case we gonna use the "figure" (cf inspector) from webGL
   }
   createProgram() {
     this.program = new Program(this.gl, {

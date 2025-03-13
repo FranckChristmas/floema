@@ -33,9 +33,8 @@
   } // cette partie permet de paramétrer le pseudo-élément :after de la classe home avec les propriétés qui lui sont propres
 }
 
-.home__wrapper {
-
-}
+// .home__wrapper {
+// }
 
 .home__titles {
   @extend %vertical-titles; 
