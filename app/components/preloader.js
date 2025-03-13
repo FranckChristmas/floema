@@ -1,19 +1,23 @@
+import { Texture } from 'ogl'
 import GSAP from 'gsap';
 import Component from "../classes/Component";
 import each from 'lodash/each';
 import { split } from '../utils/text';
 
 export default class Preloader extends Component {
-  constructor() {
+  constructor({ canvas }) {
     super({
       element: ".preloader",
       elements: {
         title: '.preloader__text',
         number: '.preloader__number', // get access to the loader number
         numberText: '.preloader__number__text',
-        images: document.querySelectorAll('img')
       }
     });
+
+    this.canvas = canvas
+
+    window.TEXTURES = {}
 
     split({
       element: this.elements.title,
@@ -32,20 +36,33 @@ export default class Preloader extends Component {
 
 
     this.createLoader();
+
   }
 
   createLoader() {
-    each(this.elements.images, img => {
+    window.ASSETS.forEach(image => {
+      const texture = new Texture(this.canvas.gl,{
+        generateMipmaps: false
+      })
 
-      img.src = img.getAttribute('data-src')
-      img.onload = () => this.onAssetLoaded(img)
-    })
+      const media = new window.Image()
+
+      media.crossOrigin = 'anonymous'
+      media.src = image
+      media.onload = _ => {
+        texture.image = media
+
+        this.onAssetLoaded()
+      }
+
+      window.TEXTURES[image] = texture
+    });
   }
 
   onAssetLoaded(image) {
     this.length += 1
 
-    const percent = this.length / this.elements.images.length
+    const percent = this.length / this.window.ASSETS.length
 
     this.elements.numberText.innerHTML = `${Math.round(percent * 100)}%`
 
