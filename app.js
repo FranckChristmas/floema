@@ -104,9 +104,9 @@ const handleRequest = async (api) => {
 
   const assets = [];
 
-    // home.data.gallery.forEach((item) => {
-    //   assets.push(item.image.url);
-    // });
+    home.data.gallery.forEach((item) => {
+      assets.push(item.image.url);
+    });
 
   about.data.gallery.forEach((item) => {
     assets.push(item.image.url);
@@ -120,11 +120,11 @@ const handleRequest = async (api) => {
     }
   });
 
-  //   collections.forEach((collection) => {
-  //     collection.data.list.forEach((item) => {
-  //       assets.push(item.product.data.image.url);
-  //     });
-  //   });
+    collections.forEach((collection) => {
+      collection.data.products.forEach((item) => {
+        assets.push(item.products_product.data.image.url);
+      });
+    });
 
 
   return {
@@ -174,7 +174,6 @@ app.get('/detail/:uid', async (req, res) => {
 
   res.render('pages/detail', {
     ...defaults,
-    home,
     product,
   });
 });
