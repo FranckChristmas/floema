@@ -2,6 +2,7 @@ import Media from './Media'
 import map from 'lodash/map'
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
+import Prefix from 'prefix'
 
 export default class {
   constructor({ gl, scene, sizes }) {
@@ -9,9 +10,13 @@ export default class {
     this.sizes = sizes
     this.scene = scene
 
+    this.transformPrefix = Prefix('transform')
+
     this.group = new Transform();
 
     this.galleryElement = document.querySelector('.collections__gallery__wrapper');
+
+    this.titlesElement = document.querySelector('.collections__titles');
 
     this.collectionsElements = document.querySelectorAll('.collections__article');
     this.collectionsElementsActive = 'collections__article--active';
@@ -97,13 +102,8 @@ export default class {
    */
   onChange(index) {
     this.index = index
-    
-    console.log("this.index:", this.index);
-    console.log("this.mediasElements[this.index]:", this.mediasElements[this.index]);
-  
-    const selectedCollection = parseInt(this.mediasElements[this.index].getAttribute('data-index'))
 
-    console.log("test du selectedCollection", selectedCollection)
+    const selectedCollection = parseInt(this.mediasElements[this.index].getAttribute('data-index'))
 
     map(this.collectionsElements, (element, elementIndex) => {
       if (elementIndex === selectedCollection) {
@@ -112,6 +112,9 @@ export default class {
         element.classList.remove(this.collectionsElementsActive)
       }
     })
+
+    console.log(this.titlesElement.style[this.transformPrefix] = `translateY(-50%, -${25 * selectedCollection}%)`);
+    this.titlesElement.style[this.transformPrefix] = `translate(-50%, -${25 * selectedCollection}%)`
 
   }
 
