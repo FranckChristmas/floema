@@ -80,7 +80,7 @@ export default class {
   onTouchMove ({ x, y }) {
     const distance = x.start - x.end
 
-    this.x.target = this.scroll.last - distance
+    this.scroll.target = this.scroll.last - distance
   }
 
   onTouchUp ({ x, y }) {
@@ -99,15 +99,15 @@ export default class {
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp) 
 
     if(this.scroll.last < this.scroll.current) {
-      this.x.direction = 'right'
+      this.scroll.direction = 'right'
     } else if (this.scroll.last > this.scroll.current) {
-      this.x.direction = 'left'
+      this.scroll.direction = 'left'
     }
 
     this.scroll.last = this.scroll.current
 
     map(this.medias, (media, index) => {
-      media.update(this.scroll)
+      media.update(this.scroll.current)
     })
   }
 

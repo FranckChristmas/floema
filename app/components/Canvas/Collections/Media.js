@@ -130,8 +130,8 @@ export default class {
   }
   update(scroll)  {
     if (!this.bounds) return
-    this.updateX(scroll.x)
-    this.updateY(scroll.y)
+    this.updateX(scroll)
+    this.updateY()
   }
 
 }
