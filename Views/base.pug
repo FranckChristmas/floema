@@ -37,6 +37,9 @@ body
   .content#content(data-template=template)
     block content
 
+  script.  
+    window.ASSETS = !{JSON.stringify(assets).replace(/<\//g, "<\\/")}
+
   script(src="/main.js")  
   //- nb the "/" is very important to compile the css and js files
   //- the script tag is at the end of the body to make the page load faster
