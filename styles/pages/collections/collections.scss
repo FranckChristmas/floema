@@ -20,6 +20,8 @@
 .collections__titles {
   @extend %vertical-titles; 
 
+  transition: transform 1s ease;
+
   @include media('<phone') {
     display: none;
   }
