@@ -14,12 +14,6 @@ export default class {
     this.galleryElement = document.querySelector('.collections__gallery__wrapper');
     this.mediaElements = document.querySelectorAll('.collections__gallery__media');
 
-    this.x = {
-      current: 0,
-      target: 0,
-      lerp: 0.1,
-    }
-
     this.scroll = {
       current: 0,
       target: 0,
@@ -69,11 +63,11 @@ export default class {
    */
   onResize( event ) {
     
-    this.galleryBounds = this.galleryElement.getBoundingClientRect(); // get the size of the gallery element
+    this.bounds = this.galleryElement.getBoundingClientRect(); // get the size of the gallery element
     
-    this.width = this.galleryBounds.width / window.innerWidth * this.sizes.width
+    this.width = this.bounds.width / window.innerWidth * this.sizes.width
   
-    this.scroll.x = this.x.target = 0
+    this.scroll.x = this.scroll.target = 0
 
     this.sizes = event.sizes;
     map(this.medias, media => media.onResize( event, this.scroll ))
@@ -100,7 +94,7 @@ export default class {
    * Update
    */
   update() {
-    if (!this.galleryBounds) return
+    if (!this.bounds) return
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp) 
 

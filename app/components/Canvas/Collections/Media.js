@@ -107,6 +107,8 @@ export default class {
 
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
+    console.log("Scale Width:", this.mesh.scale.x);
+    console.log("Scale Height:", this.mesh.scale.y);
 
    // console.log("test du scale", this.width, this.height)
   }
