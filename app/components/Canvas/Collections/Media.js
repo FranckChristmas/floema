@@ -5,7 +5,7 @@ import fragment from 'shaders/plane-fragment.glsl'
 
 // The Media class is responsible for creating the 3D objects that will be displayed on the canvas
 // The Media class is imported in the Home class
-export default class Media {
+export default class {
   constructor({ element, geometry, gl, scene, index, sizes }) {
     this.element = element 
     this.gl = gl
@@ -25,13 +25,13 @@ export default class Media {
   }
 
   createTexture() {
+    const image = this.element.querySelector('.collections__gallery__media__image')
+    
     this.texture = new Texture(this.gl)
-     
-    const image = this.element.querySelector('collections__gallery__media__image')
 
     this.image = new window.Image()
     this.image.crossOrigin = 'anonymous'
-    this.image.src = this.image.getAttribute('data-src')
+    this.image.src = image.getAttribute('data-src')
     this.image.onload = _ => (this.texture.image = this.image)
 
   }
@@ -53,7 +53,6 @@ export default class Media {
     })
 
     this.mesh.setParent(this.scene) // set the parent of the mesh to the scene
-    this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02); // set the rotation of the mesh on the z-axis to a random value between -0.02 and 0.02, in order to give a more realistic look to the 3D object
 
   }
   createBounds ({ sizes }) {

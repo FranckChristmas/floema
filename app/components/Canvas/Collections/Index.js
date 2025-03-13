@@ -3,7 +3,7 @@ import map from 'lodash/map'
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
 
-export default class Collections {
+export default class {
   constructor({ gl, scene, sizes }) {
     this.gl = gl
     this.sizes = sizes
@@ -113,20 +113,6 @@ export default class Collections {
     this.scroll.last = this.scroll.current
 
     map(this.medias, (media, index) => {
-      const scaleX = media.mesh.scale.x / 2
-      
-      if (this.scroll.direction === 'left') {
-        const x = media.mesh.position.x + scaleX
-        if (x < -this.sizes.width / 2) {
-          media.extra.x += this.gallerySizes.width
-        }
-      } else if (this.scroll.direction === 'right') {
-        const x = media.mesh.position.x - scaleX
-        if (x > this.sizes.width / 2) {
-          media.extra.x -= this.gallerySizes.width
-        }
-      }
-
       media.update(this.scroll)
     })
   }
