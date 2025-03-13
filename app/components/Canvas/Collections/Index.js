@@ -14,7 +14,8 @@ export default class {
 
     this.group = new Transform();
 
-    this.galleryElement = document.querySelector('.collections__gallery__wrapper');
+    this.galleryElement = document.querySelector('.collections__gallery');
+    this.galleryElementWrapper = document.querySelector('.collections__gallery__wrapper');
 
     this.titlesElement = document.querySelector('.collections__titles');
 
@@ -22,6 +23,11 @@ export default class {
     this.collectionsElementsActive = 'collections__article--active';
 
     this.mediasElements = document.querySelectorAll('.collections__gallery__media');
+
+    document.querySelectorAll('.collections__gallery__link').forEach(link => {
+      console.log('Lien détecté :', link.href);
+      console.log('z-index du canvas :', this.gl.canvas.style.zIndex);
+    });
 
     this.scroll = {
       current: 0,
@@ -72,7 +78,7 @@ export default class {
    */
   onResize( event ) {
     
-    this.bounds = this.galleryElement.getBoundingClientRect(); // get the size of the gallery element
+    this.bounds = this.galleryElementWrapper.getBoundingClientRect(); // get the size of the gallery element
       
     this.scroll.last = this.scroll.target = 0
     
@@ -113,8 +119,7 @@ export default class {
       }
     })
 
-    console.log(this.titlesElement.style[this.transformPrefix] = `translateY(-50%, -${25 * selectedCollection}%)`);
-    this.titlesElement.style[this.transformPrefix] = `translate(-50%, -${25 * selectedCollection}%)`
+    this.titlesElement.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg)`
 
   }
 
@@ -127,6 +132,8 @@ export default class {
     this.scroll.target = GSAP.utils.clamp(-this.scroll.limit, 0, this.scroll.target)
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp) 
+
+    this.galleryElement.style[this.transformPrefix] = `translateX(${this.scroll.current}px)`
 
     if(this.scroll.last < this.scroll.current) {
       this.scroll.direction = 'right'
