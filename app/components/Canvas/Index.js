@@ -3,6 +3,7 @@ import { Camera, Renderer, Transform } from 'ogl'
 import Home from 'components/Canvas/Home/Index'
 import About from 'components/Canvas/About/Index'
 import Collections from 'components/Canvas/Collections/Index'
+import Transition from 'components/Canvas/Transition'
 // Camera, Renderer and Transform are the three elements needed to create a 3D scene -
 // Box, Program and Mesh are the three elements needed to create a 3D object
 // all the elements are imported from the ogl library
@@ -104,7 +105,7 @@ onPreloaded() {
   this.onChangeEnd(this.template)
 }
 
-  onChangeStart() {
+  onChangeStart(template, url) {
     if (this.about) {
       this.about.hide()
     } 
@@ -115,6 +116,19 @@ onPreloaded() {
 
     if (this.home) {
       this.home.hide()
+    }
+
+    this.isFromCollectionsToDetail = this.template === 'collections' && url.indexOf('detail') > -1
+    this.isFromDetailToCollections = this.template === 'detail' && url.indexOf('collections') > -1
+
+    if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
+      this.transition = new Transition({
+        collections : this.collections,
+        gl : this.gl,
+        scene: this.scene, 
+        sizes : this.sizes,
+        url,
+      })
     }
 
   }
@@ -138,6 +152,7 @@ onPreloaded() {
     } else  {
       this.destroyHome()
     }
+
   }
 
 

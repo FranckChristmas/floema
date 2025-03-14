@@ -141,10 +141,6 @@ export default class {
 
     this.scroll.last = this.scroll.current
 
-    map(this.medias, (media, index) => {
-      media.update(this.scroll.current)
-    })
-
     const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length) // get the index of the current scroll position - MAthi.floor to get the integer value of each item
 
     if (this.index !== index) {
@@ -152,6 +148,13 @@ export default class {
       this.onChange(index)
 
     } // prevent to have weird index values
+
+    map(this.medias, (media, index) => {
+      media.update(this.scroll.current, this.index)
+
+      media.update()
+
+    })
   }
 
   /**

@@ -73,7 +73,7 @@ class App {
   }
 
   async onChange(url) {
-    this.canvas.onChangeStart(this.template)
+    this.canvas.onChangeStart(this.template, url)
     await this.page.hide() //hide the current page
 
     const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
