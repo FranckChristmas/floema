@@ -8,24 +8,21 @@ export default class Highlight extends Animation {
       elements
     })
   }
-
-  animateIn() {
-
-    this.timelineIn = GSAP.timeline
-    ({
-      delay: 0.5
-    });
-
-    this.timelineIn.fromTo(this.element, {
+animateIn() {
+  GSAP.fromTo(
+    this.element,{
       autoAlpha: 0,
-    }, {
-       autoAlpha: 1,
-       duration: 1,
-      });
-  }
-  animateOut() {
-    GSAP.set(this.element, {
-      autoAlpha: 0
-    })
-  }
+      delay: 1,
+    },
+    {
+      autoAlpha: 1,
+      duration: 1.5,    
+    });
+}
+
+animateOut() {
+  GSAP.set(this.element, {
+    autoAlpha: 0,
+  });
+}
 }

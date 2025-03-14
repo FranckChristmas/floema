@@ -1,7 +1,6 @@
 import { Texture } from 'ogl'
 import GSAP from 'gsap';
 import Component from "../classes/Component";
-import each from 'lodash/each';
 import { split } from '../utils/text';
 
 export default class Preloader extends Component {
@@ -72,8 +71,10 @@ export default class Preloader extends Component {
   }
   onLoaded() {
   return new Promise(resolve => {
+      this.emit('completed')
+  
     this.animateOut = GSAP.timeline({
-      delay: 1.5
+      delay: 1
     })
   
     this.animateOut.to(this.elements.titleSpans, {
@@ -93,16 +94,15 @@ export default class Preloader extends Component {
     }, '-=0.3')
 
     this.animateOut.to(this.element, { // remove the preloader
-      duration: 0.5,
-      ease: 'expo.out',
-      scaleY: 0,
-      transformOrigin: '0 0'
+      autoAlpha: 0,
+      duration: 1,
     })
-
-    this.animateOut.call(() => { // call the resolve function when completing the animation
-      this.emit('completed')
+    this.animateOut.call(_ => {
+      this.destroy()
+      resolve()
     })
   })
+
 }
   destroy() {  
     this.element.parentNode.removeChild(this.element)

@@ -20,6 +20,8 @@ class App {
     this.addEventListeners()
     this.addLinkListeners() // routing the pages
 
+    this.onResize()
+
     this.update()
   }
 
@@ -62,12 +64,10 @@ class App {
    * Events
    */
   onPreloaded() {
-    this.canvas.onPreloaded()
-
-    this.preloader.destroy()
-    
     this.onResize()
-    
+
+    this.canvas.onPreloaded()
+        
     this.page.show()
 
   }
