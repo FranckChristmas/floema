@@ -45,8 +45,11 @@ export default class Home {
     this.show()
   }
 
-  createGeometry() {
-    this.geometry = new Plane(this.gl)
+  createGeometry() { // apply the Plane class to the geometry property
+    this.geometry = new Plane(this.gl, {
+      heightSegments: 20,
+      widthSegments: 20,
+    } )
   }
 
   createGallery() {
