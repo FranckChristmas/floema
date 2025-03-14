@@ -6,6 +6,7 @@ import Prefix from 'prefix'
 
 export default class {
   constructor({ gl, scene, sizes }) {
+    this.id = 'collections' // id of the current page
     this.gl = gl
     this.sizes = sizes
     this.scene = scene

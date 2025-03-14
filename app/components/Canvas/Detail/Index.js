@@ -2,21 +2,27 @@ import {Mesh, Program, Plane} from 'ogl'
 import GSAP from 'gsap'
 import vertex from 'shaders/plane-vertex.glsl'
 import fragment from 'shaders/plane-fragment.glsl'
+import _ from 'lodash'
 
 // The Media class is responsible for creating the 3D objects that will be displayed on the canvas
 // The Media class is imported in the Home class
 export default class {
-  constructor({ gl, scene, sizes }) {
+  constructor({ gl, scene, sizes , transition}) {
+    this.id = 'detail' // id of the current page
+
     this.element = document.querySelector('.detail__media__image') 
     this.gl = gl
     this.scene = scene
     this.sizes = sizes
+    this.transition = transition
 
     this.geometry = new Plane(this.gl)
 
     this.createTexture()
     this.createProgram()
     this.createMesh()
+
+    this.show()
   }
 
   createTexture() {
@@ -58,6 +64,11 @@ export default class {
     * Animations
     */
    show() { 
+    if (this.transition) {
+      this.transition.animate(_ => {
+        this.program.uniforms.uAlpha.value = 1
+      })
+    }
    }
  
    hide() {
