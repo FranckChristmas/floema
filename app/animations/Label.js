@@ -10,16 +10,21 @@ export default class Label extends Animation {
   }
 
   animateIn() {
-    this.timelineIn = GSAP.timeline({delay: 0.5});
-    this.timelineIn.to(this.element, { 
-      autoAlpha: 1,
-    duration : 1,
-    });
+    GSAP.fromTo(
+      this.element,{
+        autoAlpha: 0,
+        delay: 1,
+      },
+      {
+        autoAlpha: 1,
+        duration: 1,
+      }
+    );
   }
-
+  
   animateOut() {
     GSAP.set(this.element, {
-      autoAlpha: 0
-    })
+      autoAlpha: 0,
+    });
   }
-}
+  }
