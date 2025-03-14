@@ -16,7 +16,8 @@ void main() {
 
   vec4 newPosition = modelViewMatrix * vec4(position, 1.0); // modeviewMatrix multiply by the position of the vertex
 
-  newPosition.z -= (sin(newPosition.y / uViewportSizes.y * PI / 2.0) + sin(newPosition.x / uViewportSizes.x * PI / 2.0)) * abs(uSpeed);
+  // newPosition.z -= (sin(newPosition.y / uViewportSizes.y *  PI / 2.0)+ sin(newPosition.x / uViewportSizes.x * PI / 2.0)) * abs(uSpeed);
+    newPosition.z -= ((cos(newPosition.y / uViewportSizes.y * 0.1)) * (cos(newPosition.x / uViewportSizes.x * 0.1))) * abs(uSpeed);
 
   // set the z position of the vertex to the sin of the x position of the vertex
 
