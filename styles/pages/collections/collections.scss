@@ -7,7 +7,7 @@
 
 .collections {
   @extend %page;
-  z-index: 0;
+  z-index:  0;
 //   background: $color-quicksand;
 //   color: $color-quarter-spanish-white;
 }
@@ -37,10 +37,13 @@
 
 .collections__gallery {
   @extend %cover;
-  z-index: 0;
+  z-index: 1;
+
 }
 
 .collections__gallery__wrapper {
+
+
   align-items: center;
   display: flex ;
   position:absolute;
@@ -52,8 +55,9 @@
 
 .collections__gallery__link {
 display: block;
+background-color: rgba(255, 0, 0, 0.3); /* Rouge transparent */
+
 margin: 0 5.3rem;
-z-index: 10;
 
   &:first-child {
     margin-left: 0;
@@ -77,8 +81,7 @@ z-index: 10;
 
 .collections__content {
   @extend %cover;
-  z-index: 10;
-  pointer-events: none; // added otherwise we cant fetch the link of the detail collections pages 
+  pointer-events: auto; // added otherwise we cant fetch the link of the detail collections pages 
   @include media('<phone') {
     display: none;
   }
@@ -99,7 +102,6 @@ transition: opacity 0.4s ease;
 
 .collections__article__title {
   @extend %title-60;
-  z-index: 5; /* Adjust the value as needed */
 
 }
 
