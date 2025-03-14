@@ -55,7 +55,7 @@ canvas {
   pointer-events: none;
   position:relative;
   z-index: -1;
-  // z('canvas');
+  // z('canvas'); not  working for the home page with the title which is behind the canvas
 }
 
 button {

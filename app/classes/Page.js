@@ -162,7 +162,6 @@ createPreloader() {
   onResize() {
     if (this.elements.wrapper) { this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
     }
-    each(this.animations, (animation) => animation.onResize());
   }
 
   onWheel ({pixelY})  { // allows to scroll the page smoothly
