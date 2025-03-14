@@ -35,7 +35,7 @@ export default class Media {
       vertex,
       uniforms: { //used in the fragment shader (plane-fragment)
         tMap: { value: this.texture },
-        uAlpha: { value: this.texture }
+        uAlpha: { value: 0 }
       }
     })
   }
@@ -66,7 +66,7 @@ export default class Media {
      GSAP.fromTo(this.program.uniforms.uAlpha, {
        value: 0
      }, {
-       value: 1,
+       value: 0.4, // fade out all the images on the home page
        // duration: 1,
        // delay: 1
      })  
