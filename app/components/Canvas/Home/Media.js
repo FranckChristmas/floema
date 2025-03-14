@@ -35,6 +35,7 @@ export default class Media {
       vertex,
       uniforms: { //used in the fragment shader (plane-fragment)
         uAlpha: { value: 0 },
+        uSpeed: { value: 0 },
         uViewportSizes: { value: [this.sizes.width, this.sizes.height] },
         tMap: { value: this.texture },
       }
@@ -122,10 +123,12 @@ export default class Media {
     // console.log("test du mesh position y", this.mesh.position.y)
     // console.log("test du y", this.y)
   }
-  update(scroll)  {
+  update(scroll, speed)  {
     if (!this.bounds) return
     this.updateX(scroll.x)
     this.updateY(scroll.y)
+
+    this.program.uniforms.uSpeed.value = 1 - speed
   }
 
 }
