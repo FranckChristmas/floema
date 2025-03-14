@@ -4,6 +4,7 @@ import Home from 'components/Canvas/Home/Index'
 import About from 'components/Canvas/About/Index'
 import Collections from 'components/Canvas/Collections/Index'
 import Transition from 'components/Canvas/Transition'
+import Detail from 'components/Canvas/Detail/Index'
 // Camera, Renderer and Transform are the three elements needed to create a 3D scene -
 // Box, Program and Mesh are the three elements needed to create a 3D object
 // all the elements are imported from the ogl library
@@ -97,7 +98,21 @@ export default class Canvas {
       this.about.destroy()
       this.about = null
     }
-
+  /**
+   * Detail
+   */
+  createDetail() {
+    this.detail = new Detail({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes
+    })
+  }
+  destroyDetail() {
+    if (!this.detail) return
+    this.detail.destroy()
+    this.detail = null
+  }
 /**
  * Events
  */
@@ -142,10 +157,20 @@ onPreloaded() {
 
     if (template === 'collections') {
       this.createCollections()
-
-    } else if (this.collections) {
+      if (this.transition) {
+        this.transition.animateCollections(this.collections)
+      }
+      } else if (this.collections) {
       this.destroyCollections()
     }
+    if (template === 'detail') {
+      this.createDetail()
+      if (this.transition) {
+        this.transition.animateDetail(this.detail)
+      } 
+      } else if (this.detail) {
+        this.destroyDetail()
+      }
 
     if (template === 'home') {
       this.createHome()
@@ -179,6 +204,9 @@ onPreloaded() {
   if (this.about) {
     this.about.onResize(values)
   }
+  if (this.detail) {
+    this.detail.onResize(values)
+  }
 
   if (this.collections) {
     this.collections.onResize(values)
@@ -192,6 +220,7 @@ onPreloaded() {
 
   onTouchDown(event) {
     this.isDown = true
+
     this.x.start = event.touches ? event.touches[0].clientX : event.clientX
     this.y.start = event.touches ? event.touches[0].clientY : event.clientY
 
@@ -205,6 +234,9 @@ onPreloaded() {
     }
     if(this.collections) {
       this.collections.onTouchDown(values)
+    }
+    if(this.detail) {
+      this.detail.onTouchDown(values)
     }
    
     if(this.home) {
@@ -231,6 +263,10 @@ onPreloaded() {
 
     if(this.collections) {
       this.collections.onTouchMove(values)
+    }
+
+    if(this.detail) {
+      this.detail.onTouchMove(values)
     }
    
     if(this.home) {
@@ -262,6 +298,10 @@ onPreloaded() {
       this.collections.onTouchUp(values)
     }
   
+    if(this.detail) {
+      this.detail.onTouchUp(values)
+    }
+  
     if(this.home) {
       this.home.onTouchUp(values)
     }
@@ -280,11 +320,14 @@ onPreloaded() {
    * Loops
    */
   update(scroll) {
+    if (this.about) {
+      this.about.update(scroll)
+    }
     if (this.collections) {
       this.collections.update()
     }
-    if (this.about) {
-      this.about.update(scroll)
+    if (this.detail) {
+      this.detail.update()
     }
     if(this.home) {
       this.home.update()
