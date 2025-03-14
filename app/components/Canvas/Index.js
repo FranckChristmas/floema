@@ -144,15 +144,14 @@ onPreloaded() {
         sizes : this.sizes,
         url,
       })
+
+      this.transition.setElement(this.collections || this.detail)
+
     }
 
   }
 
   onChangeEnd(template) {
-    if (this.transition) {
-      this.transition.setElement(this.collections || this.detail)
-    }
-
     if (template === 'about') {
       this.createAbout()
     } else if (this.about) {
@@ -161,10 +160,10 @@ onPreloaded() {
 
     if (template === 'collections') {
       this.createCollections()
-      
       } else if (this.collections) {
       this.destroyCollections()
     }
+
     if (template === 'detail') {
       this.createDetail()
       } else if (this.detail) {
@@ -176,7 +175,7 @@ onPreloaded() {
     } else  {
       this.destroyHome()
     }
-
+    this.template = template
   }
 
 

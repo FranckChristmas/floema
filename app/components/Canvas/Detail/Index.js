@@ -21,6 +21,9 @@ export default class {
     this.createTexture()
     this.createProgram()
     this.createMesh()
+    this.createBounds({ 
+      sizes: this.sizes
+    })
 
     this.show()
   }
@@ -65,7 +68,7 @@ export default class {
     */
    show() { 
     if (this.transition) {
-      this.transition.animate(_ => {
+      this.transition.animate(this.mesh, _ => {
         this.program.uniforms.uAlpha.value = 1
       })
     }
