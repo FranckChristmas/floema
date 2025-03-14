@@ -3,6 +3,7 @@ import GSAP from 'gsap'
 import vertex from 'shaders/collections-vertex.glsl'
 import fragment from 'shaders/collections-fragment.glsl'
 
+
 // The Media class is responsible for creating the 3D objects that will be displayed on the canvas
 // The Media class is imported in the Home class
 export default class {

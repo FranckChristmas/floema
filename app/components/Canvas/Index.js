@@ -1,5 +1,5 @@
+import GSAP from 'gsap'
 import { Camera, Renderer, Transform } from 'ogl'  
-
 import Home from 'components/Canvas/Home/Index'
 import About from 'components/Canvas/About/Index'
 import Collections from 'components/Canvas/Collections/Index'
@@ -105,7 +105,8 @@ export default class Canvas {
     this.detail = new Detail({
       gl: this.gl,
       scene: this.scene,
-      sizes: this.sizes
+      sizes: this.sizes,
+      transition : this.transition
     })
   }
   destroyDetail() {
@@ -138,7 +139,6 @@ onPreloaded() {
 
     if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
       this.transition = new Transition({
-        collections : this.collections,
         gl : this.gl,
         scene: this.scene, 
         sizes : this.sizes,
@@ -149,6 +149,10 @@ onPreloaded() {
   }
 
   onChangeEnd(template) {
+    if (this.transition) {
+      this.transition.setElement(this.collections || this.detail)
+    }
+
     if (template === 'about') {
       this.createAbout()
     } else if (this.about) {
@@ -157,17 +161,12 @@ onPreloaded() {
 
     if (template === 'collections') {
       this.createCollections()
-      if (this.transition) {
-        this.transition.animateCollections(this.collections)
-      }
+      
       } else if (this.collections) {
       this.destroyCollections()
     }
     if (template === 'detail') {
       this.createDetail()
-      if (this.transition) {
-        this.transition.animateDetail(this.detail)
-      } 
       } else if (this.detail) {
         this.destroyDetail()
       }
