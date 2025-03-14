@@ -79,8 +79,9 @@ class App {
     const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
     if (request.status === 200) {
       const html = await request.text()
-
       const div= document.createElement('div')
+
+      window.history.pushState({}, '', url) // to update the url of the page
 
       div.innerHTML = html
 
