@@ -17,26 +17,22 @@ export default class {
     this.createTexture()
     this.createProgram()
     this.createMesh()
-
-    this.extra = {
-      x: 0,
-      y: 0
-    }
   }
 
   createTexture() {
-    console.log(this.collections)
-    // const image = this.element.querySelector('.collections__gallery__media__image')
-    
-    // this.texture = window.TEXTURES[image.getAttribute('data-src')]
+    const { index, medias } = this.collections
+
+    this.media = medias[index]
   }
+
+
   createProgram() {
     this.program = new Program(this.gl, {
       fragment,
       vertex,
       uniforms: { //used in the fragment shader (plane-fragment)
-        tMap: { value: this.texture },
-        uAlpha: { value: 1 }
+        uAlpha: { value: 1 },
+        tMap: { value: this.media.texture },
       }
     })
   }
@@ -47,6 +43,12 @@ export default class {
       program: this.program
     })
 
+    this.mesh.scale.x = this.media.mesh.scale.x
+    this.mesh.scale.y = this.media.mesh.scale.y
+    this.mesh.scale.z = this.media.mesh.scale.z
+
+    this.mesh.position.z = this.media.mesh.position.z + 0.01
+
     this.mesh.setParent(this.scene) // set the parent of the mesh to the scene
 
   }
@@ -54,7 +56,8 @@ export default class {
    /**
     * Animations
     */
-    transition() {
-
+    animateDetail(element) {
+        console.log(element)
     }
+        // GSAP.to(this.program.uniforms.uAlpha, {
 }

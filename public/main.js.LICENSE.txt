@@ -392,6 +392,8 @@
 
 /*! components/Canvas/Collections/Index */
 
+/*! components/Canvas/Detail/Index */
+
 /*! components/Canvas/Home/Index */
 
 /*! components/Canvas/Transition */
@@ -1069,6 +1071,10 @@
 /*!**********************************************!*\
   !*** ./node_modules/ogl/src/extras/Plane.js ***!
   \**********************************************/
+
+/*!***********************************************!*\
+  !*** ./app/components/Canvas/Detail/Index.js ***!
+  \***********************************************/
 
 /*!***********************************************!*\
   !*** ./app/shaders/collections-fragment.glsl ***!
