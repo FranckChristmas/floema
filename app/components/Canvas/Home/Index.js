@@ -37,6 +37,11 @@ export default class Home {
       y: 0,
     }
 
+    this.speed = {
+      target: 0,
+      current: 0,
+      lerp: 0.1,
+    }
     this.createGeometry();
     this.createGallery();
 
@@ -45,8 +50,11 @@ export default class Home {
     this.show()
   }
 
-  createGeometry() {
-    this.geometry = new Plane(this.gl)
+  createGeometry() { // apply the Plane class to the geometry property
+    this.geometry = new Plane(this.gl, {
+      heightSegments: 20,
+      widthSegments: 20,
+    } )
   }
 
   createGallery() {
@@ -79,6 +87,7 @@ export default class Home {
   onResize( event ) {
     
     this.galleryBounds = this.galleryElement.getBoundingClientRect(); // get the size of the gallery element
+
     
     this.gallerySizes = {
       height: (this.galleryBounds.height / window.innerHeight) * this.sizes.height,
@@ -90,7 +99,8 @@ export default class Home {
     map(this.medias, media => media.onResize( event, this.scroll ))
     }
   
-  onTouchDown ({ x, y }) { 
+  onTouchDown ({ x, y }) {  
+    this.speed.target = 0.5
     this.scrollCurrent.x = this.scroll.x
     this.scrollCurrent.y = this.scroll.y
   }
@@ -104,6 +114,8 @@ export default class Home {
   }
 
   onTouchUp ({ x, y }) {
+    this.speed.target = 0
+
   }
 
   onWheel({ pixelX,pixelY }) {
@@ -116,6 +128,10 @@ export default class Home {
    */
   update() {
     if (!this.galleryBounds) return
+
+   
+
+    this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp)
 
     this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp) 
     this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp) 
@@ -136,43 +152,47 @@ export default class Home {
     this.scroll.x = this.x.current
     this.scroll.y = this.y.current
 
+
     // console.log(this.gallerySizes.height)
 
     map(this.medias, (media, index) => {
       const scaleX = media.mesh.scale.x / 2
+      const offsetX = this.sizes.width * 0.65
+
       
       if (this.x.direction === 'left') {
         const x = media.mesh.position.x + scaleX
-        if (x < -this.sizes.width / 2) {
+        if (x < -offsetX) {
           media.extra.x += this.gallerySizes.width
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
 
         }
       } else if (this.x.direction === 'right') {
         const x = media.mesh.position.x - scaleX
-        if (x > this.sizes.width / 2) {
+        if (x > offsetX) {
           media.extra.x -= this.gallerySizes.width
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
         }
       }
 
       const scaleY = media.mesh.scale.y / 2
+      const offsetY = this.sizes.height * 0.65
       
       if (this.y.direction === 'top') {
         const y = media.mesh.position.y + scaleY
-        if (y < -this.sizes.height / 2) {
+        if (y < -offsetY) {
           media.extra.y += this.gallerySizes.height
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
 
         }
       } else if (this.y.direction === 'bottom') {
         const y = media.mesh.position.y - scaleY
-        if (y > this.sizes.height / 2) {
+        if (y > offsetY) {
           media.extra.y -= this.gallerySizes.height
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
         }
       }
-      media.update(this.scroll)
+      media.update(this.scroll, this.speed.current)
     })
   }
 
