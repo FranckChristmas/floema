@@ -1,145 +1,145 @@
-import {Mesh, Program} from 'ogl'
-import GSAP from 'gsap'
-import vertex from 'shaders/collections-vertex.glsl'
-import fragment from 'shaders/collections-fragment.glsl'
+import GSAP from 'gsap';
+import { Mesh, Program } from 'ogl';
 
+import fragment from 'shaders/collections-fragment.glsl';
+import vertex from 'shaders/collections-vertex.glsl';
 
-// The Media class is responsible for creating the 3D objects that will be displayed on the canvas
-// The Media class is imported in the Home class
 export default class {
-  constructor({ element, geometry, gl, scene, index, sizes }) {
-    this.element = element 
-    this.gl = gl
-    this.geometry = geometry
-    this.scene = scene
-    this.index = index
-    this.sizes = sizes
+  constructor({ element, geometry, gl, index, scene, sizes }) {
+    this.element = element;
+    this.geometry = geometry;
+    this.gl = gl;
+    this.index = index;
+    this.scene = scene;
+    this.sizes = sizes;
+
     this.extra = {
       x: 0,
-      y: 0
-    }
+      y: 0,
+    };
 
     this.opacity = {
       current: 0,
       target: 0,
       lerp: 0.1,
       multiplier: 0,
-    }
+    };
 
-    this.createTexture()
-    this.createProgram()
-    this.createMesh()
-    this.createBounds({ 
-      sizes: this.sizes
-    })
-
-
+    this.createTexture();
+    this.createProgram();
+    this.createMesh();
+    this.createBounds({
+      sizes: this.sizes,
+    });
   }
 
   createTexture() {
-    const image = this.element.querySelector('.collections__gallery__media__image')
-    
-    this.texture = window.TEXTURES[image.getAttribute('data-src')]
+    const image = this.element.querySelector( '.collections__gallery__media__image' ); // prettier-ignore
+
+    this.texture = window.TEXTURES[image.getAttribute('data-src')];
   }
+
   createProgram() {
     this.program = new Program(this.gl, {
       fragment,
       vertex,
-      uniforms: { //used in the fragment shader (plane-fragment)
+      uniforms: {
+        uAlpha: { value: 0 },
         tMap: { value: this.texture },
-        uAlpha: { value: this.texture }
-      }
-    })
+      },
+    });
   }
 
   createMesh() {
     this.mesh = new Mesh(this.gl, {
       geometry: this.geometry,
-      program: this.program
-    })
+      program: this.program,
+    });
 
-    this.mesh.setParent(this.scene) // set the parent of the mesh to the scene
-
+    this.mesh.setParent(this.scene);
   }
-  createBounds ({ sizes }) {
-    this.sizes = sizes // this allow to resize the object depending on the size of the window avoiding stretching or shrinking the object
-    this.bounds = this.element.getBoundingClientRect() // get the size of the element
 
-    this.updateScale (sizes)
-    this.updateX ()
-    this.updateY ()
-    }
- 
-   /**
-    * Animations
-    */
-   show(duration) {
-     GSAP.fromTo(this.opacity, {
-      duration,
-       multiplier: 0
-     }, {
-       multiplier: 1,
+  createBounds({ sizes }) {
+    this.sizes = sizes;
 
-     })  
-   }
- 
-   hide() {
-     GSAP.to(this.program.uniforms.uAlpha, {
-       multiplier: 0, 
+    this.bounds = this.element.getBoundingClientRect();
 
-     })
-   }
+    this.updateScale();
+    this.updateX();
+  }
 
   /**
-  * 
-  * Events
-  */
+   * Animations.
+   */
+  show() {
+    GSAP.fromTo(
+      this.opacity,
+      {
+        multiplier: 0,
+      },
+      {
+        multiplier: 1,
+      }
+    );
+  }
+
+  hide() {
+    GSAP.to(this.opacity, {
+      multiplier: 0,
+    });
+  }
+
+  /**
+   * Events.
+   */
   onResize(sizes, scroll) {
     this.extra = {
       x: 0,
-      y: 0
-    }
-    this.createBounds(sizes)
-    this.updateX(scroll && scroll.x)
-    this.updateY(scroll && scroll.y)
+      y: 0,
+    };
+
+    this.createBounds(sizes);
+    this.updateX(scroll && scroll.x);
   }
-/**
- * Update loop
- */
+
+  /**
+   * Loop.
+   */
   updateScale() {
-    this.height = this.bounds.height / window.innerHeight
-    this.width = this.bounds.width / window.innerWidth
+    this.height = this.bounds.height / window.innerHeight;
+    this.width = this.bounds.width / window.innerWidth;
 
-    this.mesh.scale.x = this.sizes.width * this.width
-    this.mesh.scale.y = this.sizes.height * this.height
-
+    this.mesh.scale.x = this.sizes.width * this.width;
+    this.mesh.scale.y = this.sizes.height * this.height;
   }
-  
+
   updateX(x = 0) {
-    this.x = (this.bounds.left + x) / window.innerWidth
-    this.mesh.position.x = (-this.sizes.width / 2 )+ (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra.x
-  }
-  
-  updateY(y = 0) {
-    this.y = (this.bounds.top + y) / window.innerHeight
-    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) -  (this.y * this.sizes.height) + this.extra.y
-  }
+    this.x = (this.bounds.left + x) / window.innerWidth;
 
-  update(scroll, index)  {
-    this.updateX(scroll)
-  
-    const amplitude = 0.1
-    const frequency = 1
-
-    this.mesh.rotation.z = -0.02 * Math.PI * Math.sin(this.index * frequency) 
-    this.mesh.position.y = amplitude * Math.sin(this.index * frequency) 
-
-    this.opacity.target = index === this.index ? 1 : 0.4
-    this.opacity.current = GSAP.utils.interpolate(this.opacity.current, this.opacity.target, this.opacity.lerp)
-
-    this.program.uniforms.uAlpha.value = this.opacity.multiplier * this.opacity.current
-
-
+    this.mesh.position.x =
+      -this.sizes.width / 2 +
+      this.mesh.scale.x / 2 +
+      this.x * this.sizes.width +
+      this.extra.x;
   }
 
+  update(scroll, index) {
+    this.updateX(scroll);
+
+    const amplitude = 0.1;
+    const frequency = 1;
+
+    this.mesh.rotation.z = -0.02 * Math.PI * Math.sin(this.index / frequency);
+    this.mesh.position.y = amplitude * Math.sin(this.index / frequency);
+
+    this.opacity.target = index === this.index ? 1 : 0.4;
+    this.opacity.current = GSAP.utils.interpolate(
+      this.opacity.current,
+      this.opacity.target,
+      this.opacity.lerp
+    );
+
+    this.program.uniforms.uAlpha.value = this.opacity.multiplier;
+    this.program.uniforms.uAlpha.value = this.opacity.multiplier * this.opacity.current; // prettier-ignore
+  }
 }

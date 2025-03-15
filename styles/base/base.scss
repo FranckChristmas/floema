@@ -34,7 +34,7 @@ html {
 
 body {
   @extend %cover;
-  @extend%descriptions-16;
+  @extend%description-16;
 
   font-family: $font-suisse-bp ;
   left: 0;
@@ -92,5 +92,5 @@ img {
 
   // pour implémenter les breakpoints : 
   // @include media ('<phone') {
-    // @extend%descriptions-14;
+    // @extend%description-14;
   // }

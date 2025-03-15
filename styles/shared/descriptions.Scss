@@ -1,6 +1,6 @@
 @use '../utils/mixins' as *; // Ensure the correct path to mixins
 
-%descriptions-12 {
+%description-12 {
   font-size: 1.2rem;
 
   @include media('<phone') {
@@ -8,11 +8,11 @@
   }
 }
 
-%descriptions-14 {
+%description-14 {
   font-size: 1.4rem;
 }
 
-%descriptions-16 {
+%description-16 {
   font-size: 1.6rem;
   font-weight: 300;
   line-height: 1.5;

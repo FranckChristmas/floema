@@ -123,6 +123,7 @@ onPreloaded() {
 }
 
   onChangeStart(template, url) {
+    console.log("onChangeStart called with:", template, url);
     if (this.about) {
       this.about.hide()
     } 
