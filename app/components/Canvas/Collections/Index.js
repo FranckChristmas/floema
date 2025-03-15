@@ -68,13 +68,31 @@ export default class {
       /**
      * Animations
      */
-  show() {
+  async show() {
     if (this.transition) {
-      this.transition.animate(this.medias[0].mesh, _ => {
+      this.media.opacity.multiplier = 0
+
+      const { src } = this.transition.mesh.program.uniforms.tMap.value.image
+      const texture = window.TEXTURES[src]
+      const media = this.medias.find(media => media.texture === texture)
+
+      GSAP.delayedCall(1, _ => {
+        this.scroll.current = this.scroll.target = this.scroll.last = this.scroll.start = -media.mesh.position.x
       })
-    }
-    map(this.medias, media => media.show())
-    }  
+
+      this.transition.animate(this.medias[0].mesh, _ => {
+        this.media.opacity.multiplier = 1
+      })
+
+      map(this.medias, media => {
+        if (media !== this.media) {
+          media.show()
+        }
+        })
+        } else {
+          map(this.medias, media => media.show())
+        }
+      }
 
     hide() {
     map(this.medias, media => media.hide())
@@ -129,6 +147,7 @@ export default class {
 
     this.titlesElement.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg)`
 
+    this.media = this.medias[this.index]
   }
 
   /**
@@ -150,7 +169,7 @@ export default class {
 
     this.scroll.last = this.scroll.current
 
-    const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length) // get the index of the current scroll position - MAthi.floor to get the integer value of each item
+    const index = Math.floor(Math.abs((this.scroll.current - this.medias[0].bounds.width / 2)) / this.scroll.limit) * (this.medias.length -1) // get the index of the current scroll position - MAthi.floor to get the integer value of each item
 
     if (this.index !== index) {
       
