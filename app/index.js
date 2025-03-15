@@ -73,45 +73,45 @@ class App {
   }
 
   async onChange(url) {
-    this.canvas.onChangeStart(this.template, url)
-    await this.page.hide() //hide the current page
-
-    const request = await window.fetch(url) //- fetch the new page here - async/await allow asynchrones requests forv fetching data
-    if (request.status === 200) {
-      const html = await request.text()
-      const div= document.createElement('div')
-
-      window.history.pushState({}, '', url) // to update the url of the page
-
-      div.innerHTML = html
-
-      const divContent = div.querySelector('.content')
-
-      this.template = divContent.getAttribute('data-template') // with this line, we can get the template of the new page
-      
-      // console.log("canvas:", this.canvas);
-
-      
-      this.navigation.onChange(this.template)
-      
-      this.content.setAttribute('data-template', this.template) // with this line, we can set the template of the new page
-      
-      this.content.innerHTML = divContent.innerHTML  
-      
-      this.canvas.onChangeEnd(this.template)
-      
-      this.page = this.pages[this.template]
-      
-      this.page.create()
-      
-      this.onResize()
-      
-      this.page.show()
-      
-      this.addLinkListeners()
-    } else {
-    console.log('errrrrrrrror')
-  }
+    try {
+      this.canvas.onChangeStart(this.template, url);
+      await this.page.hide(); // Cache la page actuelle
+  
+      const request = await window.fetch(url);
+      if (!request.ok) {
+        throw new Error(`HTTP Error! Status: ${request.status}`);
+      }
+  
+      const html = await request.text();
+      const div = document.createElement('div');
+  
+      window.history.pushState({}, '', url);
+  
+      div.innerHTML = html;
+      const divContent = div.querySelector('.content');
+  
+      if (!divContent) {
+        throw new Error("No '.content' found in fetched page");
+      }
+  
+      this.template = divContent.getAttribute('data-template');
+      this.navigation.onChange(this.template);
+  
+      this.content.setAttribute('data-template', this.template);
+      this.content.innerHTML = divContent.innerHTML;
+  
+      this.canvas.onChangeEnd(this.template);
+  
+      this.page = this.pages[this.template];
+      this.page.create();
+  
+      this.onResize();
+      this.page.show();
+      this.addLinkListeners();
+  
+    } catch (error) {
+      console.error("Error in onChange:", error);
+    }
 }
 
 onResize() {

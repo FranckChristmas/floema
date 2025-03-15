@@ -4,21 +4,21 @@
 @use './shared/titles' as *;
 @use './shared/vertical-titles' as *;
 @use './shared/pages' as *;
-
 .collections {
   @extend %page;
-  z-index:  0;
-//   background: $color-quicksand;
-//   color: $color-quarter-spanish-white;
-}
 
+  z-index: 0;
+
+  // background: $color-quicksand;
+  // color: $color-white;
+}
 .collections__wrapper {
   @extend %cover;
   overflow: hidden;
 }
 
 .collections__titles {
-  @extend %vertical-titles; 
+  @extend %vertical-titles;
 
   transition: transform 1s ease;
 
@@ -28,86 +28,83 @@
 }
 
 .collections__titles__label {
-  @extend %vertical-titles-label; 
+  @extend %vertical-titles__label;
 }
 
 .collections__titles__title {
-  @extend %vertical-titles-title; 
+  @extend %vertical-titles__title;
 }
 
 .collections__gallery {
   @extend %cover;
   z-index: 1;
-
 }
 
 .collections__gallery__wrapper {
-
-
   align-items: center;
-  display: flex ;
-  position:absolute;
-  top: 50%;
+  display: flex;
   left: 50%;
+  position: absolute;
+  top: 50%;
   transform: translate(-44.7rem * 0.5, -50%);
-
 }
 
 .collections__gallery__link {
-display: block;
-// background-color: rgba(255, 0, 0, 0.3); /* Rouge transparent */
-
-margin: 0 5.3rem;
+  display: block;
+  margin: 0 5.3rem;
 
   &:first-child {
     margin-left: 0;
   }
+
   &:last-child {
     margin-right: 0;
   }
 }
 
 .collections__gallery__media {
-  height : 63.1rem;
+  height: 63.1rem;
   position: relative;
   width: 44.7rem;
   visibility: hidden;
+
 }
 
 .collections__gallery__media__image {
   @extend %cover;
-  object-fit: cover; // permet de garder les proportions de l'image sans déformer meme si la taille de l'image est différente de celle du conteneur
+
+  object-fit: cover;
 }
 
 .collections__content {
   @extend %cover;
-  pointer-events: auto; // added otherwise we cant fetch the link of the detail collections pages 
+
   @include media('<phone') {
     display: none;
   }
 }
 
 .collections__article {
-left: 8rem;
-position: absolute;
-bottom: 8rem;
-opacity : 0; // permet de rendre l'élément invisible et celui ci est associé à la partie .collection__content ".collection__article--active" dans le fichier collections.pug (c'est une partie en JS) 
-transition: opacity 0.4s ease;
+  position: absolute;
+  left: 8rem;
+  bottom: 8rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
   &--active {
     opacity: 1;
-    transition-delay: 0.1s;
-
+    transition-delay: 0.4s;
   }
 }
 
 .collections__article__title {
   @extend %title-60;
-
 }
 
 .collections__article__description {
-  @extend %descriptions-16;
-  max-width: 44rem;
+  @extend %description-16;
+
+  max-width: 46rem;
 }
 
 .collections__mobile {
@@ -119,10 +116,12 @@ transition: opacity 0.4s ease;
     display: flex;
   }
 }
+
 .collections__mobile__item {
-  width: 100vw;
   padding-left: 5rem;
+  width: 100vw;
 }
+
 .collections__mobile__item__label {
   font-size: 2rem;
   letter-spacing: 0.1rem;
@@ -132,13 +131,4 @@ transition: opacity 0.4s ease;
 .collections__mobile__item__title {
   font-family: $font-george-x;
   font-size: 12rem;
-}
-
-.collections__button {
-  left: 50%;  
-  top: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  height : 63.1rem;
-  width: 44.7rem;
 }

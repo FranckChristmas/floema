@@ -1,114 +1,122 @@
-import {Mesh, Plane, Program} from 'ogl'
-import GSAP from 'gsap'
-import vertex from 'shaders/plane-vertex.glsl'
-import fragment from 'shaders/plane-fragment.glsl'
+import GSAP from 'gsap';
+import { Mesh, Plane, Program } from 'ogl';
 
-// The Media class is responsible for creating the 3D objects that will be displayed on the canvas
-// The Media class is imported in the Home class
+import fragment from 'shaders/plane-fragment.glsl';
+import vertex from 'shaders/plane-vertex.glsl';
+
 export default class {
-  constructor({ gl, scene, sizes, url, collections }) {
-    this.collections = collections 
-    this.gl = gl
-    this.geometry = new Plane(this.gl)
-    this.scene = scene
-    this.sizes = sizes
-    this.url = url 
+  constructor({ collections, gl, scene, sizes, url }) {
+    this.collections = collections;
+    this.gl = gl;
+    this.scene = scene;
+    this.sizes = sizes;
+    this.url = url;
 
-
+    this.geometry = new Plane(this.gl);
   }
-
 
   createProgram(texture) {
     this.program = new Program(this.gl, {
       fragment,
       vertex,
-      uniforms: { //used in the fragment shader (plane-fragment)
+      uniforms: {
         uAlpha: { value: 1 },
         tMap: { value: texture },
-      }
-    })
+      },
+    });
   }
 
   createMesh(mesh) {
     this.mesh = new Mesh(this.gl, {
       geometry: this.geometry,
-      program: this.program
-    })
-    this.mesh.scale.x = mesh.scale.x
-    this.mesh.scale.y = mesh.scale.y
-    this.mesh.scale.z = mesh.scale.z
+      program: this.program,
+    });
 
-    this.mesh.position.x = mesh.position.x 
-    this.mesh.position.y = mesh.position.y
-    this.mesh.position.z = mesh.position.z + 0.01
-    
-    this.mesh.rotation.x = mesh.rotation.x 
-    this.mesh.rotation.y = mesh.rotation.y 
-    this.mesh.rotation.z = mesh.rotation.z 
-    
-    this.mesh.setParent(this.scene) // set the parent of the mesh to the scene
+    this.mesh.scale.x = mesh.scale.x;
+    this.mesh.scale.y = mesh.scale.y;
+    this.mesh.scale.z = mesh.scale.z;
 
+    this.mesh.position.x = mesh.position.x;
+    this.mesh.position.y = mesh.position.y;
+    this.mesh.position.z = mesh.position.z + 0.01;
+
+    this.mesh.rotation.x = mesh.rotation.x;
+    this.mesh.rotation.y = mesh.rotation.y;
+    this.mesh.rotation.z = mesh.rotation.z;
+
+    this.mesh.setParent(this.scene);
   }
+
   /**
-   * Element
+   * Element.
    */
   setElement(element) {
-    console.log(element.id)
+    console.log(element.id);
+
     if (element.id === 'collections') {
+      const { index, medias } = element;
+      const media = medias[index];
 
-      const { index, medias } = element
-      const media = medias[index]
+      this.createProgram(media.texture);
+      this.createMesh(media.mesh);
 
-      this.createProgram(media.texture)
-      this.createMesh(media.mesh)
-
-     this.transition = 'detail' 
+      this.transition = 'detail';
     } else {
-        this.createProgram(element.texture)
-        this.createMesh(element.mesh)
+      this.createProgram(element.texture);
+      this.createMesh(element.mesh);
 
-        this.transition = 'collections'
-      }
-    }   
+      this.transition = 'collections';
+    }
+  }
 
-  
-   /**
-    * Animations
-    */
-  animate (element, onComplete) {
-      const timeline = GSAP.timeline()
+  /**
+   * Animations.
+   */
+  animate(element, onComplete) {
+    const timeline = GSAP.timeline({});
 
-      timeline.to(this.mesh.scale, {
-          duration: 1.5,
-          ease : 'expo.inOut',
-          x: element.scale.x,
-          y: element.scale.y,
-          z: element.scale.z,
-        }, 0)
-      
-      timeline.to(this.mesh.position, {
+    timeline.to(
+      this.mesh.scale,
+      {
         duration: 1.5,
-        ease : 'expo.inOut',
+        ease: 'expo.inOut',
+        x: element.scale.x,
+        y: element.scale.y,
+        z: element.scale.z,
+      },
+      0
+    );
+
+    timeline.to(
+      this.mesh.position,
+      {
+        duration: 1.5,
+        ease: 'expo.inOut',
         x: element.position.x,
         y: element.position.y,
         z: element.position.z,
-      }, 0)
+      },
+      0
+    );
 
-      timeline.to(this.mesh.rotation, {
+    timeline.to(
+      this.mesh.rotation,
+      {
         duration: 1.5,
-        ease : 'expo.inOut',
+        ease: 'expo.inOut',
         x: element.rotation.x,
         y: element.rotation.y,
         z: element.rotation.z,
-      }, 0)
+      },
+      0
+    );
 
-      timeline.call(_ => {
-      onComplete()
-      })
+    timeline.call((_) => {
+      onComplete();
+    });
 
-      timeline.call(_ => {
-        this.scene.removeChild(this.mesh)
-      }, null, '+=0.2')
-    }
+    timeline.call((_) => {
+      this.scene.removeChild(this.mesh);
+    }, null, '+=0.2'); // prettier-ignore
   }
 }
