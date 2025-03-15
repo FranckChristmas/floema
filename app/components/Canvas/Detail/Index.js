@@ -50,6 +50,8 @@ export default class {
       program: this.program
     })
 
+    this.mesh.rotation.Z = Math.PI * 0.01
+
     this.mesh.setParent(this.scene) // set the parent of the mesh to the scene
 
   }
@@ -77,7 +79,10 @@ export default class {
       })
     }
   }
-   hide() {
+   hide() {  
+    GSAP.to(this.program.uniforms.uAlpha, {
+    value: 0,
+  })
    }
 
   /**
