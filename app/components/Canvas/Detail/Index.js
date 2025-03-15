@@ -71,9 +71,12 @@ export default class {
       this.transition.animate(this.mesh, _ => {
         this.program.uniforms.uAlpha.value = 1
       })
+    } else {
+      GSAP.to(this.program.uniforms.uAlpha, {
+        value: 1,
+      })
     }
-   }
- 
+  }
    hide() {
    }
 
@@ -121,9 +124,14 @@ export default class {
     // console.log("test du y", this.y)
   }
   update()  {
-    if (!this.bounds) return
-
-    this.updateX(scroll)
+    this.updateX()
     this.updateY()
+  }
+
+  /**
+   * Destroy
+   */
+  destroy() {
+    this.scene.removeChild(this.mesh)
   }
 }

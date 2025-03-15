@@ -13,15 +13,19 @@ export default class Media {
     this.scene = scene
     this.index = index
     this.sizes = sizes
-
-    this.createTexture()
-    this.createProgram()
-    this.createMesh()
-
     this.extra = {
       x: 0,
       y: 0,
     }
+
+    this.createTexture()
+    this.createProgram()
+    this.createMesh()
+  
+    this.createBounds({ 
+      sizes: this.sizes
+    })  
+
   }
 
   createTexture() {
@@ -117,23 +121,15 @@ updateRotation() {
     this.x = (this.bounds.left + x) / window.innerWidth
     
     this.mesh.position.x = (-this.sizes.width / 2 )+ (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra
-    
-    // console.log("test du mesh position x", this.mesh.position.x)
-    // console.log("test du x", this.x)
   }
   
   updateY(y = 0) {
     this.y = (this.bounds.top + y) / window.innerHeight
     this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) -  (this.y * this.sizes.height) 
     this.mesh.position.y += Math.cos((this.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40
-
-    // console.log("test du mesh position y", this.mesh.position.y)
-    // console.log("test du y", this.y)
   }
   update(scroll)  {
-    if (!this.bounds) return
 
-    // console.log("test du scroll", scroll) 
     this.updateRotation()
     this.updateScale()
     this.updateX(scroll)

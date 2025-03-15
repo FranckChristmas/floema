@@ -117,22 +117,25 @@ createPreloader() {
 /**
  * Animations
  */
-  show() { // to be decided if necessary to animate this page because it is a little buggy
+  show(animation) { // to be decided if necessary to animate this page because it is a little buggy
     return new Promise(resolve => {
       ColorsManager.change({
         backgroundColor: this.element.getAttribute('data-background'),
         color: this.element.getAttribute('data-color'),
       })
 
-      this.animateIn = GSAP.timeline()
+      if(animation) {
+        this.animateIn = animation
+      } else {
+        this.animateIn = GSAP.timeline()
 
-      this.animateIn.fromTo(this.element, {
-        autoAlpha: 0,
-      },
-      {
-        autoAlpha: 1,
-      })
-
+        this.animateIn.fromTo(this.element, {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+        })
+      }
       this.animateIn.call(_ => {
         this.addEventListeners()
 

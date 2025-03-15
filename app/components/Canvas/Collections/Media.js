@@ -14,22 +14,26 @@ export default class {
     this.scene = scene
     this.index = index
     this.sizes = sizes
-
-    this.createTexture()
-    this.createProgram()
-    this.createMesh()
-
     this.extra = {
       x: 0,
       y: 0
     }
-
+    
     this.opacity = {
       current: 0,
       target: 0,
       lerp: 0.1,
       multiplier: 0,
     }
+
+    this.createTexture()
+    this.createProgram()
+    this.createMesh()
+    this.createBounds({ 
+      sizes: this.sizes
+    })
+
+
   }
 
   createTexture() {
@@ -128,8 +132,7 @@ export default class {
     // console.log("test du mesh position y", this.mesh.position.y)
     // console.log("test du y", this.y)
   }
-  update(scroll, index)  {
-    if (!this.bounds) return
+  update(scroll)  {
 
     this.updateX(scroll)
     this.updateY()
