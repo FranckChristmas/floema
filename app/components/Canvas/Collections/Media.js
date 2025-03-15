@@ -73,8 +73,9 @@ export default class {
    /**
     * Animations
     */
-   show() {
+   show(duration) {
      GSAP.fromTo(this.opacity, {
+      duration,
        multiplier: 0
      }, {
        multiplier: 1,

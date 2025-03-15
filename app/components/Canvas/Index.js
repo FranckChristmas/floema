@@ -135,6 +135,11 @@ onPreloaded() {
       this.home.hide()
     }
 
+
+    if (this.detail) {
+      this.detail.hide()
+    }
+
     this.isFromCollectionsToDetail = this.template === 'collections' && url.indexOf('detail') > -1
     this.isFromDetailToCollections = this.template === 'detail' && url.indexOf('collections') > -1
 

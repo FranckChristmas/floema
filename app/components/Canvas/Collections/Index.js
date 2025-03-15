@@ -70,29 +70,33 @@ export default class {
      */
   async show() {
     if (this.transition) {
-      this.media.opacity.multiplier = 0
-
       const { src } = this.transition.mesh.program.uniforms.tMap.value.image
       const texture = window.TEXTURES[src]
       const media = this.medias.find(media => media.texture === texture)
+      const scroll = -media.bounds.left - media.bounds.width / 2 + window.innerWidth / 2
 
-      GSAP.delayedCall(1, _ => {
-        this.scroll.current = this.scroll.target = this.scroll.last = this.scroll.start = -media.mesh.position.x
-      })
+      this.update()
+      
+      this.transition.animate({
+        position : { x: 0, y: media.mesh.position.y, z: 0},
+        rotation: media.mesh.rotation,
+        scale: media.mesh.scale,
+      }, _ => {
+        media.opacity.multiplier = 1
 
-      this.transition.animate(this.medias[0].mesh, _ => {
-        this.media.opacity.multiplier = 1
-      })
-
-      map(this.medias, media => {
-        if (media !== this.media) {
-          media.show()
-        }
+        map(this.medias, item => {
+          if (media !== item) {
+            item.show()
+          }
         })
-        } else {
-          map(this.medias, media => media.show())
-        }
+        
+        
+        this.scroll.current = this.scroll.target = this.scroll.last = this.scroll.start = scroll
+      })
+      } else {
+        map(this.medias, media => media.show())
       }
+    }
 
     hide() {
     map(this.medias, media => media.hide())
