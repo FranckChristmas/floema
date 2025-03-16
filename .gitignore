@@ -16,6 +16,7 @@ yarn.lock
 # Ignorer les fichiers de build
 dist/
 build/
+public/
 
 # Ignorer les fichiers de cache
 .cache/
