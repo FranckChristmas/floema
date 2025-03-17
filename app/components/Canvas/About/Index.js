@@ -3,7 +3,7 @@ import map from 'lodash/map'
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
 
-export default class Home {
+export default class {
   constructor({ gl, scene, sizes }) {
     this.gl = gl
     this.sizes = sizes
@@ -39,12 +39,9 @@ export default class Home {
         scene: this.group,
         sizes: this.sizes,  
       })
-
     })
   }
-  /**
-   * Animations
-   */
+   // Animations
   show() {
     map(this.galleries, gallery => gallery.show())
    }  
@@ -53,10 +50,8 @@ export default class Home {
    }
 
 
-  /** 
-   * 
-   * events
-   */
+ 
+   // events
   onResize( event ) {
     map(this.galleries, gallery => gallery.onResize(event))
     }
@@ -76,15 +71,14 @@ export default class Home {
   onWheel({ pixelX,pixelY }) {
   }
 
-  /**
-   * Update
-   */
+
+  // Update
   update(scroll) {
    map(this.galleries, gallery => gallery.update(scroll))
   } 
-  /**
-   * Destroy
-   */
+
+  // Destroy
+
   destroy() {
     map(this.galleries, gallery => gallery.destroy())
   }

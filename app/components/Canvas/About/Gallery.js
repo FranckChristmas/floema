@@ -23,7 +23,6 @@ export default class Gallery {
       start: 0,
       lerp: 0.1,
       velocity: 1,
-
     }
     
     this.createMedias()
@@ -38,9 +37,6 @@ export default class Gallery {
   createMedias() {
     this.mediasElements = this.element.querySelectorAll('.about__gallery__media')
 
-
-    // console.log("test du mediasElements", this.mediasElements, this.element)
-
     this.medias = map(this.mediasElements, (element, index) => {
       return new Media({
         element,
@@ -54,9 +50,8 @@ export default class Gallery {
     })
   }
 
-    /**
-   * Animations
-   */
+
+  //Animations
     show() {
       map(this.medias, media => media.show())
      }  
@@ -64,10 +59,8 @@ export default class Gallery {
       map(this.medias, media => media.hide())
      }
   
-/**
- * 
-  * events
- */
+
+  //events
   onResize( event ) {
     this.bounds = this.elementWrapper.getBoundingClientRect(); // get the size of the gallery element
 
@@ -88,16 +81,13 @@ export default class Gallery {
     const distance = x.start - x.end
 
     this.scroll.target = this.scroll.start - distance
-    // console.log("test du scroll current", this.scroll.current)
-    // console.log("test du scroll target", this.scroll.target)
   }
 
   onTouchUp ({ x, y }) {
   }
 
-  /**
-   * Update
-   */
+
+  //Update
   update(scroll) {
     const distance = (scroll.current - scroll.target) * 0.1
     const y = scroll.current / window.innerHeight
@@ -136,14 +126,11 @@ export default class Gallery {
         }
       }
       media.update(this.scroll.current)
-      // media.mesh.position.y = Math.cos((media.mesh.position.x / this.width) * Math.PI) * 1 - 1
     })
 
     this.group.position.y = y * this.sizes.height
   }
-  /**
-   * Destroy
-   */
+   // Destroy
   destroy() {
     this.scene.removeChild(this.group)
   }
