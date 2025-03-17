@@ -10,7 +10,8 @@ export default class Button extends Component {
     // console.log(this.path.getTotalLength)
 
     this.timeline = GSAP.timeline({ paused: true })
-    this.timeline.fromTo(this.path, {
+    this.timeline.fromTo(this.path, 
+      {
       strokeDashoffset: this.pathLength, // start from the end of the path
       strokeDasharray: `${this.pathLength} ${this.pathLength}`,
     }, {

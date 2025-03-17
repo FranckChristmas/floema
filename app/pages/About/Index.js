@@ -4,7 +4,7 @@ export default class About extends Page {
   constructor() {
     super({
       element: '.about',
-      id: 'About',
+      id: 'about',
       elements: {
         navigation: document.querySelector('.navigation'),
         title: '.about__title',
