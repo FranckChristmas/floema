@@ -90,10 +90,6 @@ class App {
       div.innerHTML = html;
       const divContent = div.querySelector('.content');
   
-      if (!divContent) {
-        throw new Error("No '.content' found in fetched page");
-      }
-  
       this.template = divContent.getAttribute('data-template');
       this.navigation.onChange(this.template);
   
