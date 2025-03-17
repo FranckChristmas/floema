@@ -30,7 +30,7 @@
 
 /*! ../classes/Component */
 
-/*! ../components/preloader */
+/*! ../components/Preloader */
 
 /*! ../core/Geometry.js */
 
@@ -284,12 +284,6 @@
 
 /*! ./clients/WebSocketClient.js */
 
-/*! ./components/Canvas/Index */
-
-/*! ./components/Navigation */
-
-/*! ./components/preloader */
-
 /*! ./createConsoleLogger */
 
 /*! ./emitter */
@@ -352,14 +346,6 @@
 
 /*! ./overlay.js */
 
-/*! ./pages/About/Index */
-
-/*! ./pages/Collections/Index */
-
-/*! ./pages/Detail/Index */
-
-/*! ./pages/Home/Index */
-
 /*! ./progress.js */
 
 /*! ./property */
@@ -386,7 +372,11 @@
 
 /*! classes/Component.js */
 
+/*! classes/Detection */
+
 /*! classes/Page */
+
+/*! components/Canvas */
 
 /*! components/Canvas/About/Index */
 
@@ -397,6 +387,10 @@
 /*! components/Canvas/Home/Index */
 
 /*! components/Canvas/Transition */
+
+/*! components/Navigation */
+
+/*! components/Preloader */
 
 /*! events */
 
@@ -411,6 +405,14 @@
 /*! normalize-wheel */
 
 /*! ogl */
+
+/*! pages/About */
+
+/*! pages/Collections */
+
+/*! pages/Detail */
+
+/*! pages/Home */
 
 /*! prefix */
 
@@ -473,7 +475,7 @@
   \*********************************/
 
 /*!*********************************!*\
-  !*** ./app/pages/Home/Index.js ***!
+  !*** ./app/pages/Home/index.js ***!
   \*********************************/
 
 /*!**********************************!*\
@@ -489,11 +491,15 @@
   \**********************************/
 
 /*!**********************************!*\
-  !*** ./app/pages/About/Index.js ***!
+  !*** ./app/classes/Detection.js ***!
+  \**********************************/
+
+/*!**********************************!*\
+  !*** ./app/pages/About/index.js ***!
   \**********************************/
 
 /*!***********************************!*\
-  !*** ./app/pages/Detail/Index.js ***!
+  !*** ./app/pages/Detail/index.js ***!
   \***********************************/
 
 /*!***********************************!*\
@@ -521,7 +527,7 @@
   \*************************************/
 
 /*!*************************************!*\
-  !*** ./app/components/preloader.js ***!
+  !*** ./app/components/Preloader.js ***!
   \*************************************/
 
 /*!*************************************!*\
@@ -589,11 +595,11 @@
   \***************************************/
 
 /*!****************************************!*\
-  !*** ./app/components/Canvas/Index.js ***!
+  !*** ./app/components/Canvas/index.js ***!
   \****************************************/
 
 /*!****************************************!*\
-  !*** ./app/pages/Collections/Index.js ***!
+  !*** ./app/pages/Collections/index.js ***!
   \****************************************/
 
 /*!****************************************!*\

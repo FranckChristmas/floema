@@ -10,7 +10,7 @@ import each from 'lodash/each' //- library to use each instead of forEach method
 import map from 'lodash/map'
 
 import { ColorsManager } from './Colors'
-import Preloader from '../components/preloader'
+import Preloader from '../components/Preloader'
 import Asyncload from './Asyncload'
 
 
