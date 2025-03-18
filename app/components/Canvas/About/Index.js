@@ -7,7 +7,7 @@ export default class {
   constructor({ gl, scene, sizes }) {
     this.gl = gl
     this.sizes = sizes
-
+    this.scene = scene
     this.group = new Transform();
 
     this.createGeometry();
@@ -43,6 +43,8 @@ export default class {
   }
    // Animations
   show() {
+    this.group.setParent(this.scene)
+
     map(this.galleries, gallery => gallery.show())
    }  
    hide() {
