@@ -70,7 +70,7 @@ export default class Gallery {
 
     this.scroll.current = this.scroll.target = 0;
 
-    map(this.medias, (media) => media.onResize(event, this.scroll.current))
+    map(this.medias, (media) => media.onResize(event, this.scroll.current, this.width))
     }
   
   onTouchDown ({ x, y }) { 

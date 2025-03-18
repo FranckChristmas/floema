@@ -2,6 +2,7 @@ import {Mesh, Program} from 'ogl'
 import vertex from 'shaders/plane-vertex.glsl'
 import fragment from 'shaders/plane-fragment.glsl'
 import GSAP from 'gsap'
+import Detection from 'classes/Detection'
 
 // The Media class is responsible for creating the 3D objects that will be displayed on the canvas
 // The Media class is imported in the Home class
@@ -72,16 +73,12 @@ export default class Media {
       value: 0
     }, {
       value: 1,
-      // duration: 1,
-      // delay: 1
     })  
   }
 
   hide() {
     GSAP.to(this.program.uniforms.uAlpha, {
       value: 0, 
-      // duration: 1,
-      // delay: 1
     })
   }
 
@@ -125,8 +122,12 @@ updateRotation() {
   
   updateY(y = 0) {
     this.y = (this.bounds.top + y) / window.innerHeight
+
+
+    const extra = Detection.isPhone() ? 15 : 60
+
     this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) -  (this.y * this.sizes.height) 
-    this.mesh.position.y += Math.cos((this.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40
+    this.mesh.position.y += Math.cos((this.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * extra - extra
   }
   update(scroll)  {
 
