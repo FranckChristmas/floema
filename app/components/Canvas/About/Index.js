@@ -48,6 +48,8 @@ export default class {
     map(this.galleries, gallery => gallery.show())
    }  
    hide() {
+    this.group.setParent(null)
+
     map(this.galleries, gallery => gallery.hide())
    }
 
