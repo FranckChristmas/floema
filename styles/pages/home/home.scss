@@ -23,18 +23,60 @@
     z-index: 1;
   } // cette partie permet de paramétrer les pseudo-éléments :before et :after de la classe home avec les propriétés qu'ils ont en commun 
 
-  &:before {
-    background: linear-gradient(to bottom,  $color-contessa 0%,rgba($color-contessa,0) 100%);
-    top: 0;
-  } // cette partie permet de paramétrer le pseudo-élément :before de la classe home avec les propriétés qui lui sont propres
-  &:after {
-    background: linear-gradient(to top,  $color-contessa 0%,rgba($color-contessa,0) 100%); 
-    bottom: 0;
+  // &:before {
+  //   background: linear-gradient(to bottom,  $color-contessa 0%,rgba($color-contessa,0) 100%);
+  //   top: 0;
+  // } // cette partie permet de paramétrer le pseudo-élément :before de la classe home avec les propriétés qui lui sont propres
+  // &:after {
+  //   background: linear-gradient(to top,  $color-contessa 0%,rgba($color-contessa,0) 100%); 
+  //   bottom: 0;
   } // cette partie permet de paramétrer le pseudo-élément :after de la classe home avec les propriétés qui lui sont propres
-}
-
-// .home__wrapper {
 // }
+
+.home__wrapper {
+
+  @extend %cover;
+
+
+
+  &:before,
+
+  &:after {
+
+    content: '';
+
+    height: 35rem;
+
+    left: 0;
+
+    position: absolute;
+
+    width: 100%;
+
+    z-index: 1;
+
+  }
+
+
+
+  &:before {
+
+    background: linear-gradient(to bottom, $color-contessa 15%, rgba($color-contessa, 0) 100%);
+
+    top: 0;
+
+  }
+
+
+
+  &:after {
+
+    background: linear-gradient(to top, $color-contessa 15%, rgba($color-contessa, 0) 100%);
+
+    bottom: 0;
+
+  }
+}
 
 .home__titles {
   @extend %vertical-titles; 
@@ -52,12 +94,23 @@
   }
 
 
-.home__gallery {
-  @extend %cover;
-  visibility: hidden;
-  height: 172.5rem;
-  width: 241.8rem + 9rem; // the +9rem is to make a gap the repeated gallery imaqes from the Web GL canvas
-}
+  .home__gallery {
+    display: flex;
+  
+    flex-wrap: wrap;
+    left: 50%;
+    padding: 0 2.5rem;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 100%;
+  
+    visibility: hidden;
+    
+    @include media('<=phone') {
+      padding: 0 1.5rem;
+    }
+  }
 
 .home__gallery__media {
   position: absolute;

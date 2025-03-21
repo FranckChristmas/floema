@@ -6,15 +6,16 @@
 @use './shared/pages' as *;
 .collections {
   @extend %page;
-
+  
   z-index: 0;
-
+  
   // background: $color-quicksand;
   // color: $color-white;
 }
 .collections__wrapper {
-  @extend %cover;
   overflow: hidden;
+  position: fixed;
+  @extend %cover;
 }
 
 .collections__titles {
