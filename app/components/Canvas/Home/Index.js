@@ -3,7 +3,7 @@ import map from 'lodash/map'
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
 
-export default class Home {
+export default class {
   constructor({ gl, scene, sizes }) {
     this.gl = gl
     this.sizes = sizes
@@ -121,9 +121,10 @@ export default class Home {
 
   }
 
-  onWheel({ pixelX,pixelY }) {
-    this.x.target += pixelX
-    this.y.target -= pixelY  // revered down and up the scroll direction
+   onWheel ({ pixelX, pixelY }) {
+    this.y.target -= pixelY
+
+    this.velocity = pixelY > 0 ? 2 : -2
   }
 
   /**
