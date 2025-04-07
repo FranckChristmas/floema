@@ -68,7 +68,7 @@ export default class Canvas {
   }
 
   /**
-   * About
+   * Collections
    */
   createCollections() {
     this.collections = new Collections({
@@ -85,7 +85,7 @@ export default class Canvas {
   }
 
     /**
-   * Collections
+   * About
    */
     createAbout() {
       this.about = new About({
